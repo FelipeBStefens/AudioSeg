@@ -1,0 +1,15 @@
+# Env
+.env
+
+# Spring Server
+backend/data_server/target/
+backend/data_server/.mvn/wrapper/maven-wrapper.jar
+
+# Intelij
+.idea
+*.iws
+*.iml
+*.ipr
+
+# VsCode
+.vscode/

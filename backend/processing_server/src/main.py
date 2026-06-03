@@ -1,5 +1,5 @@
-from dotenv_loader import find_dotenv, load_dotenv_values
-from connection.secure_shell_connection import start_connection
+from backend.processing_server.src.config.dotenv_loader import find_dotenv, load_dotenv_values
+from backend.processing_server.src.connection.secure_shell_connection import start_connection
 
 find_dotenv()
 server, sensors = load_dotenv_values()

@@ -1,6 +1,16 @@
 # Env
 .env
 
+# Venv for Python local libraries
+backend/processing_server/.venv
+backend/processing_server/src/__pycache__
+
+sensor/.venv
+sensor/src/__pycache__
+
+machine_learning/.venv
+machine_learning/src/__pycache__
+
 # Spring Server
 backend/data_server/target/
 backend/data_server/.mvn/wrapper/maven-wrapper.jar

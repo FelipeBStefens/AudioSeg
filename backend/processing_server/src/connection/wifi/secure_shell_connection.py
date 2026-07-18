@@ -7,10 +7,22 @@ def start_connection(ip, username, password):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-    ssh.connect(ip, username, password)
+    COMMAND = "nohup python3 Sensor1/Pasta_fodona/arquivo_fodao.py run > /dev/null 2>&1 &"
 
-    # An example of how to implement SSH comands on clients
-    stdin, stdout, stderr = ssh.exec_command("echo Test")
-    print(stdout.read().decode())
+    try:
+        
+        ssh.connect(ip, username, password)
+        stdin, stdout, stderr = ssh.exec_command(COMMAND)
 
-    ssh.close()
+        error = stderr.read().decode('utf-8')
+        
+        if (error):
+            raise Exception("Failed to enter in path or run python file")
+
+    except Exception as e:
+        return False, str(e)
+
+    finally:
+        ssh.close()
+    
+    return True, "connected"

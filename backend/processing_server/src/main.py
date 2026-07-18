@@ -4,4 +4,8 @@ from backend.processing_server.src.connection.connection import connect
 find_dotenv()
 connection_mode = load_dotenv_config()
 
-connect()
+all_connected = connect(connection_mode)
+
+if (not all_connected):
+    exit(1)
+

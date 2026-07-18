@@ -20,4 +20,15 @@ def connect(connection_mode):
         # HAVEN'T TESTED YET
         for sensor in sensors:
 
-            start_connection(sensor[0], sensor[1], sensor[2])
+            connected, message = start_connection(sensor[0], sensor[1], sensor[2])
+
+            if (connected == True):
+                print(message)
+            
+            else:
+                print(message)
+                return False
+        
+        return True
+
+    raise Exception("Connection Mode Not identified")

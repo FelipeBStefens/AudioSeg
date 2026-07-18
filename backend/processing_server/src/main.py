@@ -1,15 +1,7 @@
-from backend.processing_server.src.config.dotenv_loader import find_dotenv, load_dotenv_values
-from backend.processing_server.src.connection.secure_shell_connection import start_connection
+from backend.processing_server.src.config.dotenv_loader import find_dotenv, load_dotenv_config
+from backend.processing_server.src.connection.connection import connect
 
 find_dotenv()
-server, sensors = load_dotenv_values()
+connection_mode = load_dotenv_config()
 
-# Testing Dotenv values
-print(server)
-print(sensors)
-
-# Testing SSH connection
-# HAVEN'T TESTED YET
-for sensor in sensors:
-
-    start_connection(sensor[0], sensor[1], sensor[2])
+connect()

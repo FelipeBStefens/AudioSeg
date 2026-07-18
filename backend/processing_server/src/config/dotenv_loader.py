@@ -19,8 +19,15 @@ def find_dotenv():
     
     raise FileNotFoundError("Not found the Dotenv File")
 
-# Method to return the env values of the OS to the code
-def load_dotenv_values():
+# Method to Load the special configurations 
+def load_dotenv_config():
+
+    connection_mode = int(os.getenv("CONNECTION_MODE"))
+
+    return connection_mode
+
+# Method to Load the Wi-Fi configurations
+def load_dotenv_wifi_values():
 
     server = [os.getenv("IP_SERVER"), os.getenv("DOOR_SERVER")]
 
@@ -34,5 +41,5 @@ def load_dotenv_values():
         password = os.getenv(f"PASSWORD_SENSOR_{sensor}")
 
         sensors.append([ip, user, password])
-    
+        
     return server, sensors

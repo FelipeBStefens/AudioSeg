@@ -1,5 +1,7 @@
 from backend.processing_server.src.config.dotenv_loader import load_dotenv_wifi_values
 from backend.processing_server.src.connection.wifi.secure_shell_connection import start_connection
+from backend.processing_server.src.exception.connection_exception import ConnectionModeException, ConnectionNotEstablished
+from backend.processing_server.src.exception.wifi_exception import SSHException
 
 def connect(connection_mode):
 
@@ -12,23 +14,17 @@ def connect(connection_mode):
         
         server, sensors = load_dotenv_wifi_values()
 
-        # Testing Dotenv values
         print(server)
         print(sensors)
 
-        # Testing SSH connection
-        # HAVEN'T TESTED YET
         for sensor in sensors:
 
-            connected, message = start_connection(sensor[0], sensor[1], sensor[2])
+            try:
+                start_connection(sensor[0], sensor[1], sensor[2])
 
-            if (connected == True):
-                print(message)
-            
-            else:
-                print(message)
-                return False
+            except SSHException as exception:
+                raise ConnectionNotEstablished(str(exception))
         
-        return True
+        return
 
-    raise Exception("Connection Mode Not identified")
+    raise ConnectionModeException(connection_mode)

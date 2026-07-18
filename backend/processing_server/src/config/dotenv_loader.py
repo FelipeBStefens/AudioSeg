@@ -1,3 +1,5 @@
+from backend.processing_server.src.exception.dotenv_exception import LoadDotEnvException, LoadValueDotEnvException
+
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -17,28 +19,39 @@ def find_dotenv():
             load_dotenv(env_path)
             return
     
-    raise FileNotFoundError("Not found the Dotenv File")
+    raise LoadDotEnvException()
+
+# Method to get values on variables on dotenv file
+def load_value(variable):
+
+    value = os.getenv(variable)
+
+    if (value is None):
+        raise LoadValueDotEnvException(variable)
+
+    else:
+        return value
 
 # Method to Load the special configurations 
 def load_dotenv_config():
 
-    connection_mode = int(os.getenv("CONNECTION_MODE"))
+    connection_mode = int(load_value("CONNECTION_MODE"))
 
     return connection_mode
 
 # Method to Load the Wi-Fi configurations
 def load_dotenv_wifi_values():
 
-    server = [os.getenv("IP_SERVER"), os.getenv("DOOR_SERVER")]
+    server = [load_value("IP_SERVER"), load_value("DOOR_SERVER")]
 
     sensors_name = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
     sensors = []
 
     for sensor in sensors_name:
 
-        ip = os.getenv(f"IP_SENSOR_{sensor}")
-        user = os.getenv(f"USER_SENSOR_{sensor}")
-        password = os.getenv(f"PASSWORD_SENSOR_{sensor}")
+        ip = load_value(f"IP_SENSOR_{sensor}")
+        user = load_value(f"USER_SENSOR_{sensor}")
+        password = load_value(f"PASSWORD_SENSOR_{sensor}")
 
         sensors.append([ip, user, password])
         

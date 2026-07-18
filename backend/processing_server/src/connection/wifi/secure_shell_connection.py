@@ -1,7 +1,8 @@
 import paramiko
+import socket
 
-# Method to start a connection with client
-# HAVEN'T TESTED YET
+from backend.processing_server.src.exception.wifi_exception import AuthenticationException, BlockedException, ConnectCommandException, SSHException, UnreachbleClientException
+
 def start_connection(ip, username, password):
 
     ssh = paramiko.SSHClient()
@@ -17,12 +18,21 @@ def start_connection(ip, username, password):
         error = stderr.read().decode('utf-8')
         
         if (error):
-            raise Exception("Failed to enter in path or run python file")
+            raise ConnectCommandException()
 
-    except Exception as e:
-        return False, str(e)
+    except (paramiko.AuthenticationException):
+        raise AuthenticationException() 
+
+    except (paramiko.ssh_exception.NoValidConnectionsError):
+        raise BlockedException()
+
+    except (TimeoutError, socket.timeout):
+        raise UnreachbleClientException()
+
+    except (paramiko.SSHException):
+        raise SSHException()
 
     finally:
         ssh.close()
     
-    return True, "connected"
+    return True

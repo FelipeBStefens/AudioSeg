@@ -5,3 +5,9 @@ find_dotenv()
 connection_mode = load_dotenv_config()
 
 connect(connection_mode)
+
+# Realizar a conexão
+# Mandar os sensores gravarem e pegar os valores
+# Localizar qual ponto ocorreu o disparo
+# Detectar qual a classificação do disparo 
+# Enviar ao Data_Server

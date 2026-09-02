@@ -42,15 +42,14 @@ def load_dotenv_config():
 # Method to Load the Wi-Fi configurations
 def load_dotenv_wifi_values():
 
-    server_ip = load_value("IP_SERVER")
-    server_door = load_value("DOOR_SERVER")
+    server_door = load_value("PORT_SERVER")
 
-    SENSORS_NAME = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
+    sensors_name = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
     sensors_ip = []
 
-    for sensor in SENSORS_NAME:
+    for sensor in sensors_name:
 
         ip = load_value(f"IP_SENSOR_{sensor}")
         sensors_ip.append(ip)
         
-    return server_ip, server_door, sensors_ip
+    return server_door, sensors_ip

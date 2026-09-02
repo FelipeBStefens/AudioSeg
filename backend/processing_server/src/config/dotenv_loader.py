@@ -13,7 +13,6 @@ def find_dotenv():
     for parent in current.parents:
     
         env_path = parent / ".env"
-        
         if env_path.exists():
             
             load_dotenv(env_path)
@@ -35,24 +34,23 @@ def load_value(variable):
 # Method to Load the special configurations 
 def load_dotenv_config():
 
+    key = load_value("SECURITY_SIMETRIC_KEY")
     connection_mode = int(load_value("CONNECTION_MODE"))
 
-    return connection_mode
+    return key, connection_mode
 
 # Method to Load the Wi-Fi configurations
 def load_dotenv_wifi_values():
 
-    server = [load_value("IP_SERVER"), load_value("DOOR_SERVER")]
+    server_ip = load_value("IP_SERVER")
+    server_door = load_value("DOOR_SERVER")
 
-    sensors_name = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
-    sensors = []
+    SENSORS_NAME = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
+    sensors_ip = []
 
-    for sensor in sensors_name:
+    for sensor in SENSORS_NAME:
 
         ip = load_value(f"IP_SENSOR_{sensor}")
-        user = load_value(f"USER_SENSOR_{sensor}")
-        password = load_value(f"PASSWORD_SENSOR_{sensor}")
-
-        sensors.append([ip, user, password])
+        sensors_ip.append(ip)
         
-    return server, sensors
+    return server_ip, server_door, sensors_ip

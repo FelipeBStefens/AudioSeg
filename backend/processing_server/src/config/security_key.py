@@ -2,7 +2,10 @@ import os
 import base64
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
+from backend.processing_server.src.exception.security_exception import FailedDecodeMessage
+
 def start_cryptography(key):
+
     binary_key = bytes.fromhex(key)
     return AESGCM(binary_key)
 
@@ -32,5 +35,5 @@ def decode(encode_message, key):
         
         return binary_message.decode('utf-8')
         
-    except Exception as e:
-        return f"Error..."
+    except Exception:
+        raise FailedDecodeMessage()

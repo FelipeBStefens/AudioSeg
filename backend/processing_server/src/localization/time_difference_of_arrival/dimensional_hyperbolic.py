@@ -136,6 +136,8 @@ s2 = Sensor(12, 5, 8, 0.0207)
 s3 = Sensor(4, 15, 7, 0.0229)
 s4 = Sensor(9, 8, 17, 0.0188)
 
+# Result = (7,9,11)
+
 sensores = [s1,s2,s3,s4]
 
 print(hyperbolic_position(sensores))

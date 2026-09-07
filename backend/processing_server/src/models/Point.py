@@ -9,4 +9,3 @@ class Point:
         self.x = long
         self.y = lat
         self.z = alt
-        pass

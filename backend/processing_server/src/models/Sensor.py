@@ -1,4 +1,3 @@
-import src.models.Point as Point
 
 class Sensor:
 
@@ -11,4 +10,4 @@ class Sensor:
 
     @staticmethod
     def calculate_own_pos():
-        ...
+        pass

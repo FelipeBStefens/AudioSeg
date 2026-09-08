@@ -3,12 +3,12 @@ import time
 from backend.processing_server.src.connection.connection import open_heart_beat_server, receive_heart_beat
 from backend.processing_server.src.models import State
 
-def heart_beat(sensors_used, service):
+def heart_beat(connection_mode, sensors_used, service):
 
-    server = open_heart_beat_server()
+    server = open_heart_beat_server(connection_mode)
     while True:
 
-        sensor_id = receive_heart_beat(server)
+        sensor_id = receive_heart_beat(connection_mode, server)
         now = time.time()
 
         with service.lock:

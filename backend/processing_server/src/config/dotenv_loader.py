@@ -46,3 +46,10 @@ def load_heart_beat_server():
     port = load_value("PORT_HEART_BEAT_SERVER")
 
     return host, port
+
+def load_receive_server():
+
+    host = load_value("IP_SERVER")
+    port = load_value("PORT_RECEIVER_SERVER")
+
+    return host, port

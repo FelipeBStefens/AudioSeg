@@ -1,64 +1,35 @@
-import socket
 import threading
-import time
 
-def handle_sensor(conn, addr, service):
+from backend.processing_server.src.connection.connection import accept_connection, close_connection, open_receive_server, receive_data
+from backend.processing_server.src.models import State
 
-    sensor_id = conn.recv(1024).decode().strip()
-
-    with service.lock:
-        service.sensors[sensor_id] = {
-            "conn": conn,
-            "last_seen": time.time(),
-            "online": True
-        }
-
-    print(f"Sensor {sensor_id} conectado: {addr}")
-
-    try:
-        while True:
-
-            data = conn.recv(1024)
-
-            if not data:
-                break
-
-            message = data.decode().strip()
-
-            with service.lock:
-                service.sensors[sensor_id]["last_seen"] = time.time()
-
-            print(f"Sensor {sensor_id}: {message}")
-
-    except ConnectionError:
-        pass
-
-    finally:
-
-        with service.lock:
-            if sensor_id in service.sensors:
-                service.sensors[sensor_id]["online"] = False
-
-        print(f"Sensor {sensor_id} desconectou")
-
-        conn.close()
-
-def receiver(HOST, PORT, service):
-
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    server.bind((HOST, PORT))
-    server.listen()
-
-    print(f"Servidor ouvindo em {HOST}:{PORT}")
+def handle_sensor(connection_mode, connection, service):
 
     while True:
 
-        conn, addr = server.accept()
+        message = receive_data(connection_mode, connection)
+
+        if (message is None):
+            break
+
+        with service.lock:
+
+            if (service.state == State.PROCESSING):
+                print(message)
+
+    close_connection(connection_mode, connection)
+
+def receiver(connection_mode, service):
+
+    server = open_receive_server(connection_mode)
+
+    while True:
+
+        connection = accept_connection(connection_mode, server)
 
         thread = threading.Thread(
             target=handle_sensor,
-            args=(conn, addr, service),
+            args=(connection_mode, connection, service),
             daemon=True
         )
 

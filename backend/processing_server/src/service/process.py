@@ -1,5 +1,7 @@
 import time
 
+from backend.processing_server.src.models import State
+
 def process(service):
 
     while True:
@@ -7,7 +9,7 @@ def process(service):
         with service.lock:
             current_state = service.state
 
-        if current_state == "PROCESSING":
+        if current_state == State.PROCESSING:
             pass
             # Processing Data...
 

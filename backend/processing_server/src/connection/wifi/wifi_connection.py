@@ -1,15 +1,27 @@
 import socket
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def open_server(host, port):
 
-def openServer():
-    pass
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    
+    server.bind((host, port))
+    server.listen()
+    
+    return server
 
-def closeServer():
-    pass
+def receive_from(server):
 
-def sendTo():
-    pass
-
-def receiveFrom():
-    pass
+    connection, address = server.accept()
+    
+    try:
+        data = connection.recv(1024)
+    
+        if (not data):
+            return None
+    
+        message = data.decode().strip()
+        return message
+            
+    finally:
+        connection.close()

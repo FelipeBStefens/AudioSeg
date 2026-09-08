@@ -39,17 +39,10 @@ def load_dotenv_config():
 
     return key, connection_mode
 
-# Method to Load the Wi-Fi configurations
-def load_dotenv_wifi_values():
+# Method to load Heart Beat Server Wi-Fi config
+def load_heart_beat_server():
 
-    server_door = load_value("PORT_SERVER")
+    host = load_value("IP_SERVER")
+    port = load_value("PORT_HEART_BEAT_SERVER")
 
-    sensors_name = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
-    sensors_ip = []
-
-    for sensor in sensors_name:
-
-        ip = load_value(f"IP_SENSOR_{sensor}")
-        sensors_ip.append(ip)
-        
-    return server_door, sensors_ip
+    return host, port

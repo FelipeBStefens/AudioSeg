@@ -47,6 +47,7 @@ def load_heart_beat_server():
 
     return host, port
 
+# Method to load Receiver Server Wi-Fi config
 def load_receive_server():
 
     host = load_value("IP_SERVER")

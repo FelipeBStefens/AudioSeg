@@ -35,9 +35,11 @@ def load_value(variable):
 def load_dotenv_config():
 
     key = load_value("SECURITY_SIMETRIC_KEY")
+    sensors_used = int(load_value("SENSORS_USED"))
+    time_to_close_sensor = int(load_value("TIME_TO_CLOSE_SENSOR"))
     connection_mode = int(load_value("CONNECTION_MODE"))
 
-    return key, connection_mode
+    return key, sensors_used, time_to_close_sensor, connection_mode
 
 # Method to load Heart Beat Server Wi-Fi config
 def load_heart_beat_server():

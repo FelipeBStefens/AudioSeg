@@ -1,11 +1,11 @@
 
 class SensorData:
 
-    toa: float = 0
-    signal = []
+    tdoa = 0
+    signal = None
 
-    def __init__(self, toa, signal):
-        self.toa = toa
+    def __init__(self, tdoa, signal):
+        self.tdoa = tdoa
         self.signal = signal
 
     

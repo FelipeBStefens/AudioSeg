@@ -2,21 +2,24 @@ from backend.processing_server.src.models import Point
 
 class Sensor:
 
-    point = None
+    sensor_id = 0
     online = False
     last_seen = None
+    position = None
 
-    def __init__(self, longitude, latitude, height, online, last_seen):
+    def __init__(self, sensor_id, online, last_seen, longitude, latitude, height):
 
-        self.point = Point(longitude, latitude, height)
+        self.sensor_id = sensor_id
         self.online = online
         self.last_seen = last_seen
+        self.position = Point(longitude, latitude, height)
+        
+    def __init__(self, sensor_id, online, last_seen, position):
 
-    def __init__(self, point, online, last_seen):
-
-        self.point = point
+        self.sensor_id = sensor_id
         self.online = online
         self.last_seen = last_seen
+        self.position = position
 
     # To work
     @staticmethod

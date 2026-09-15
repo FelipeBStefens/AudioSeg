@@ -12,7 +12,7 @@ def open_server(host, port):
 
 def receive_from(server):
 
-    connection, address = server.accept()
+    connection, _ = server.accept()
     
     try:
         data = connection.recv(1024)

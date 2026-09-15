@@ -6,19 +6,19 @@ from backend.processing_server.src.service.Service import Service
 from backend.processing_server.src.service import heart_beat, receiver, process
 
 find_dotenv()
-key, connection_mode = load_dotenv_config()
+key, sensors_used, time_to_close_sensor, connection_mode = load_dotenv_config()
 
-service = Service()
+service = Service(sensors_used)
 
 threading.Thread(
     target=receiver,
-    args=("host", 5000, service),
+    args=(connection_mode, key, service),
     daemon=True
 ).start()
 
 threading.Thread(
     target=heart_beat,
-    args=(4, service),
+    args=(4, sensors_used, key, time_to_close_sensor, service),
     daemon=True
 ).start()
 

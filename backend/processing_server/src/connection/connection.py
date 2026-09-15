@@ -1,5 +1,8 @@
 from backend.processing_server.src.config.dotenv_loader import load_heart_beat_server, load_receive_server
+from backend.processing_server.src.config.security_key import decode
 from backend.processing_server.src.connection.wifi.wifi_connection import open_server, receive_from
+
+import json
 
 def open_heart_beat_server(connection_mode):
 
@@ -25,28 +28,32 @@ def open_receive_server(connection_mode):
 
         return server
  
-def receive_heart_beat(connection_mode, server):
+def receive_heart_beat(connection_mode, server, key):
 
     if (connection_mode == 0):
         pass
     
     elif (connection_mode == 1):
             
-        message = receive_from(server)
+        data = decode(receive_from(server), key)
+        message = json.loads(data)
+
         return message
 
-def receive_data(connection_mode, connection):
+def receive_data(connection_mode, connection, key):
 
     if (connection_mode == 0):
         pass
         
     elif (connection_mode == 1):
+
         data = connection.recv(1024)
 
         if not data:
             return None
 
-        return data.decode().strip()
+        message = decode(data.decode().strip(), key)
+        return json.loads(message)
 
 def accept_connection(connection_mode, server):
 

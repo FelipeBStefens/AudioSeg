@@ -1,11 +1,12 @@
 
 class Point:
     
-    x:float = 0
-    y:float = 0
-    z:float = 0
+    longitude = 0
+    latitude = 0
+    height = 0
 
-    def __init__(self, long:float, lat:float, alt:float):
-        self.x = long
-        self.y = lat
-        self.z = alt
+    def __init__(self, longitude, latitude, height):
+
+        self.longitude = longitude
+        self.latitude = latitude
+        self.height = height

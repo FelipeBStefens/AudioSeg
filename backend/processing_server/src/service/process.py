@@ -9,10 +9,10 @@ def process(service):
         with service.lock:
             current_state = service.state
 
-        if current_state == State.PROCESSING:
+        if (current_state == State.PROCESSING):
             pass
             # Processing Data...
-
+            
         else:
             pass
 

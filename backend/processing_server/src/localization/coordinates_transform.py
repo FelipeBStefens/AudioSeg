@@ -34,7 +34,7 @@ def cartesian_coordinate(*points):
 # Getting the longitude, latitude and height posicion by origin point
 def geographic_coordinate(origin, x, y, z):
 
-    center_reference = center_reference = get_center_reference(origin)
+    center_reference = get_center_reference(origin)
     transformer = Transformer.from_crs(center_reference, "EPSG:4326", always_xy=True)
 
     longitude, latitude = transformer.transform(x, y)

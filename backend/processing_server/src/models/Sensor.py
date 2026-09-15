@@ -20,8 +20,3 @@ class Sensor:
         self.online = online
         self.last_seen = last_seen
         self.position = position
-
-    # To work
-    @staticmethod
-    def calculate_own_pos():
-        pass

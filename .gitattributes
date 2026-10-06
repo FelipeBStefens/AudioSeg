@@ -1,2 +1,5 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+frontend/assets/Models/Gunplay.fbx filter=lfs diff=lfs merge=lfs -text
+frontend/assets/Models/earth-00.blend1 filter=lfs diff=lfs merge=lfs -text

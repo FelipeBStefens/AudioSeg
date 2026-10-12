@@ -1,0 +1,27 @@
+Database Logical Model
+
+User(__id_user__, username, email, password_hash, role, cpf, age, photo, description, #id_housing, #id_phone);
+
+Researcher(__id_researcher__, institute, expiration_date, #id_user);
+
+Policeman(__id_policeman__, badge, status, #id_user, #id_police_station);
+
+Delegate(__id_delegate__, start_period, end_period, #id_user, #id_police_station);
+
+Director(__id_director__, #id_user);
+
+Phone(__id_phone__, international_dialling_code, local_dialling_code, number, send);
+
+Address(__id_address__, country, state, city, neighborhood, street);
+
+Housing(__id_housing__, cep, number, additional_information, #id_address);
+
+Localization(__id_localization__, latitude, longitude, #id_address);
+
+Police_Station(__id_police_station__, name, #id_housing);
+
+Gunshot(__id_gunshot__, date, reveal_shot, #id_localization);
+
+Sensor(__id_sensor__, name, #id_gunshot, #id_localization, #id_police_station);
+
+Gun(__id_gun__, type, accuracy, #id_gunshot);

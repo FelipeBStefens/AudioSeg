@@ -4,7 +4,7 @@ User(__id_user__, username, email, password_hash, role, cpf, age, photo, descrip
 
 Researcher(__id_researcher__, institute, expiration_date, #id_user);
 
-Policeman(__id_policeman__, badge, status, #id_user, #id_police_station);
+Policeman(__id_policeman__, badge, status, start_period, end_period, #id_user, #id_police_station);
 
 Delegate(__id_delegate__, start_period, end_period, #id_user, #id_police_station);
 
@@ -20,7 +20,7 @@ Localization(__id_localization__, latitude, longitude, #id_address);
 
 Police_Station(__id_police_station__, name, #id_housing);
 
-Gunshot(__id_gunshot__, date, reveal_shot, #id_localization);
+Gunshot(__id_gunshot__, date, public_shot, #id_localization);
 
 Sensor(__id_sensor__, name, #id_gunshot, #id_localization, #id_police_station);
 

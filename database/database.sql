@@ -37,7 +37,7 @@ CREATE TABLE housing (
     id_housing BIGINT AUTO_INCREMENT,
     cep CHAR(9) NOT NULL,
     number_house INT NOT NULL,
-    additional_information VARCHAR(255) DEFAULT(NULL),
+    additional_information VARCHAR(255) DEFAULT(''),
     id_address BIGINT NOT NULL UNIQUE,
     
     CHECK (REGEXP_LIKE(cep, '^[0-9]{5}-[0-9]{3}$')),
@@ -84,11 +84,11 @@ CREATE TABLE users (
     cpf CHAR(14) NOT NULL UNIQUE,
     birth_date DATE NOT NULL,
     photo VARCHAR(255) DEFAULT(NULL),
-    description_user VARCHAR(255) DEFAULT(NULL),
+    description_user VARCHAR(255) DEFAULT(''),
     id_phone BIGINT NOT NULL UNIQUE,
     id_housing BIGINT NOT NULL UNIQUE,
     
-    CHECK (email LIKE '_%@_%._%'),
+    CHECK (REGEXP_LIKE(email, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9]{2,}$')),
     CHECK (role_user IN ('RESEARCHER', 'POLICEMAN', 'DELEGATE', 'DIRECTOR')),
     CHECK (REGEXP_LIKE(cpf, '^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$')),
     
@@ -192,7 +192,7 @@ CREATE TABLE gun (
     FOREIGN KEY (id_gunshot) REFERENCES gunshot (id_gunshot)
 );
 
- # Creating Users
+# Creating Users
     
 CREATE USER 'auth'@'localhost'
 IDENTIFIED BY 'auth123';
@@ -208,6 +208,9 @@ IDENTIFIED BY 'delegate123';
 
 CREATE USER 'director'@'localhost'
 IDENTIFIED BY 'director123';
+
+CREATE USER 'system'@'localhost'
+IDENTIFIED BY 'system123';
 
 # Views to saw the gunshots
 
@@ -454,3 +457,17 @@ TO 'director'@'localhost';
 GRANT SELECT
 ON audioseg_database.vw_gunshots
 TO 'director'@'localhost';
+
+# System 
+
+GRANT INSERT ON audioseg_database.address
+TO 'system'@'localhost';
+
+GRANT INSERT ON audioseg_database.localization
+TO 'system'@'localhost';
+
+GRANT INSERT ON audioseg_database.gunshot
+TO 'system'@'localhost';
+
+GRANT INSERT ON audioseg_database.gun
+TO 'system'@'localhost';

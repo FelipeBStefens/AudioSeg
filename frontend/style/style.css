@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
 
     --carbon-black: #1e1d1dff;
@@ -9,6 +11,16 @@
     --golden-glow-2: #eacd3eff;
     --alabaster-grey: #e8e8e8ff;
     --silver: #a6a6a6ff;
+    --link-color: rgb(68, 178, 243);
+
+    --title-font: "Josefin Sans", sans-serif;
+    --text-font: "Montserrat", sans-serif;
+
+    --text-shadow: 5px 10px 10px rgba(10, 10, 10, 0.5);
+    --drop-shadow: filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.5));
+    --default-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+
+    --gradient-default: radial-gradient(circle at top left, #262424ff, #242222ff, #423f3fff);
 
     --gradient-top: linear-gradient(0deg, #1e1d1dff, #242222ff, #383636ff, #504d4dff, #fcde33ff, #e8c82bff, #eacd3eff, #e8e8e8ff, #a6a6a6ff);
     --gradient-right: linear-gradient(90deg, #1e1d1dff, #242222ff, #383636ff, #504d4dff, #fcde33ff, #e8c82bff, #eacd3eff, #e8e8e8ff, #a6a6a6ff);

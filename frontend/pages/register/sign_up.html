@@ -12,29 +12,35 @@
     </head>
     
     <body>
-        <div class="left_container">
+        <div class="right_container">
+            <img src="../../assets/Models/pin_local.png" alt="localization pin" class="pin">
+            <img src="../../assets/Models/shooter.png" alt="shooter image" class="shooter">
+        </div>
+
+        <div class="left_container register_left">
 
             <h1 class="title">Sign Up</h1>
 
-            <p class="subtitle">Welcome Back!</p>
-
             <form action="#" method="post">
 
+                <input class="input_bars" type="text" placeholder="Username">
+
+                
                 <input class="input_bars" type="email" placeholder="Email Address">
-
+                
                 <input class="input_bars" type="password" placeholder="Password">
-
-
-
+                
+                <div class="personal_info">
+                    <label>Birth Date</label>
+                    <input class="date_input" type="date" placeholder="Birth Date">
+                </div>
+                
+                <input class="input_bars" type="text" placeholder="CPF" size="11" maxlength="11">
+                    
                 <button type="submit" class="bt">Register</button>
 
                 <p>Already have an account yet? <a class="switch_pg" href="sign_in.html">Login</a></p>
             </form>
-        </div>
-
-        <div class="right_container">
-            <img src="../../assets/Models/pin_local.png" alt="localization pin" class="pin">
-            <img src="../../assets/Models/shooter.png" alt="shooter image" class="shooter">
         </div>
     </body>
 </html>

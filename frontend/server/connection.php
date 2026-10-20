@@ -6,8 +6,8 @@
         $database_name = "audioseg_database";
         $connection = new mysqli($hostname, $database_user, $database_password, $database_name);
         
-        if ($connection -> connect_error) {
-            die("Failed to connect with Database: " . $connection -> connect_error);
+        if ($connection->connect_error) {
+            die("Failed to connect with Database: " . $connection->connect_error);
         }
         
         return $connection;

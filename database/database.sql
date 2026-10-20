@@ -471,3 +471,16 @@ TO 'system'@'localhost';
 
 GRANT INSERT ON audioseg_database.gun
 TO 'system'@'localhost';
+
+# Creating Admin User
+
+INSERT INTO phone (number_phone) VALUES ('12345-7890');
+INSERT INTO address (city, neighborhood, street) VALUES ('Sapucaia do Sul', 'Piratini', 'Avenida Copacabana');
+
+INSERT INTO housing (cep, number_house, additional_information, id_address)
+VALUES ('93216-120', 100, 'IFSul Campus Sapucaia do Sul', 1);
+
+INSERT INTO users (username, email, password_hash, role_user, cpf, birth_date, id_phone, id_housing)
+VALUES ('admin', 'admin@gmail.com', '$2y$12$NEG.qvlINCxxnifWmu8kVe/I.SPW0HQtCWyO7LKhIUc5Mqo8KwloW', 'DIRECTOR', '123.456.789-10', '2000-01-01', 1, 1);
+
+INSERT INTO director (id_user) VALUES (1);

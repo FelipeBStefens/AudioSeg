@@ -3,43 +3,66 @@
 <html lang="en">
 
     <head>
-    
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../style/register.css">
+
+        <link rel="stylesheet" href="../../style/register/sign_up.css">
+        <script defer src="../../script/register.js"></script>
 
         <title>Sign Up</title>
     </head>
-    
+
     <body>
-        <div class="right_container">
-            <img src="../../assets/images/pin_local.png" alt="localization pin" class="pin">
-            <img src="../../assets/images/shooter.png" alt="shooter image" class="shooter">
+
+        <div class="left_container">
+            <video autoplay muted loop playsinline aria-hidden="true">
+                <source src="../../assets/videos/earth+video.mp4" type="video/mp4">
+            </video>
         </div>
 
-        <div class="left_container register_left">
+        <div class="right_container register_left">
 
             <h1 class="title">Sign Up</h1>
+            <p class="subtitle">Welcome Researcher!</p>
 
             <form action="#" method="post">
 
-                <input class="input_bars" type="text" placeholder="Username">
-
-                
-                <input class="input_bars" type="email" placeholder="Email Address">
-                
-                <input class="input_bars" type="password" placeholder="Password">
-                
-                <div class="personal_info">
-                    <label>Birth Date</label>
-                    <input class="date_input" type="date" placeholder="Birth Date">
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">person</span>
+                    <input class="input_bars" type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
                 </div>
-                
-                <input class="input_bars" type="text" placeholder="CPF" size="11" maxlength="11">
-                    
-                <button type="submit" class="bt">Register</button>
 
-                <p>Already have an account yet? <a class="switch_pg" href="sign_in.html">Login</a></p>
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">mail</span>
+                    <input class="input_bars" type="email" id="email" name="email" placeholder="Email Address" autocomplete="email" required>
+                </div>
+
+                
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">lock</span>
+                    <input class="input_bars" type="password" id="password" name="password" placeholder="Password" autocomplete="new-password" required>
+
+                    <button type="button" class="toggle_password" id="togglePassword" aria-label="Mostrar senha" aria-pressed="false">
+                        <span class="material-symbols-rounded" id="passwordIcon" aria-hidden="true">visibility</span>
+                    </button>
+                </div>
+
+                <div class="personal_info">
+                    <label for="birth_date">Birth Date</label>
+                    <input class="date_input" type="date" id="birth_date" name="birth_date" autocomplete="bday" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">badge</span>
+                    <input class="input_bars" type="text" id="cpf" name="cpf" placeholder="CPF" inputmode="numeric" maxlength="11" pattern="[0-9]{11}" title="Enter the 11 digits of your CPF, without punctuation." required>
+                </div>
+
+                <button type="submit" class="submit">Register</button>
+
+                <p>
+                    Already have an account?
+                    <a class="switch_page" href="sign_in.html">Login</a>
+                </p>
             </form>
         </div>
     </body>

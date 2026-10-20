@@ -7,4 +7,8 @@
     $password = $_POST["password"];
 
     $response = get_user($email, $password);
+    echo $response;
+
+    header("Location: ../../pages/pages.html");
+    exit();
 ?>

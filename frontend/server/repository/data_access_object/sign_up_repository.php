@@ -33,7 +33,7 @@
             $housing_statement->close();
 
             $user_statement = $connection->prepare(create_user());
-            $user_statement->bind_param("");
+            $user_statement->bind_param("sssssii");
             $user_statement->execute();
             $id_user = $connection->insert_id;
             $user_statement->close();

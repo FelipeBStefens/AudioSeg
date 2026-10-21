@@ -6,6 +6,10 @@
         return "SELECT id_user, password_hash, role_user FROM users WHERE email = ?;";
     }
 
+
+    // GET SIGN IN
+
+
     function get_sql_researcher_sign_in() {
         return "SELECT * FROM (((researcher AS r INNER JOIN users AS u ON r.id_user = u.id_user) INNER JOIN housing AS h ON u.id_housing = h.id_housing) INNER JOIN address AS a ON h.id_address = a.id_address) INNER JOIN phone AS p ON u.id_phone = p.id_phone WHERE u.id_user = ?;";
     }
@@ -22,6 +26,10 @@
         return "SELECT * FROM (((director AS d INNER JOIN users AS u ON d.id_user = u.id_user) INNER JOIN housing AS h ON u.id_housing = h.id_housing) INNER JOIN address AS a ON h.id_address = a.id_address) INNER JOIN phone AS p ON u.id_phone = p.id_phone WHERE u.id_user = ?;";
     }
 
+
+    // SET SIGN UP
+
+
     function create_phone() {
         return "INSERT INTO phone (international_dialling_code, local_dialling_code, number_phone) VALUES (?, ?, ?);";
     }
@@ -35,7 +43,7 @@
     }
 
     function create_user() {
-        return "INSERT INTO users (username, email, password_hash, cpf, birth_date, photo, id_phone, id_housing) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        return "INSERT INTO users (username, email, password_hash, cpf, birth_date, id_phone, id_housing) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
     function create_researcher() {

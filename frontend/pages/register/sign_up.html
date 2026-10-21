@@ -2,68 +2,128 @@
 
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="../../style/register/sign_up.css">
-        <script defer src="../../script/register.js"></script>
+    <link rel="stylesheet" href="../../style/register/sign_up.css">
+    <script defer src="../../script/register.js"></script>
 
-        <title>AudioSeg - Sign Up</title>
-    </head>
+    <title>AudioSeg - Sign Up</title>
+</head>
 
-    <body>
+<body>
 
-        <div class="left_container">
-            <video id="video" autoplay muted playsinline>
-                <source src="../../assets/videos/city.mp4" type="video/mp4">
-            </video>
-        </div>
+    <div class="left_container">
+        <video id="video" autoplay muted playsinline>
+            <source src="../../assets/videos/city.mp4" type="video/mp4">
+        </video>
+    </div>
 
-        <div class="right_container register_left">
+    <div class="right_container register_left">
 
-            <h1 class="title">Sign Up</h1>
-            <p class="subtitle">Welcome Researcher!</p>
+        <h1 class="title">Sign Up</h1>
+        <p class="subtitle">Welcome Researcher!</p>
 
-            <form action="../../server/register/sign_up_service.php" method="POST">
+        <form action="../../server/register/sign_up_service.php" method="POST">
 
+            <div class="form_box">
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">person</span>
-                    <input class="input_bars" type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
+                    <input class="input_bars" type="text" id="username" name="username" placeholder="Username"
+                        autocomplete="username" required>
                 </div>
 
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">mail</span>
-                    <input class="input_bars" type="email" id="email" name="email" placeholder="Email Address" autocomplete="email" required>
+                    <input class="input_bars" type="email" id="email" name="email" placeholder="Email Address"
+                        autocomplete="email" required>
                 </div>
 
-                
+
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">lock</span>
-                    <input class="input_bars" type="password" id="password" name="password" placeholder="Password" autocomplete="new-password" required>
+                    <input class="input_bars" type="password" id="password" name="password" placeholder="Password"
+                        autocomplete="new-password" required>
 
-                    <button type="button" class="toggle_password" id="togglePassword" aria-label="Mostrar senha" aria-pressed="false">
+                    <button type="button" class="toggle_password" id="togglePassword" aria-label="Mostrar senha"
+                        aria-pressed="false">
                         <span class="material-symbols-rounded" id="passwordIcon" aria-hidden="true">visibility</span>
                     </button>
                 </div>
 
                 <div class="personal_info">
                     <label for="birth_date">Birth Date</label>
-                    <input class="date_input" type="date" id="birth_date" name="birth_date" autocomplete="bday" required>
+                    <input class="date_input" type="date" id="birth_date" name="birth_date" autocomplete="bday"
+                        required>
                 </div>
 
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">badge</span>
-                    <input class="input_bars" type="text" id="cpf" name="cpf" placeholder="CPF" inputmode="numeric" maxlength="11" pattern="[0-9]{11}" title="Enter the 11 digits of your CPF, without punctuation." required>
+                    <input class="input_bars" type="text" id="cpf" name="cpf" placeholder="CPF" inputmode="numeric"
+                        maxlength="11" pattern="[0-9]{11}" title="Enter the 11 digits of your CPF, without punctuation."
+                        required>
                 </div>
 
-                <button type="submit" class="submit">Register</button>
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">phone</span>
+                    <input class="input_bars" type="text" id="phone" name="phone" placeholder="Phone Number (55 51 123456789)" inputmode="numeric"
+                        maxlength="15" pattern="^[0-9]{2}\s[0-9]{2}\s[0-9]{9}$" required>
+                </div>
 
-                <p>
-                    Already have an account?
-                    <a class="switch_page" href="sign_in.html">Login</a>
-                </p>
-            </form>
-        </div>
-    </body>
+                <label class="label_desc">Address</label>
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">local_post_office</span>
+                    <input class="input_bars" type="text" id="zipcode" name="zipcode" placeholder="Zip-Code" inputmode="numeric"
+                        maxlength="8" pattern="[0-9]{8}" title="Enter the 8 digits of your Zip-Code, without punctuation."
+                        required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">public</span>
+                    <input class="input_bars" type="text" id="country" name="country" placeholder="Country" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">map</span>
+                    <input class="input_bars" type="text" id="state" name="state" placeholder="State" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">location_city</span>
+                    <input class="input_bars" type="text" id="city" name="city" placeholder="City" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">home_work</span>
+                    <input class="input_bars" type="text" id="neighborhood" name="neighborhood" placeholder="Neighborhood" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">add_road</span>
+                    <input class="input_bars" type="text" id="street" name="street" placeholder="Street" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">tag</span>
+                    <input class="input_bars" type="text" id="number" name="number" placeholder="Number" inputmode="numeric"
+                        maxlength="5" pattern="[0-9]{5}" required>
+                </div>
+
+                <div class="input_group">
+                    <span class="material-symbols-rounded field_icon" aria-hidden="true">corporate_fare</span>
+                    <input class="input_bars" type="text" id="complement" name="complement" placeholder="Complement" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit" id="submit_bt">Register</button>
+
+            <p>
+                Already have an account?
+                <a class="switch_page" href="sign_in.html">Login</a>
+            </p>
+        </form>
+    </div>
+</body>
+
 </html>

@@ -4,7 +4,7 @@ const passwordIcon = document.getElementById("passwordIcon");
 const video = document.getElementById("video");
 
 togglePassword.addEventListener("click", () => {
-    
+
     const showPassword = password.type === "password";
 
     password.type = showPassword ? "text" : "password";
@@ -15,7 +15,7 @@ togglePassword.addEventListener("click", () => {
 });
 
 if (video) {
-    
+
     const videos = [
         "../../assets/videos/city.mp4",
         "../../assets/videos/earth.mp4",
@@ -41,3 +41,33 @@ if (video) {
 
     video.addEventListener("ended", playNextVideo);
 }
+
+const listInputs = document.querySelectorAll("input");
+const registerButton = document.getElementById("submit_bt");
+
+function validateInputs() {
+    let empty = false;
+
+    for (let input of listInputs) {
+        if (input.value.trim() == "") {
+            empty = true;
+            break;
+        }
+    }
+
+    if (empty) {
+        registerButton.disabled = true;
+        registerButton.style.backgroundColor = "#979909";
+        registerButton.style.cursor = "not-allowed";
+    } else {
+        registerButton.disabled = false;
+        registerButton.style.backgroundColor = "#fcde33ff";
+        registerButton.style.cursor = "pointer";
+    }
+}
+
+validateInputs();
+
+listInputs.forEach(input => {
+    input.addEventListener("input", validateInputs);
+})

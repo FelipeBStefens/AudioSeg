@@ -1,7 +1,5 @@
 <?php
 
-    session_start();
-
     require_once __DIR__ . "/../connection.php";
     require_once __DIR__ . "/../queries.php";
 
@@ -32,6 +30,12 @@
                     return director_data($auth["id_user"]);
                 }
             }
+            else {
+                throw new Exception("Password Invalid");
+            }
+        }
+        else {
+            throw new Exception("User Not Found");
         }
     }
 

@@ -22,15 +22,15 @@
     }
 
     function director_connect() {
-        return connect("director", "diretor123");
+        return connect("director", "director123");
     }
 
     function policeman_connect() {
-        return connect("police", "police123");
+        return connect("policeman", "policeman123");
     }
 
     function researcher_connect() {
-        return connect("reasearcher", "reasearcher123");
+        return connect("researcher", "researcher123");
     }
 
     function system_connect() {

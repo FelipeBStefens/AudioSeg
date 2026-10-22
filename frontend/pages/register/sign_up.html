@@ -61,14 +61,14 @@
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">badge</span>
                     <input class="input_bars" type="text" id="cpf" name="cpf" placeholder="CPF" inputmode="numeric"
-                        maxlength="11" pattern="[0-9]{11}" title="Enter the 11 digits of your CPF, without punctuation."
+                        maxlength="14" pattern="^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$" title="Enter the 11 digits of your CPF, like 123.456.789-10 ."
                         required>
                 </div>
 
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">phone</span>
-                    <input class="input_bars" type="text" id="phone" name="phone" placeholder="Phone Number (55 51 123456789)" inputmode="numeric"
-                        maxlength="15" pattern="^[0-9]{2}\s[0-9]{2}\s[0-9]{9}$" required>
+                    <input class="input_bars" type="text" id="phone" name="phone" placeholder="Phone Number (55 51 12345-6789)" inputmode="numeric"
+                        maxlength="16" pattern="^[0-9]{2}\s[0-9]{2}\s[0-9]{5}-[0-9]{4}$" required>
                 </div>
 
                  <div class="input_group">
@@ -80,7 +80,7 @@
                 <div class="input_group">
                     <span class="material-symbols-rounded field_icon" aria-hidden="true">local_post_office</span>
                     <input class="input_bars" type="text" id="zipcode" name="zipcode" placeholder="Zip-Code" inputmode="numeric"
-                        maxlength="8" pattern="[0-9]{8}" title="Enter the 8 digits of your Zip-Code, without punctuation."
+                        maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="Enter the 8 digits of your Zip-Code, like 12345-678"
                         required>
                 </div>
 

@@ -3,9 +3,9 @@
     require_once __DIR__ . "/../connection.php";
     require_once __DIR__ . "/../queries.php";
 
-    function add_researcher($user, $phone, $address) {
+    function add_researcher(array $user, array $phone, array $address) {
 
-        $hash_password = password_hash($password, PASSWORD_DEFAULT);
+        $hash_password = password_hash($user[2], PASSWORD_DEFAULT);
         
         $connection = researcher_connect();
         $connection->begin_transaction();
@@ -60,7 +60,7 @@
                 "sssssii",
                 $user[0],
                 $user[1],
-                $user[2],
+                $hash_password,
                 $user[3],
                 $user[4],
                 $id_phone,
@@ -81,6 +81,8 @@
 
             $researcher_statement->execute();
             $researcher_statement->close();
+
+            $connection->commit();
         }
         catch (Exception $e) {
             $connection->rollback();

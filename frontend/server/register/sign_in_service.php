@@ -7,9 +7,26 @@
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $response = get_user($email, $password);
-    echo $response;
+    try {
+        $response = get_user($email, $password);
+        echo $response;
 
-    header("Location: ../../pages/pages.html");
-    exit();
+        header("Location: ../../pages/pages.html");
+        exit();
+    }
+    catch (Exception $e) {
+
+        if ($e->getMessage() == "User Not Found") {
+
+            # To do
+        }
+        else if ($e->getMessage() == "Password Invalid") {
+
+            # To do
+        }
+        else {
+
+            # To do
+        }
+    }
 ?>

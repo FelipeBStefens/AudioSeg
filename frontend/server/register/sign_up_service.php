@@ -31,8 +31,22 @@
         "additional_information" => $_POST["additional_information"]
     ];
 
-    add_researcher($user_list, $phone_list, $address_list);
+    try {
+
+        add_researcher($user_list, $phone_list, $address_list);
     
-    header("Location: ../../pages/pages.html");
-    exit();
+        header("Location: ../../pages/pages.html");
+        exit();
+    }
+    catch (Exception $e) {
+
+        if ($e->getMessage() == "User not created") {
+
+            # To do
+        }
+        else {
+            
+            # To do
+        }
+    }
 ?>

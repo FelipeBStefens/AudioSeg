@@ -52,6 +52,9 @@
             $researcher = $query->fetch_assoc();
             return $researcher;
         }
+        else {
+            throw new Exception("User Not Found");
+        }
     }
 
     function policeman_data(int $id_user) {
@@ -66,6 +69,9 @@
 
             $policeman = $query->fetch_assoc();
             return $policeman;
+        }
+        else {
+            throw new Exception("User Not Found");
         }
     }
 
@@ -82,6 +88,9 @@
             $delegate = $query->fetch_assoc();
             return $delegate;
         }
+        else {
+            throw new Exception("User Not Found");
+        }
     }
 
     function director_data(int $id_user) {
@@ -96,6 +105,9 @@
 
             $director = $query->fetch_assoc();
             return $director;
+        }
+        else {
+            throw new Exception("User Not Found");
         }
     }
 ?>

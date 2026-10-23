@@ -5,88 +5,81 @@
 
     function add_researcher(array $user, array $phone, array $address) {
 
-        $hash_password = password_hash($user[2], PASSWORD_DEFAULT);
-        
         $connection = researcher_connect();
-        $connection->begin_transaction();
 
         try {
-            
-            $phone_statement = $connection->prepare(create_phone());
+            $connection->begin_transaction();
 
+            $phone_statement = $connection->prepare(create_phone());
             $phone_statement->bind_param(
                 "iis",
-                $phone[0], 
-                $phone[1], 
-                $phone[2]
+                $phone["international_dialling_code"],
+                $phone["local_dialling_code"], 
+                $phone["number_phone"]
             );
-
             $phone_statement->execute();
             $id_phone = $connection->insert_id;
             $phone_statement->close();
 
-            $address_statement = $connection->prepare(create_address());
 
+            $address_statement = $connection->prepare(create_address());
             $address_statement->bind_param(
                 "sssss",
-                $address[0],
-                $address[1],
-                $address[2],
-                $address[3],
-                $address[4],
+                $address["country"],
+                $address["state"],
+                $address["city"],
+                $address["neighborhood"],
+                $address["street"],
             );
-
             $address_statement->execute();
             $id_address = $connection->insert_id;
             $address_statement->close();
 
-            $housing_statement = $connection->prepare(create_housing());
 
+            $housing_statement = $connection->prepare(create_housing());
             $housing_statement->bind_param(
                 "sisi",
-                $address[5],
-                $address[6],
-                $address[7],
+                $address["cep"],
+                $address["number_house"],
+                $address["additional_information"],
                 $id_address
             );
-
             $housing_statement->execute();
             $id_housing = $connection->insert_id;
             $housing_statement->close();
 
-            $user_statement = $connection->prepare(create_user());
 
+            $hash_password = password_hash($user["password"], PASSWORD_DEFAULT);
+            $user_statement = $connection->prepare(create_user());
             $user_statement->bind_param(
                 "sssssii",
-                $user[0],
-                $user[1],
+                $user["username"],
+                $user["email"],
                 $hash_password,
-                $user[3],
-                $user[4],
+                $user["cpf"],
+                $user["birth_date"],
                 $id_phone,
                 $id_housing
             );
-
             $user_statement->execute();
             $id_user = $connection->insert_id;
             $user_statement->close();
 
-            $researcher_statement = $connection->prepare(create_researcher());
 
+            $researcher_statement = $connection->prepare(create_researcher());
             $researcher_statement->bind_param(
                 "si",
-                $user[5],
+                $user["institute"],
                 $id_user
             );
-
             $researcher_statement->execute();
             $researcher_statement->close();
 
             $connection->commit();
         }
-        catch (Exception $e) {
+        catch (Exception) {
             $connection->rollback();
-            echo $e->getMessage();
+            throw new Exception("User not created");
         }
     }
 ?>

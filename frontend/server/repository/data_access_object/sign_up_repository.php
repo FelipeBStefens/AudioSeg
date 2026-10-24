@@ -77,8 +77,9 @@
 
             $connection->commit();
         }
-        catch (Exception) {
+        catch (Exception $e) {
             $connection->rollback();
+            echo $e->getMessage();
             throw new Exception("User not created");
         }
     }

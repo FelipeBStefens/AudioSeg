@@ -13,11 +13,11 @@
         "institute" => $_POST["institute"]
     ];
 
-    $phone_list = explode(" ", $_POST["phone"]);
+    $phone = preg_replace("/\D/", '', $_POST["phone"]);
     $phone_list = [
-        "international_dialling_code" => $phone_list[0], 
-        "locall_dialling_code" => $phone_list[1], 
-        "number_phone" => $phone_list[2]
+        "international_dialling_code" => substr($phone, 0, 2),
+        "local_dialling_code" => substr($phone, 2, 2),
+        "number_phone" => substr($phone, 4, 5) . "-" . substr($phone, 9, 4)
     ];
 
     $address_list = [
@@ -42,11 +42,11 @@
 
         if ($e->getMessage() == "User not created") {
 
-            # To do
+            echo $e->getMessage();
         }
         else {
             
-            # To do
+            echo $e->getMessage();
         }
     }
 ?>

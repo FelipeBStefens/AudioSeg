@@ -1,7 +1,6 @@
 const password = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
 const passwordIcon = document.getElementById("passwordIcon");
-const video = document.getElementById("video");
 
 togglePassword.addEventListener("click", () => {
 
@@ -14,36 +13,34 @@ togglePassword.addEventListener("click", () => {
     togglePassword.setAttribute("aria-pressed", String(showPassword));
 });
 
-if (video) {
 
-    const videos = [
-        "../../assets/videos/city.mp4",
-        "../../assets/videos/earth.mp4",
-        "../../assets/videos/forest.mp4",
-        "../../assets/videos/gun.mp4",
-        "../../assets/videos/people.mp4",
-        "../../assets/videos/polar_light.mp4",
-        "../../assets/videos/server.mp4"
-    ];
+const videos = [
+    "../../assets/videos/city.mp4",
+    "../../assets/videos/earth.mp4",
+    "../../assets/videos/forest.mp4",
+    "../../assets/videos/gun.mp4",
+    "../../assets/videos/people.mp4",
+    "../../assets/videos/polar_light.mp4",
+    "../../assets/videos/server.mp4"
+];
 
-    let currentVideo = 0;
+const video = document.getElementById("video");
 
-    function playNextVideo() {
-        currentVideo = (currentVideo + 1) % videos.length;
+let currentVideo = 0;
+function playNextVideo() {
+    currentVideo = (currentVideo + 1) % videos.length;
 
-        video.src = videos[currentVideo];
-        video.load();
+    video.src = videos[currentVideo];
+    video.load();
 
-        video.play().catch(error => {
-            console.error(error);
-        });
-    }
-
-    video.addEventListener("ended", playNextVideo);
+    video.play().catch(error => {console.error(error);});
 }
 
+video.addEventListener("ended", playNextVideo);
+
+
 const listInputs = document.querySelectorAll("input");
-const registerButton = document.getElementById("submit_bt");
+const registerButton = document.getElementById("submit_button");
 
 function validateInputs() {
     let empty = false;
@@ -57,9 +54,10 @@ function validateInputs() {
 
     if (empty) {
         registerButton.disabled = true;
-        registerButton.style.backgroundColor = "#979909";
+        registerButton.style.backgroundColor = "#eacd3eff"; 
         registerButton.style.cursor = "not-allowed";
-    } else {
+    } 
+    else {
         registerButton.disabled = false;
         registerButton.style.backgroundColor = "#fcde33ff";
         registerButton.style.cursor = "pointer";
@@ -67,7 +65,4 @@ function validateInputs() {
 }
 
 validateInputs();
-
-listInputs.forEach(input => {
-    input.addEventListener("input", validateInputs);
-})
+listInputs.forEach(input => {input.addEventListener("input", validateInputs);})

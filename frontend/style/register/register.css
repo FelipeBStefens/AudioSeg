@@ -169,6 +169,24 @@ a {
     outline-offset: 3px;
 }
 
+.submit:disabled {
+    background-color: #eacd3eff;
+    border-color: #eacd3eff;
+
+    color: var(--carbon-black);
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+    opacity: 0.65;
+}
+
+.submit:disabled:hover {
+    background-color: #eacd3eff;
+
+    box-shadow: none;
+}
+
 .forgot, .switch_page {
     color: var(--bright-gold);
     transition: color 0.2s ease;

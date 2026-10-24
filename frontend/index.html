@@ -2,67 +2,49 @@
 
 <html lang="en">
 
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="./style/index.css">
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/index.css">
+        <title>AudioSeg</title>
+    </head>
 
-    <script 
-        type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
-    </script>
-
-    <title>AudioSeg</title>
-</head>
-
-
-<body>
-    <header class="header_container">
-        <div class="audioseg_title">
-            <img src="./assets/models/AudioSegLogo.png" alt="AudioSeg Logo" class="logo_img">
-            <h2>AudioSeg</h2>
-        </div>
-
-        <nav class="header_nav">
-            <a href="./pages/register/sign_in.html" class="register_bt">Sign In</a>
-            <a href="./pages/register/sign_up.html" class="register_bt">Sign Up</a>
-        </nav>
-    </header>
-
-    <main>
-        <section class="first_container">
-
-            <video autoplay muted loop playsinline>
-                <source src="./assets/videos/earth.mp4">
-            </video>
-
-            <div class="welcome_container">
-                <h1 class="welcome_title">
-                    Technology that
-                    <br>
-                    <span>protect our lives.</span>
-                </h1>
-
-                <p class="welcome_text">
-                    Real-time gunshot detection and localization system for a safer world.
-                </p>
-
-                <div class="welcome_buttons_container">
-
-                    <a href="#" class="welcome_buttons">
-                        Show demonstration
-                        <span class="material-symbols-rounded field_icon" aria-hidden="true">play_circle</span>
-                    </a>
-
-                    <a href="#" class="welcome_buttons meet_button">
-                        Meet the system
-                        <span class="material-symbols-rounded field_icon" aria-hidden="true">arrow_forward</span>
-                    </a>
-                </div>
+    <body>
+        <header class="header_container">
+            <div class="audioseg_title">
+                <img src="./assets/models/AudioSegLogo.png" alt="AudioSeg Logo" class="logo_img">
+                <h2>AudioSeg</h2>
             </div>
-        </section>
-    </main>
-</body>
+
+            <nav class="header_nav">
+                <a href="./pages/register/sign_in.html" class="register_bt">Sign In</a>
+                <a href="./pages/register/sign_up.html" class="register_bt">Sign Up</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="first_container">
+
+                <video autoplay muted loop playsinline>
+                    <source src="./assets/videos/earth.mp4">
+                </video>
+
+                <div class="welcome_container">
+                    
+                    <h1 class="welcome_title">Technology that<br><span>protect our lives.</span></h1>
+                    <p class="welcome_text">Real-time gunshot detection and localization system for a safer world.</p>
+
+                    <div class="welcome_buttons_container">
+
+                        <a href="#" class="welcome_buttons">Show demonstration <span class="material-symbols-rounded field_icon" aria-hidden="true">play_circle</span></a>
+                        <a href="#" class="welcome_buttons meet_button">Meet the system <span class="material-symbols-rounded field_icon" aria-hidden="true">arrow_forward</span></a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
 
 </html>

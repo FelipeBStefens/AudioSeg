@@ -102,30 +102,99 @@ houseNumberInput.addEventListener("input", function () {
 });
 
 
-const listInputs = document.querySelectorAll("input[required]");
+const form = document.querySelector(".register_left form");
+const formBox = form.querySelector(".form_box");
 const registerButton = document.getElementById("submit_button");
+const nextButton = form.querySelector(".step_next");
+const progressDots = [...form.querySelectorAll(".progress_dot")];
+const stepContainers = [...formBox.querySelectorAll(".form_step")];
 
-function validateInputs() {
-    let empty = false;
+const steps = [
+    {fields: ["username", "email", "password"]},
+    {fields: ["birth_date", "cpf", "phone", "institute"]},
+    {fields: ["country", "state", "city", "neighborhood"]},
+    {fields: ["street", "cep", "number", "complement"]}
+];
 
-    for (let input of listInputs) {
-        if (input.value.trim() === "") {
-            empty = true;
-            break;
-        }
+let currentStep = 0;
+form.noValidate = true;
+
+function showStep(index) {
+    
+    if (index < 0 || index >= stepContainers.length) {
+        return;
     }
 
-    if (empty) {
-        registerButton.disabled = true;
-        registerButton.style.backgroundColor = "#eacd3eff";
-        registerButton.style.cursor = "not-allowed";
-    } 
-    else {
-        registerButton.disabled = false;
-        registerButton.style.backgroundColor = "#fcde33ff";
-        registerButton.style.cursor = "pointer";
+    currentStep = index;
+    stepContainers.forEach((container, i) => {
+        container.hidden = i !== currentStep;
+    });
+
+    progressDots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentStep);
+        dot.classList.remove("completed");
+        dot.setAttribute("aria-current", i === currentStep ? "step" : "false");
+    });
+
+    nextButton.hidden = currentStep === stepContainers.length - 1;
+    registerButton.hidden = currentStep !== stepContainers.length - 1;
+
+    const firstInput = stepContainers[currentStep].querySelector("input");
+
+    if (firstInput) {
+        firstInput.focus({ preventScroll: true });
     }
 }
 
+progressDots.forEach((dot, index) => {
+    dot.addEventListener("click", () => showStep(index));
+});
+
+nextButton.addEventListener("click", () => {
+    const inputs = stepContainers[currentStep].querySelectorAll("input");
+
+    for (const input of inputs) {
+        if (!input.checkValidity()) {
+            input.reportValidity();
+            return;
+        }
+    }
+
+    showStep(currentStep + 1);
+});
+
+form.addEventListener("submit", event => {
+    for (let i = 0; i < stepContainers.length; i++) {
+        const inputs = stepContainers[i].querySelectorAll("input");
+
+        for (const input of inputs) {
+            if (!input.checkValidity()) {
+                event.preventDefault();
+                showStep(i);
+                input.reportValidity();
+                return;
+            }
+        }
+    }
+});
+
+
+function validateInputs() {
+    const allValid = [...requiredInputs].every(input =>
+        input.value.trim() !== "" && input.checkValidity()
+    );
+
+    registerButton.disabled = !allValid;
+    registerButton.style.backgroundColor = allValid ? "#fcde33ff" : "#eacd3eff";
+    registerButton.style.cursor = allValid ? "pointer" : "not-allowed";
+}
+
+showStep(0);
 validateInputs();
-listInputs.forEach(input => {input.addEventListener("input", validateInputs);});
+
+const requiredInputs = form.querySelectorAll("input[required]");
+
+requiredInputs.forEach(input => {
+    input.addEventListener("input", validateInputs);
+    input.addEventListener("change", validateInputs);
+});

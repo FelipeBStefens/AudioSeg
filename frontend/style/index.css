@@ -1,0 +1,131 @@
+@import url("style.css");
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+    height: 100dvh;
+    
+    background-color: var(--hard-black);
+    color: var(--alabaster-grey);
+    font-family: var(--text-font);
+}
+
+.header_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+
+    background-color: var(--header-black);
+}
+
+.audioseg_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo_img{
+    width: 70px;
+}
+
+.header_nav{
+    display: flex;
+    gap: 20px;
+}
+
+main{
+    padding: 2rem;
+}
+
+.first_container{
+    padding: 1rem 2rem;
+}
+
+.welcome_container{
+    width: 45%;
+}
+
+.welcome_title{
+    font-size: 3.5rem;
+}
+
+.welcome_title span{
+    color: var(--bright-gold);
+}
+
+.welcome_text{
+    width: 60%;
+    font-size: 1.5rem;
+    margin: 2rem 0;
+}
+
+.welcome_buttons_container{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome_buttons, .register_bt{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;  
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--bright-gold);
+    border-radius: 8px;
+    
+    background: var(--bright-gold);
+    color: var(--carbon-black);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+    font-family: var(--text-font);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.meet_button{
+    background-color: transparent;
+    color: var(--alabaster-grey);
+}
+
+.welcome_buttons:hover, .register_bt:hover {
+    color: var(--carbon-black);
+    background: var(--golden-glow);
+    box-shadow: 5px 0px 22px var(--golden-glow);
+}
+
+.welcome_buttons:active, .register_bt:active{
+    transform: translateY(1px);
+}
+
+.welcome_buttons:focus-visible, .register_bt:focus-visible {
+    outline: 2px solid var(--alabaster-grey);
+    outline-offset: 3px;
+}
+
+video{
+    width: 50rem;
+    z-index: -1;
+    border-radius: 16px;
+    position: absolute;
+    right: 0;
+}
+
+model-viewer {
+    display: block;
+    width: 45%;
+    height: 600px;
+    background-color: transparent;
+    --poster-color: transparent;
+}

@@ -32,21 +32,21 @@
     ];
 
     try {
-
         add_researcher($user_list, $phone_list, $address_list);
-    
-        header("Location: ../../pages/pages.html");
+
+        header("Location: ../../pages/register/sign_in.php");
         exit();
     }
     catch (Exception $e) {
 
-        if ($e->getMessage() == "User not created") {
-
-            echo $e->getMessage();
+        if ($e->getMessage() == "Credential Error, User not Created") {
+            $_SESSION["sign_up_error"] = $e->getMessage();
         }
         else {
-            
-            echo $e->getMessage();
+            $_SESSION["sign_up_error"] = "Server Error";
         }
+
+        header("Location: ../../pages/register/sign_up.php");
+        exit();
     }
 ?>

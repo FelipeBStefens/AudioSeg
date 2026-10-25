@@ -8,25 +8,26 @@
     $password = $_POST["password"];
 
     try {
-        $response = get_user($email, $password);
-        echo $response;
+        $user_data = get_user($email, $password);
+        $_SESSION["user_data"] = $user_data;
 
-        header("Location: ../../pages/pages.html");
+        unset($_SESSION["sign_in_error"]);
+        header("Location: ../../pages/pages.php");
         exit();
     }
     catch (Exception $e) {
 
         if ($e->getMessage() == "User Not Found") {
-
-            # To do
+            $_SESSION["sign_in_error"] = $e->getMessage();
         }
         else if ($e->getMessage() == "Password Invalid") {
-
-            # To do
+            $_SESSION["sign_in_error"] = $e->getMessage();
         }
         else {
-
-            # To do
+            $_SESSION["sign_in_error"] = "Server Error";
         }
+
+        header("Location: ../../pages/register/sign_in.php");
+        exit();
     }
 ?>

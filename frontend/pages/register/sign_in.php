@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -16,7 +18,19 @@
         <div class="left_container">
 
             <h1 class="title">Sign In</h1>
-            <p class="subtitle">Welcome Back!</p>
+
+            <?php
+                if (isset($_SESSION["sign_in_error"])) {
+
+                    $message = $_SESSION["sign_in_error"];
+                    echo "<p class='subtitle' style='color:red;'>$message</p>";
+
+                    unset($_SESSION["sign_in_error"]);
+                }
+                else {
+                    echo "<p class='subtitle'>Welcome Back!</p>";
+                }
+            ?>
 
             <form action="../../server/register/sign_in_service.php" method="POST">
 
@@ -45,7 +59,7 @@
 
                 <button type="submit" class="submit" id="submit_button">Enter</button>
 
-                <p>Don't have an account yet? <a class="switch_page" href="./sign_up.html">Sign Up</a></p>
+                <p>Don't have an account yet? <a class="switch_page" href="./sign_up.php">Sign Up</a></p>
             </form>
         </div>
 

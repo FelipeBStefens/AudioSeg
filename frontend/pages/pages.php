@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include __DIR__ . "/../server/validation.php";
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">

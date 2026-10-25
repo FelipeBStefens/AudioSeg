@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -23,7 +25,19 @@
         <div class="right_container register_left">
 
             <h1 class="title">Sign Up</h1>
-            <p class="subtitle">Welcome Researcher!</p>
+            
+            <?php
+                if (isset($_SESSION["sign_up_error"])) {
+
+                    $message = $_SESSION["sign_up_error"];
+                    echo "<p class='subtitle' style='color:red;'>$message</p>";
+
+                    unset($_SESSION["sign_up_error"]);
+                }
+                else {
+                    echo "<p class='subtitle'>Welcome Researcher!</p>";
+                }
+            ?>
             
             <form action="../../server/register/sign_up_service.php" method="POST">
 
@@ -129,7 +143,7 @@
                 <button type="button" class="step_next">Next</button>
                 <button type="submit" id="submit_button" class="submit" hidden>Register</button>
 
-                <p>Already have an account? <a class="switch_page" href="./sign_in.html">Sign In</a></p>
+                <p>Already have an account? <a class="switch_page" href="./sign_in.php">Sign In</a></p>
             </form>
         </div>
     </body>

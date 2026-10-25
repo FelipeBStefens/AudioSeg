@@ -77,10 +77,10 @@
 
             $connection->commit();
         }
-        catch (Exception $e) {
+        catch (Exception) {
+            
             $connection->rollback();
-            echo $e->getMessage();
-            throw new Exception("User not created");
+            throw new Exception("Credential Error, User not Created");
         }
     }
 ?>

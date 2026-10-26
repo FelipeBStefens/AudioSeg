@@ -94,8 +94,14 @@
                     </div>
                     
                     <div class="form_step" hidden>
+
                         <label class="label_desc">Address</label>
 
+                        <div class="input_group">
+                            <span class="material-symbols-rounded field_icon" aria-hidden="true">local_post_office</span>
+                            <input class="input_bars" type="text" id="cep" name="cep" placeholder="CEP" inputmode="numeric" autocomplete="postal-code" maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="CEP" required>
+                        </div>
+                        
                         <div class="input_group">
                             <span class="material-symbols-rounded field_icon" aria-hidden="true">public</span>
                             <input class="input_bars" type="text" id="country" name="country" placeholder="Country" required>
@@ -110,22 +116,18 @@
                             <span class="material-symbols-rounded field_icon" aria-hidden="true">location_city</span>
                             <input class="input_bars" type="text" id="city" name="city" placeholder="City" required>
                         </div>
+                    </div>
+                    
+                    <div class="form_step" hidden>
 
                         <div class="input_group">
                             <span class="material-symbols-rounded field_icon" aria-hidden="true">home_work</span>
                             <input class="input_bars" type="text" id="neighborhood" name="neighborhood" placeholder="Neighborhood" required>
                         </div>
-                    </div>
-                    
-                    <div class="form_step" hidden>
+
                         <div class="input_group">
                             <span class="material-symbols-rounded field_icon" aria-hidden="true">add_road</span>
                             <input class="input_bars" type="text" id="street" name="street" placeholder="Street" required>
-                        </div>
-                        
-                        <div class="input_group">
-                            <span class="material-symbols-rounded field_icon" aria-hidden="true">local_post_office</span>
-                            <input class="input_bars" type="text" id="cep" name="cep" placeholder="CEP" inputmode="numeric" autocomplete="postal-code" maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="CEP" required>
                         </div>
 
                         <div class="input_group">

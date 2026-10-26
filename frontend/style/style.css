@@ -3,8 +3,7 @@
 
 :root {
 
-    --hard-black: rgb(8,8,8);
-    --header-black: rgb(13, 13, 13);
+    --hard-black: black;
     --carbon-black: #1e1d1dff;
     --shadow-grey: #242222ff;
     --graphite: #383636ff;

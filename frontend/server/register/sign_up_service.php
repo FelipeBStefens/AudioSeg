@@ -3,11 +3,15 @@
     session_start();
 
     require_once __DIR__ . "/../repository/data_access_object/sign_up_repository.php";
+    require_once __DIR__ . "/../repository/data_access_object/sign_in_repository.php";
 
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    
     $user_list = [
         "username" => $_POST["username"], 
-        "email" => $_POST["email"], 
-        "password" => $_POST["password"], 
+        "email" => $email, 
+        "password" => $password, 
         "cpf" => $_POST["cpf"], 
         "birth_date" => $_POST["birth_date"], 
         "institute" => $_POST["institute"]
@@ -33,8 +37,12 @@
 
     try {
         add_researcher($user_list, $phone_list, $address_list);
+        
+        $user_data = get_user($email, $password); 
+        $_SESSION["user_data"] = $user_data;
 
-        header("Location: ../../pages/register/sign_in.php");
+        unset($_SESSION["sign_up_error"]);
+        header("Location: ../../pages/pages.php");
         exit();
     }
     catch (Exception $e) {

@@ -42,7 +42,7 @@
         $_SESSION["user_data"] = $user_data;
 
         unset($_SESSION["sign_up_error"]);
-        header("Location: ../../pages/pages.php");
+        header("Location: ../../pages/main/main.php");
         exit();
     }
     catch (Exception $e) {

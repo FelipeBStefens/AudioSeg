@@ -19,6 +19,10 @@
     </head>
 
     <body>
-        
+        <?php include __DIR__ . "/../header/header.php"?>  
+
+        <main>
+            <h1>Hello</h1> 
+        </main>
     </body>
 </html>

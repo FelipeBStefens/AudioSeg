@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include __DIR__ . "/../server/validation.php";
+    include __DIR__ . "/../../server/validation.php";
 
     if (!validate_user()) {
         redirect();

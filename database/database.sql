@@ -264,7 +264,7 @@ GRANT
     INSERT (username,email,password_hash,cpf,birth_date,photo,description_user,id_phone,id_housing),
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
     DELETE,
-    SELECT (id_user,username,email,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
 ON audioseg_database.users
 TO 'researcher'@'localhost';
 
@@ -302,7 +302,7 @@ TO 'policeman'@'localhost';
 
 GRANT
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
-    SELECT (id_user,username,email,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
 ON audioseg_database.users
 TO 'policeman'@'localhost';
 
@@ -348,7 +348,7 @@ GRANT
     INSERT,
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
     DELETE,
-    SELECT (id_user,username,email,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
 ON audioseg_database.users
 TO 'delegate'@'localhost';
 
@@ -411,7 +411,7 @@ GRANT
     INSERT,
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
     DELETE,
-    SELECT (id_user,username,email,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
 ON audioseg_database.users
 TO 'director'@'localhost';
 

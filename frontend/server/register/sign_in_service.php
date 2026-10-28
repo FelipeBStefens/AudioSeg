@@ -11,6 +11,13 @@
         $user_data = get_user($email, $password);
         $_SESSION["user_data"] = $user_data;
 
+        if (isset($_POST["remember"])) {
+            $_SESSION["expiration_time"] = time() + (7 * 24 * 60 * 60);
+        }
+        else {
+            $_SESSION["expiration_time"] = time() + (24 * 60 * 60);
+        }
+
         unset($_SESSION["sign_in_error"]);
         header("Location: ../../pages/main/main.php");
         exit();

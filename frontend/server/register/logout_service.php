@@ -3,6 +3,7 @@
     session_start();
     session_destroy();
 
+    $_SESSION = [];
     header("Location: ../../index.html");
     exit();
 ?>

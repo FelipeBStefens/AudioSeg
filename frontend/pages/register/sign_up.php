@@ -8,6 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link rel="icon" href="../../assets/images/AudioSegLogo.png" type="image/png">
         <link rel="stylesheet" href="../../style/register/sign_up.css">
         <script defer src="../../script/register/sign_up.js"></script>
 

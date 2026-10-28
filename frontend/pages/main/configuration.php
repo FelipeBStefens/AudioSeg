@@ -1,10 +1,14 @@
 <?php
     session_start();
-    include __DIR__ . "/../../server/validation.php";
+
+    include __DIR__ . "/../../server/security/validation.php";
+    include __DIR__ . "/../../server/security/expiration.php";
 
     if (!validate_user()) {
         redirect();
     }
+
+    verify_expiration();
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +19,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
+        <link rel="icon" href="../../assets/images/AudioSegLogo.png" type="image/png">
+        <link rel="stylesheet" href="../../style/main/configuration.css">
+
         <title>AudioSeg - User Configuration</title>
     </head>
 

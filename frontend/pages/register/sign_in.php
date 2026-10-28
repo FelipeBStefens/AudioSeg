@@ -8,6 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
+        <link rel="icon" href="../../assets/images/AudioSegLogo.png" type="image/png">
         <link rel="stylesheet" href="../../style/register/sign_in.css">
         <script defer src="../../script/register/sign_in.js"></script>
 
@@ -50,7 +51,7 @@
                 
                 <div class="other_actions">
                     <div class="remember">
-                        <input type="checkbox" id="remember" name="remember">
+                        <input type="checkbox" id="remember" name="remember" value="true">
                         <label>Remember</label>
                     </div>
 

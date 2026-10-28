@@ -42,16 +42,22 @@ body {
     gap: 30px;
 }
 
-a{
+.bt_page{
     color: var(--alabaster-grey);
     text-decoration: none;
     font-size: 1.2rem;
     transition: 0.3s ease-in-out;
+
+    background-image: linear-gradient(var(--bright-gold), var(--bright-gold));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
 }
 
-a:hover{
+.bt_page:hover{
     transition: 0.3s ease-in-out;
     transform: scale(1.08);
+    background-size: 100% 2px;
 }
 
 button{

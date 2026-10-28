@@ -103,8 +103,8 @@ hr{
     border-radius: 8px;
     border: none;
     outline: none;
-    border: 2px solid var(--golden-glow-2);
-    background-color: rgb(154, 154, 154);
+    border: 3px solid var(--golden-glow-2);
+    background-color: rgb(179, 179, 179);
 }
 
 .save_bt_container{

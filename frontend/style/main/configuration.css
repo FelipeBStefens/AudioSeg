@@ -75,7 +75,7 @@ hr{
 }
 
 .input_group{
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     margin: 0 1rem;
@@ -103,7 +103,8 @@ hr{
     border-radius: 8px;
     border: none;
     outline: none;
-    background-color: var(--silver);
+    border: 2px solid var(--golden-glow-2);
+    background-color: rgb(154, 154, 154);
 }
 
 .save_bt_container{

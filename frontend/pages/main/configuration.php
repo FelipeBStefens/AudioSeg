@@ -51,37 +51,63 @@
 
             <hr>
 
+            
+
             <div class="input_group">
                 <label>Username</label>
-                <input class="input_bars" type="text" name="username">
+                <input 
+                    class="input_bars"
+                    type="text" name="username"
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['username']) : ''; ?>"
+                >
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label>E-mail</label>
-                <input class="input_bars" type="email" name="email">
+                <input
+                    class="input_bars" 
+                    type="email" 
+                    name="email"
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['email']) : ''; ?>"
+                    >
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label>Password</label>
-                <input class="input_bars" type="password" name="password">
+                <input 
+                    class="input_bars" 
+                    type="password" 
+                    name="password"
+                >
             </div>
             
             <hr>
 
             <div class="input_group">
                 <label>Birth Date</label>
-                <input class="input_bars" type="date" name="birth_date">
+                <input 
+                    class="input_bars" 
+                    type="date" 
+                    name="birth_date"
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['birth_date']) : ''; ?>"    
+                >
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label>Phone</label>
-                <input class="input_bars" type="text" name="phone">
+                <input 
+                    class="input_bars" 
+                    type="text" 
+                    name="phone"
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars(
+                        $_SESSION['user_data']['international_dialling_code'] . $_SESSION['user_data']['local_dialling_code'] . $_SESSION['user_data']['number_phone']) : ''; ?>"    
+                >
             </div>
 
             <hr>
@@ -96,21 +122,27 @@
                 <label><span class="material-symbols-rounded field_icon"
                         aria-hidden="true">local_post_office</span>Zip-Code</label>
                 <input class="input_bars" type="text" id="cep" name="cep" inputmode="numeric" autocomplete="postal-code"
-                    maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="CEP" required>
+                    maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="CEP" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['cep']) : ''; ?>"    
+                >
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon" aria-hidden="true">public</span>Country</label>
-                <input class="input_bars" type="text" id="country" name="country" required>
+                <input class="input_bars" type="text" id="country" name="country" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['country']) : ''; ?>"
+                >
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon" aria-hidden="true">map</span>State</label>
-                <input class="input_bars" type="text" id="state" name="state" required>
+                <input class="input_bars" type="text" id="state" name="state" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['state']) : ''; ?>"
+                >
             </div>
 
             <hr>
@@ -118,7 +150,9 @@
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon"
                         aria-hidden="true">location_city</span>City</label>
-                <input class="input_bars" type="text" id="city" name="city" required>
+                <input class="input_bars" type="text" id="city" name="city" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['city']) : ''; ?>"
+                >
             </div>
 
             <hr>
@@ -126,7 +160,9 @@
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon"
                         aria-hidden="true">home_work</span>Neighborhood</label>
-                <input class="input_bars" type="text" id="neighborhood" name="neighborhood" required>
+                <input class="input_bars" type="text" id="neighborhood" name="neighborhood" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['neighborhood']) : ''; ?>"
+                >
             </div>
 
             <hr>
@@ -134,7 +170,9 @@
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon"
                         aria-hidden="true">add_road</span>Street</label>
-                <input class="input_bars" type="text" id="street" name="street" required>
+                <input class="input_bars" type="text" id="street" name="street" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['street']) : ''; ?>"
+                >
             </div>
 
             <hr>
@@ -142,7 +180,9 @@
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon" aria-hidden="true">tag</span>Number</label>
                 <input class="input_bars" type="text" id="number" name="number_house" inputmode="numeric" maxlength="5"
-                    pattern="[0-9]{1,5}" title="Number" required>
+                    pattern="[0-9]{1,5}" title="Number" required
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['number_house']) : ''; ?>"
+                    >
             </div>
 
             <hr>
@@ -150,7 +190,9 @@
             <div class="input_group">
                 <label><span class="material-symbols-rounded field_icon"
                         aria-hidden="true">corporate_fare</span>Complement</label>
-                <input class="input_bars" type="text" id="complement" name="additional_information">
+                <input class="input_bars" type="text" id="complement" name="additional_information"
+                    value="<?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']['additional_information']) : ''; ?>"
+                >
             </div>
 
             <hr>
@@ -163,28 +205,28 @@
         <form aciton="#" method="POST" id="notifications" class="screen">
             <div class="input_group">
                 <label>Allow sound alarms</label>
-                <input class="input_bars" type="checkbox">
+                <input class="" type="checkbox">
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label>Allow Lorem Ipsum Dolor Sit Amet</label>
-                <input class="input_bars" type="checkbox">
+                <input class="" type="checkbox">
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label>Allow Lorem Ipsum Dolor Sit Amet</label>
-                <input class="input_bars" type="checkbox">
+                <input class="" type="checkbox">
             </div>
 
             <hr>
 
             <div class="input_group">
                 <label>Allow Lorem Ipsum Dolor Sit Amet</label>
-                <input class="input_bars" type="checkbox">
+                <input class="" type="checkbox">
             </div>
 
             <hr>

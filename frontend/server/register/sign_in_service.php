@@ -4,8 +4,15 @@
     
     require_once __DIR__ . "/../repository/data_access_object/sign_in_repository.php";
 
-    $email = $_POST["email"];
+    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
     $password = $_POST["password"];
+
+    if(!$email){
+        $_SESSION["sign_in_error"] = "Invalid E-mail";
+        http_response_code(400);
+        header("Location: ../../pages/register/sign_in.php");
+        exit;
+    }
 
     try {
         $user_data = get_user($email, $password);

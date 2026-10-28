@@ -5,16 +5,23 @@
     require_once __DIR__ . "/../repository/data_access_object/sign_up_repository.php";
     require_once __DIR__ . "/../repository/data_access_object/sign_in_repository.php";
 
-    $email = $_POST["email"];
+    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
     $password = $_POST["password"];
+
+    if(!$email){
+        $_SESSION["sign_in_error"] = "Invalid E-mail";
+        http_response_code(400);
+        header("Location: ../../pages/register/sign_in.php");
+        exit;
+    }
     
     $user_list = [
-        "username" => $_POST["username"], 
+        "username" => trim($_POST["username"]), 
         "email" => $email, 
         "password" => $password, 
         "cpf" => $_POST["cpf"], 
         "birth_date" => $_POST["birth_date"], 
-        "institute" => $_POST["institute"]
+        "institute" => trim($_POST["institute"])
     ];
 
     $phone = preg_replace("/\D/", '', $_POST["phone"]);
@@ -25,14 +32,14 @@
     ];
 
     $address_list = [
-        "country" => $_POST["country"], 
-        "state" => $_POST["state"], 
-        "city" => $_POST["city"], 
-        "neighborhood" => $_POST["neighborhood"], 
-        "street" => $_POST["street"], 
+        "country" => trim($_POST["country"]), 
+        "state" => trim($_POST["state"]), 
+        "city" => trim($_POST["city"]), 
+        "neighborhood" => trim($_POST["neighborhood"]), 
+        "street" => trim($_POST["street"]), 
         "cep" => $_POST["cep"], 
-        "number_house" => $_POST["number_house"], 
-        "additional_information" => $_POST["additional_information"]
+        "number_house" => trim($_POST["number_house"]), 
+        "additional_information" => trim($_POST["additional_information"])
     ];
 
     try {

@@ -17,11 +17,7 @@
 
     function validate_researcher() {
 
-        if (!isset($_SESSION["user_data"])) {
-            return false;
-        }
-
-        if ($_SESSION["user_data"]["role_user"] == "RESEARCHER") {
+        if (validate_user() && $_SESSION["user_data"]["role_user"] == "RESEARCHER") {
             return true;
         }
 
@@ -30,11 +26,7 @@
 
     function validate_policeman() {
 
-        if (!isset($_SESSION["user_data"])) {
-            return false;
-        }
-
-        if ($_SESSION["user_data"]["role_user"] == "POLICEMAN") {
+        if (validate_user() && $_SESSION["user_data"]["role_user"] == "POLICEMAN") {
             return true;
         }
 
@@ -43,11 +35,7 @@
 
     function validate_delegate() {
 
-        if (!isset($_SESSION["user_data"])) {
-            return false;
-        }
-
-        if ($_SESSION["user_data"]["role_user"] == "DELEGATE") {
+        if (validate_user() && $_SESSION["user_data"]["role_user"] == "DELEGATE") {
             return true;
         }
 
@@ -56,11 +44,7 @@
 
     function validate_director() {
 
-        if (!isset($_SESSION["user_data"])) {
-            return false;
-        }
-
-        if ($_SESSION["user_data"]["role_user"] == "DIRECTOR") {
+        if (validate_user() && $_SESSION["user_data"]["role_user"] == "DIRECTOR") {
             return true;
         }
 

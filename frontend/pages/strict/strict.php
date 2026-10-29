@@ -4,7 +4,7 @@
     include __DIR__ . "/../../server/security/validation.php";
     include __DIR__ . "/../../server/security/expiration.php";
 
-    if (!validate_user()) {
+    if (!validate_director()) {
         redirect();
     }
 

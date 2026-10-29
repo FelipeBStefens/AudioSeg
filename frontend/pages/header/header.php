@@ -1,10 +1,12 @@
+
 <header class="header_container">
+
     <div class="audioseg_title">
         <img src="../../assets/images/AudioSegLogo.png" alt="AudioSeg Logo" class="logo_img">
         <h2>AudioSeg</h2>
     </div>
 
-    <?php 
+    <?php
         if (validate_researcher()) {
             include __DIR__ . "/../header/header_researcher.php";
         }
@@ -19,14 +21,18 @@
         }
         else {
             redirect();
-        } 
+        }
     ?>
 
     <nav class="header_nav">
-        <a href="../main/settings.php" class="bt_page">User Configurations</a>
-                
+        <a href="../main/settings.php" class="header_icon" aria-label="User Configurations" title="User Configurations">
+            <span class="material-symbols-rounded">settings</span>
+        </a>
+
         <form action="../../server/register/logout_service.php" method="POST">
-            <button type="submit">Logout</button>
+            <button type="submit" class="header_icon logout_icon" aria-label="Logout" title="Logout">
+                <span class="material-symbols-rounded">logout</span>
+            </button>
         </form>
     </nav>
 </header>

@@ -1,5 +1,15 @@
+
 <nav class="header_pages">
-    <a href="../main/main.php" class="bt_page">Home</a>
-    <a href="../main/statistic.php" class="bt_page">Statistics</a>
-    <a href="../strict/strict.php" class="bt_page">Strict</a>
+    
+    <a href="../main/main.php" class="header_icon" aria-label="Home" title="Home">
+        <span class="material-symbols-rounded">home</span>
+    </a>
+
+    <a href="../main/statistic.php" class="header_icon" aria-label="Statistics" title="Statistics">
+        <span class="material-symbols-rounded">monitoring</span>
+    </a>
+
+    <a href="../strict/strict.php" class="header_icon" aria-label="Strict" title="Strict">
+        <span class="material-symbols-rounded">security</span>
+    </a>
 </nav>

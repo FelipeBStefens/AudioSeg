@@ -23,7 +23,7 @@
     ?>
 
     <nav class="header_nav">
-        <a href="../main/configuration.php" class="bt_page">User Configurations</a>
+        <a href="../main/settings.php" class="bt_page">User Configurations</a>
                 
         <form action="../../server/register/logout_service.php" method="POST">
             <button type="submit">Logout</button>

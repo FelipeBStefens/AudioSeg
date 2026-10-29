@@ -1,4 +1,6 @@
+
 function changeScreen(id, option_id){
+    
     let allScreens = document.querySelectorAll(".screen");
     allScreens.forEach(screen => {
         screen.classList.remove("active");

@@ -1,5 +1,9 @@
 <?php
 
+    //=========================
+    //  GET FUNCTIONS
+    //=========================
+
     function get_sql_auth() {
         return "
             SELECT id_user, password_hash, role_user 
@@ -238,6 +242,18 @@
         ";
     }
 
+    function get_id_address(){
+        return "
+            SELECT id_address 
+            FROM housing 
+            WHERE id_housing = ?; 
+        ";
+    }
+
+    //=========================
+    //  CREATION FUNCTIONS
+    //=========================
+
     function create_phone() {
         return "
             INSERT INTO phone (international_dialling_code, local_dialling_code, number_phone)
@@ -272,4 +288,41 @@
             VALUES (?, ?);
         ";
     }
+
+    //=========================
+    //  UPDATE FUNCTIONS
+    //=========================
+
+    function update_user(){
+        return "
+            UPDATE users
+            SET username = ?, email = ?, password_hash = ?, birth_date = ?, description_user = ?
+            WHERE id_user = ?;
+        ";
+    }
+
+    function update_phone(){
+        return "
+            UPDATE phone
+            SET international_dialling_code = ?, local_dialling_code = ?, number_phone = ?
+            WHERE id_phone = ?;
+        ";
+    }
+
+    function update_housing(){
+        return "
+            UPDATE housing
+            SET cep = ?, number_house = ?, additional_information = ?
+            WHERE id_address = ?;
+        ";
+    }
+
+    function update_address(){
+        return "
+            UPDATE address
+            SET country = ?, state = ?, city = ?, neighborhood = ?, street = ?
+            WHERE id_address = ?;
+        ";
+    }
 ?>
+

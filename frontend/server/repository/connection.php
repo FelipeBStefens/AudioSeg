@@ -36,4 +36,29 @@
     function system_connect() {
         return connect("system", "system123");
     }
+
+    function choose_user_connection(String $role){
+        
+        switch ($role) {
+
+            case 'RESEARCHER':
+                return researcher_connect();
+                break;
+
+            case 'DIRECTOR':
+                return director_connect();
+                break;
+
+            case 'DELEGATE':
+                return delegate_connect();
+                break;
+
+            case 'POLICEMAN':
+                return policeman_connect();
+                break;
+            
+            default:
+                break;
+        }
+    }
 ?>

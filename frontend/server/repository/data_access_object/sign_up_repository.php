@@ -80,7 +80,7 @@
         catch (Exception) {
             
             $connection->rollback();
-            throw new Exception("Credential Error, User not Created");
+            throw new Exception("Credential Error, User Not Created");
         }
     }
 ?>

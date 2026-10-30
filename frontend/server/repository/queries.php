@@ -1,9 +1,5 @@
 <?php
 
-    //=========================
-    //  GET FUNCTIONS
-    //=========================
-
     function get_sql_auth() {
         return "
             SELECT id_user, password_hash, role_user 
@@ -242,17 +238,6 @@
         ";
     }
 
-    function get_id_address(){
-        return "
-            SELECT id_address 
-            FROM housing 
-            WHERE id_housing = ?; 
-        ";
-    }
-
-    //=========================
-    //  CREATION FUNCTIONS
-    //=========================
 
     function create_phone() {
         return "
@@ -289,9 +274,6 @@
         ";
     }
 
-    //=========================
-    //  UPDATE FUNCTIONS
-    //=========================
 
     function update_user(){
         return "

@@ -1,18 +1,18 @@
 <?php
-
     session_start();
 
     require_once __DIR__ . "/../connection.php";
     require_once __DIR__ . "/../queries.php";
 
-    function edit_account(array $user, array $phone){
+    function edit_account(array $user, array $phone, String $user_role){
 
-        $connection = choose_user_connection($_SESSION["user_data"]["role_user"]);
+        $connection = user_connection($user_role);
 
         try{
             $connection->begin_transaction();
 
             $hash_password = password_hash($user["password"], PASSWORD_DEFAULT);
+            
             $user_statement = $connection->prepare(update_user());
             $user_statement->bind_param(
                 "sssssi",
@@ -26,49 +26,32 @@
             $user_statement->execute();
             $user_statement->close();
 
-
             $phone_statement = $connection->prepare(update_phone());
             $phone_statement->bind_param(
                 "iisi",
                 $phone["international_dialling_code"],
                 $phone["local_dialling_code"], 
                 $phone["number_phone"],
-                $user["id_phone"]
+                $phone["id_phone"]
             );
             $phone_statement->execute();
             $phone_statement->close();
 
             $connection->commit();
-
-        }catch (Exception) {
+        }
+        catch (Exception) {
             
             $connection->rollback();
-            throw new Exception("Credential Error, User Not Updated");
+            throw new Exception("User could not be Updated");
         }
-
     }
 
-    function edit_address(array $address, int $id_housing){
-        $connection = choose_user_connection($_SESSION["user_data"]["role_user"]);
+    function edit_address(array $address, String $user_role) {
+        
+        $connection = user_connection($user_role);
 
-        try{
-
+        try {
             $connection->begin_transaction();
-
-            $id_address_statement = $connection->prepare(get_id_address());
-            $id_address_statement->bind_param("i", $id_housing);
-            $id_address_statement->execute();
-
-            $result = $id_address_statement->get_result();
-            $row = $result->fetch_assoc();
-
-            if ($row) {
-                $id_address = $row['id_address']; 
-            } else {
-                $id_address = null;
-            }
-
-            $id_address_statement->close();
             
             $address_statement = $connection->prepare(update_address());
             $address_statement->bind_param(
@@ -78,7 +61,7 @@
                 $address["city"],
                 $address["neighborhood"],
                 $address["street"],
-                $id_address
+                $address["is_address"]
             );
             $address_statement->execute();
             $address_statement->close();
@@ -90,18 +73,17 @@
                 $address["cep"],
                 $address["number_house"],
                 $address["additional_information"],
-                $id_address
+                $address["id_housing"]
             );
             $housing_statement->execute();
             $housing_statement->close();
 
             $connection->commit();
-
-        }catch (Exception) {
+        }
+        catch (Exception) {
             
             $connection->rollback();
-            throw new Exception("Credential Error, User Not Updated");
+            throw new Exception("User Address could not be Updated");
         }
     }
-
 ?>

@@ -45,9 +45,8 @@
                 </nav>
             </aside>
 
-            <form action="#" method="POST" id="account" class="screen active">
+            <form action="../../server/main/settings_service.php" method="POST" id="account" class="screen active">
 
-                // It serves only to define, in SETTINGS.SERVICE, which method will be used.
                 <input type="hidden" name="action" value="account"> 
 
                 <div class="settings-heading">
@@ -136,9 +135,8 @@
                 </div>
             </form>
 
-            <form action="#" method="POST" id="address" class="screen">
+            <form action="../../server/main/settings_service.php" method="POST" id="address" class="screen">
 
-                // It serves only to define, in SETTINGS.SERVICE, which method will be used.
                 <input type="hidden" name="action" value="address"> 
 
                 <div class="settings-heading">
@@ -207,9 +205,8 @@
                 </div>
             </form>
 
-            <form action="#" method="POST" id="notifications" class="screen">
+            <form action="../../server/main/settings_service.php" method="POST" id="notifications" class="screen">
 
-                // It serves only to define, in SETTINGS.SERVICE, which method will be used.
                 <input type="hidden" name="action" value="notifications"> 
 
                 <div class="settings-heading">

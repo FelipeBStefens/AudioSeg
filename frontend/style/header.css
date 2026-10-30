@@ -72,12 +72,12 @@ body {
 }
 
 .header_icon:hover {
-    color: #fcde33ff;
+    color: var(--bright-gold);
     transform: scale(1.4);
 }
 
 .header_icon:focus-visible {
-    outline: 2px solid #fcde33ff;
+    outline: 2px solid var(--bright-gold);
     outline-offset: 3px;
 }
 
@@ -91,13 +91,15 @@ button.header_icon {
     font-family: inherit;
     box-shadow: none;
     letter-spacing: normal;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
 }
 
 button.header_icon:hover {
     background: transparent;
     box-shadow: none;
-    color: #fcde33ff;
+    color: var(--bright-gold);
 }
 
 .logout_icon .material-symbols-rounded {

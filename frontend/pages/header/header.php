@@ -25,7 +25,7 @@
     ?>
 
     <nav class="header_nav">
-        <a href="../main/setting.php" class="header_icon" aria-label="User Configurations" title="User Configurations">
+        <a href="../main/settings.php" class="header_icon" aria-label="User Configurations" title="User Configurations">
             <span class="material-symbols-rounded">settings</span>
         </a>
 

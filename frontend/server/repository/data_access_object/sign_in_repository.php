@@ -1,7 +1,7 @@
 <?php
 
     require_once __DIR__ . "/../connection.php";
-    require_once __DIR__ . "/../queries.php";
+    require_once __DIR__ . "/../queries/auth_queries.php";
 
     function get_user(String $email, String $password) {
 

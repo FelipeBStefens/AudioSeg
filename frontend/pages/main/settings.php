@@ -148,7 +148,18 @@
                     
                     <div class="section-heading">
                         <span class="material-symbols-rounded">location_on</span>
-                        <h3>Location details</h3>
+                        <div>
+                            <h3>Location details</h3>
+                            <?php
+                                if (isset($_SESSION["settings_error"])) {
+
+                                    $message = $_SESSION["settings_error"];
+                                    echo "<p style='color:red;'>$message</p>";
+
+                                    unset($_SESSION["settings_error"]);
+                                }
+                            ?>
+                        </div>
                     </div>
 
                     <div class="field-grid">

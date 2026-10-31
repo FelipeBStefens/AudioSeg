@@ -1,8 +1,7 @@
 <?php
-    session_start();
 
     require_once __DIR__ . "/../connection.php";
-    require_once __DIR__ . "/../queries.php";
+    require_once __DIR__ . "/../queries/update_queries.php";
 
     function edit_account(array $user, array $phone, String $user_role){
 
@@ -61,7 +60,7 @@
                 $address["city"],
                 $address["neighborhood"],
                 $address["street"],
-                $address["is_address"]
+                $address["id_address"]
             );
             $address_statement->execute();
             $address_statement->close();

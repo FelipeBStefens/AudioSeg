@@ -1,7 +1,7 @@
 <?php
 
     require_once __DIR__ . "/../connection.php";
-    require_once __DIR__ . "/../queries.php";
+    require_once __DIR__ . "/../queries/create_queries.php";
 
     function add_researcher(array $user, array $phone, array $address) {
 

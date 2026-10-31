@@ -1,5 +1,5 @@
 <?php
-
+    
     function get_sql_auth() {
         return "
             SELECT id_user, password_hash, role_user 
@@ -237,74 +237,4 @@
             WHERE u.id_user = ?;
         ";
     }
-
-
-    function create_phone() {
-        return "
-            INSERT INTO phone (international_dialling_code, local_dialling_code, number_phone)
-            VALUES (?, ?, ?);
-        ";
-    }
-
-    function create_address() {
-        return "
-            INSERT INTO address (country, state, city, neighborhood, street) 
-            VALUES (?, ?, ?, ?, ?);
-        ";
-    }
-
-    function create_housing() {
-        return "
-            INSERT INTO housing (cep, number_house, additional_information, id_address) 
-            VALUES (?, ?, ?, ?);
-        ";
-    }
-
-    function create_user() {
-        return "
-            INSERT INTO users (username, email, password_hash, cpf, birth_date, id_phone, id_housing) 
-            VALUES (?, ?, ?, ?, ?, ?, ?);
-        ";
-    }
-
-    function create_researcher() {
-        return "
-            INSERT INTO researcher (institute, id_user) 
-            VALUES (?, ?);
-        ";
-    }
-
-
-    function update_user(){
-        return "
-            UPDATE users
-            SET username = ?, email = ?, password_hash = ?, birth_date = ?, description_user = ?
-            WHERE id_user = ?;
-        ";
-    }
-
-    function update_phone(){
-        return "
-            UPDATE phone
-            SET international_dialling_code = ?, local_dialling_code = ?, number_phone = ?
-            WHERE id_phone = ?;
-        ";
-    }
-
-    function update_housing(){
-        return "
-            UPDATE housing
-            SET cep = ?, number_house = ?, additional_information = ?
-            WHERE id_address = ?;
-        ";
-    }
-
-    function update_address(){
-        return "
-            UPDATE address
-            SET country = ?, state = ?, city = ?, neighborhood = ?, street = ?
-            WHERE id_address = ?;
-        ";
-    }
 ?>
-

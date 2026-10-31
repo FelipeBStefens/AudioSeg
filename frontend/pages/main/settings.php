@@ -24,7 +24,7 @@
 
         <link rel="icon" href="../../assets/images/AudioSegLogo.png" type="image/png">
         <link rel="stylesheet" href="../../style/main/settings.css">
-        <script src="../../script/main/settings.js" defer></script>
+        <script src="../../script/main/settings.js"></script>
 
         <title>AudioSeg - User Configuration</title>
     </head>

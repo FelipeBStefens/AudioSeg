@@ -1,10 +1,7 @@
-
-"use strict";
-
 function changeScreen(id, optionId) {
+
     const allScreens = document.querySelectorAll(".screen");
     const allOptions = document.querySelectorAll(".edition_opt");
-
     const currentScreen = document.getElementById(id);
     const currentOption = document.getElementById(optionId);
 
@@ -12,9 +9,7 @@ function changeScreen(id, optionId) {
         return;
     }
 
-    allScreens.forEach((screen) => {
-        screen.classList.remove("active");
-    });
+    allScreens.forEach((screen) => {screen.classList.remove("active");});
 
     allOptions.forEach((option) => {
         option.classList.remove("opt_active");
@@ -26,40 +21,34 @@ function changeScreen(id, optionId) {
     currentOption.setAttribute("aria-current", "page");
 }
 
-// Contador de caracteres da descrição.
+
 const description = document.getElementById("description");
 const descriptionCount = document.getElementById("description_count");
 
 function updateDescriptionCount() {
+
     if (!description || !descriptionCount) {
         return;
     }
-
     descriptionCount.textContent = description.value.length;
 }
 
-description?.addEventListener("input", updateDescriptionCount);
+description.addEventListener("input", updateDescriptionCount);
 updateDescriptionCount();
 
-// Pré-visualização da foto de perfil.
+
 const photoInput = document.getElementById("profile_photo");
 const profileImage = document.getElementById("profile_preview");
-
 let previewUrl = null;
 
 photoInput?.addEventListener("change", () => {
-    const file = photoInput.files?.[0];
 
+    const file = photoInput.files?.[0];
     if (!file) {
         return;
     }
 
-    const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-    ];
-
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
     const maxSize = 2 * 1024 * 1024;
 
     if (!allowedTypes.includes(file.type) || file.size > maxSize) {
@@ -76,24 +65,70 @@ photoInput?.addEventListener("change", () => {
     profileImage.src = previewUrl;
 });
 
+
+const securityDialog = document.getElementById("security_dialog");
+const dialogTitle = document.getElementById("dialog_title");
+const closeDialog = document.getElementById("close_dialog");
+const securityForms = document.querySelectorAll(".security-form");
+
+const dialogOptions = {
+    "change-email": {title: "Change e-mail", form: "email_form"},
+    "change-phone": {title: "Change phone", form: "phone_form"},
+    "change-password": {title: "Change password", form: "password_form"},
+    "delete-account": {title: "Delete account", form: "delete_form"}
+};
+
+function openSecurityDialog(action) {
+
+    const option = dialogOptions[action];
+    if (!option) {
+        return;
+    }
+
+    securityForms.forEach((form) => {
+        form.reset();
+        form.hidden = true;
+    });
+
+    const selectedForm = document.getElementById(option.form);
+    if (!selectedForm) {
+        return;
+    }
+
+    selectedForm.hidden = false;
+    dialogTitle.textContent = option.title;
+    
+    securityDialog.showModal();
+}
+
+function closeSecurityDialog() {
+    if (securityDialog.open) {
+        securityDialog.close();
+    }
+}
+
+
 document.querySelectorAll("[data-action]").forEach((button) => {
+
     button.addEventListener("click", () => {
         const action = button.dataset.action;
-
-        switch (action) {
-            case "change-email":
-                alert("The secure e-mail change flow must be implemented.");
-                break;
-
-            case "change-phone":
-                alert("The secure phone change flow must be implemented.");
-                break;
-
-            case "change-password":
-                alert("The secure password change flow must be implemented.");
-                break;
-        }
+        openSecurityDialog(action);
     });
 });
+
+closeDialog.addEventListener("click", closeSecurityDialog);
+
+document.querySelectorAll(".cancel-dialog").forEach((button) => {
+    button.addEventListener("click", closeSecurityDialog);
+});
+
+securityDialog.addEventListener("close", () => {
+
+    securityForms.forEach((form) => {
+        form.reset();
+        form.hidden = true;
+    });
+});
+
 
 changeScreen("account", "account_opt");

@@ -89,7 +89,19 @@
         
         case 'notifications':
             break;
+        
+        case 'change_email':
+            break;
 
+        case 'change_phone':
+            break;
+
+        case 'change_password':
+            break;
+        
+        case 'delete_account':
+            break;
+            
         default:
             break;
     }

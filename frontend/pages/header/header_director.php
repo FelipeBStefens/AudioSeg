@@ -9,7 +9,15 @@
         <span class="material-symbols-rounded">monitoring</span>
     </a>
 
-    <a href="../strict/strict.php" class="header_icon" aria-label="Strict" title="Strict">
-        <span class="material-symbols-rounded">security</span>
+    <a href="../strict/real_time_map.php" class="header_icon" aria-label="Real Time Map" title="Real Time Map">
+        <span class="material-symbols-rounded">map</span>
+    </a>
+
+    <a href="../strict/police_station.php" class="header_icon" aria-label="Police Station" title="Police Station">
+        <span class="material-symbols-rounded">local_police</span>
+    </a>
+
+    <a href="../strict/researcher_settings.php" class="header_icon" aria-label="Researcher Settings" title="Researcher Settings">
+        <span class="material-symbols-rounded">experiment</span>
     </a>
 </nav>

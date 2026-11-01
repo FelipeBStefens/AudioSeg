@@ -29,7 +29,7 @@
         <?php include __DIR__ . "/../header/header.php"?>
 
         <main>
-            <h1>Hello</h1> 
+            <h1>Statistic Models</h1> 
         </main>
     </body>
 </html>

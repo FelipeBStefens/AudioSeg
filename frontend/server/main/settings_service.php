@@ -73,6 +73,12 @@
             break;
         
         case 'change_email':
+            $email_list = [
+                "id_user" => $user["id_user"],
+                "email" => $_POST["email"],
+                "password_hash" => password_hash($_POST["current_password"], PASSWORD_DEFAULT)
+            ];
+            
             break;
 
         case 'change_phone':

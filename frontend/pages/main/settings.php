@@ -90,6 +90,17 @@
                             <input class="input_bars" id="birth_date" type="date" name="birth_date" value="<?php echo $user["birth_date"]; ?>">
                         </div>
 
+                        <?php
+                            if ($user["role_user"] == "RESEARCHER") {
+                        ?>
+                        <div class="input_group full-width">
+                            <label for="institute">Institute</label>
+                            <input class="input_bars institute" id="institute" name="institute" value="<?php echo $user["institute"]; ?>">
+                        </div>
+                        <?php  
+                            }
+                        ?>
+
                         <div class="input_group full-width">
                             <label for="description">Profile description</label>
                             <textarea class="input_bars description-input" id="description" name="description" maxlength="300" rows="4" placeholder="Description..."><?php echo $user["description"] ?? ""; ?></textarea>

@@ -259,7 +259,7 @@ aside {
 .input_group label, .private-field label {
     color: var(--alabaster-grey);
 
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
@@ -302,6 +302,10 @@ aside {
     min-height: 115px;
 
     line-height: 1.6;
+}
+
+.institute {
+    
 }
 
 .field-hint {

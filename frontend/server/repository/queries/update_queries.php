@@ -32,6 +32,14 @@
         ";
     }
 
+    function update_researcher() {
+        return "
+            UPDATE users AS u INNER JOIN researcher AS r ON u.id_user = r.id_user
+            SET u.username = ?, u.birth_date = ?, u.description_user = ?, u.photo = ?, r.institute = ?
+            WHERE u.id_user = ?;
+        ";
+    }
+
     function update_email() {
         return "
             UPDATE users

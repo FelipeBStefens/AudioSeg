@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <input type="file" id="profile_photo" name="profile_photo" class="file-input" accept="image/jpeg,image/png,image/webp">
+                <input type="file" id="profile_photo" name="photo" class="file-input" accept="image/jpeg,image/png,image/webp">
 
                 <div class="settings-section">
                     <div class="section-heading">

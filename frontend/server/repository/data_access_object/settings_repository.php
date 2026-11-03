@@ -2,39 +2,14 @@
 
     require_once __DIR__ . "/../connection.php";
     require_once __DIR__ . "/../queries/update_queries.php";
+    require_once __DIR__ . "/../queries/delete_queries.php";
 
-    function edit_account(array $user, array $phone, String $user_role){
+    function edit_account(array $user, String $user_role){
 
         $connection = user_connection($user_role);
 
         try{
             $connection->begin_transaction();
-
-            $hash_password = password_hash($user["password"], PASSWORD_DEFAULT);
-            
-            $user_statement = $connection->prepare(update_user());
-            $user_statement->bind_param(
-                "sssssi",
-                $user["username"],
-                $user["email"],
-                $hash_password,
-                $user["birth_date"],
-                $user["description_user"],
-                $user["id_user"]
-            );
-            $user_statement->execute();
-            $user_statement->close();
-
-            $phone_statement = $connection->prepare(update_phone());
-            $phone_statement->bind_param(
-                "iisi",
-                $phone["international_dialling_code"],
-                $phone["local_dialling_code"], 
-                $phone["number_phone"],
-                $phone["id_phone"]
-            );
-            $phone_statement->execute();
-            $phone_statement->close();
 
             $connection->commit();
         }
@@ -43,6 +18,22 @@
             $connection->rollback();
             throw new Exception("User could not be Updated");
         }
+    }
+
+    function edit_email(array $email_list, String $user_role) {
+
+    }
+
+    function edit_password(array $password_list, String $user_role) {
+
+    }
+
+    function edit_phone(array $phone_list, $user_role) {
+
+    }
+
+    function delete_user(array $delete_list, $user_role) {
+
     }
 
     function edit_address(array $address, String $user_role) {
@@ -84,5 +75,9 @@
             $connection->rollback();
             throw new Exception("User Address could not be Updated");
         }
+    }
+
+    function edit_notifications() {
+
     }
 ?>

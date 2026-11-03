@@ -9,35 +9,17 @@
 
     switch($action){
         
-        case 'account':
-            $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
-            $password = $_POST["password"];
-
-            if(!$email) {
-                $_SESSION["sign_in_error"] = "Invalid E-mail";
-                header("Location: ../../pages/main/settings.php");
-                exit;
-            }
-            
+        case 'account': 
             $user_list = [
                 "id_user" => $user["id_user"],
-                "username" => trim($_POST["username"]), 
-                "email" => $email, 
-                "password" => $password, 
+                "username" => trim($_POST["username"]),  
                 "birth_date" => $_POST["birth_date"], 
-                "description_user" => trim($_POST["description"])
-            ];
-
-            $phone = preg_replace("/\D/", '', $_POST["phone"]);
-            $phone_list = [
-                "id_phone" => $user["id_phone"],
-                "international_dialling_code" => substr($phone, 0, 2),
-                "local_dialling_code" => substr($phone, 2, 2),
-                "number_phone" => substr($phone, 4, 5) . "-" . substr($phone, 9, 4)
+                "description_user" => trim($_POST["description"]),
+                "photo" => $_POST["photo"]
             ];
 
             try {
-                edit_account($user_list, $phone_list, $user_role);
+                edit_account($user_list, $user_role);
             }
             catch(Exception) {
             }

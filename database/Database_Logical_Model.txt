@@ -1,7 +1,7 @@
 Database Logical Model
 
 User(__id_user__, username, email, password_hash, role, cpf, birth_date, photo, description, #id_housing, #id_phone);
-
+ 
 Researcher(__id_researcher__, institute, expiration_date, #id_user);
 
 Policeman(__id_policeman__, badge, status, start_period, end_period, #id_user, #id_police_station);

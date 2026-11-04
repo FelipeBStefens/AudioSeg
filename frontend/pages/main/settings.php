@@ -57,7 +57,7 @@
 
                 <div class="profile-card">
                     <div class="profile-avatar">
-                        <img src="../../assets/images/profile_photo.jpg" alt="Profile photo" class="profile" id="profile_preview">
+                        <img src="../../<?php echo $user["photo"] ?? "assets/images/profile_photo.jpg"?>" alt="Profile photo" class="profile" id="profile_preview">
 
                         <label class="avatar-edit" for="profile_photo" title="Change profile photo">
                             <span class="material-symbols-rounded" aria-hidden="true"> photo_camera</span>
@@ -75,7 +75,19 @@
                 <div class="settings-section">
                     <div class="section-heading">
                         <span class="material-symbols-rounded">person</span>
-                        <h3>Personal information</h3>
+                        <div>
+                            <h3>Personal information</h3>
+
+                            <?php
+                                if (isset($_SESSION["settings_error"])) {
+
+                                    $message = $_SESSION["settings_error"];
+                                    echo "<p class='form-error'>" . $message . "</p>";
+                                        
+                                    unset($_SESSION["settings_error"]);
+                                }
+                            ?>
+                        </div>                        
                     </div>
 
                     <div class="field-grid">
@@ -103,7 +115,7 @@
 
                         <div class="input_group full-width">
                             <label for="description">Profile description</label>
-                            <textarea class="input_bars description-input" id="description" name="description" maxlength="300" rows="4" placeholder="Description..."><?php echo $user["description"] ?? ""; ?></textarea>
+                            <textarea class="input_bars description-input" id="description" name="description_user" maxlength="300" rows="4" placeholder="Description..."><?php echo $user["description_user"] ?? ""; ?></textarea>
 
                             <span class="field-hint">
                                 <span id="description_count">0</span>/300 characters

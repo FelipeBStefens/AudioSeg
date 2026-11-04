@@ -2,28 +2,77 @@
     session_start();
 
     require_once __DIR__ . "/../repository/data_access_object/settings_repository.php";
+    require_once __DIR__ . "/../repository/upload_photo.php";
 
     $action = $_POST["action"];
     $user = $_SESSION["user_data"];
     $user_role = $user["role_user"];
 
     switch($action){
-        
+         
         case 'account': 
-            $user_list = [
-                "id_user" => $user["id_user"],
-                "username" => trim($_POST["username"]),  
-                "birth_date" => $_POST["birth_date"], 
-                "description_user" => trim($_POST["description"]),
-                "photo" => $_POST["photo"]
-            ];
-
             try {
+
+                $filepath = $user["photo"];
+                $old_photo = $user["photo"];
+
+                if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] !== UPLOAD_ERR_NO_FILE) {
+                    $filepath = upload_photo($_FILES["photo"], $user["id_user"]);
+                }
+
+                $user_list = [
+                    "id_user" => $user["id_user"],
+                    "username" => trim($_POST["username"]),  
+                    "birth_date" => $_POST["birth_date"], 
+                    "description_user" => trim($_POST["description_user"]),
+                    "photo" => $filepath
+                ];
+
+                if ($user_role == "RESEARCHER") {
+                    $user_list["institute"] = trim($_POST["institute"]);
+                }
+
                 edit_account($user_list, $user_role);
+
+                if ($filepath !== $old_photo) {
+
+                    $oldPhotoPath = __DIR__ . "/../../" . $old_photo;
+
+                    if (file_exists($oldPhotoPath)) {
+                        unlink($oldPhotoPath);
+                    }
+                }
+
+                $user["username"] = $user_list["username"];
+                $user["birth_date"] = $user_list["birth_date"];
+                $user["description_user"] = $user_list["description_user"];
+                $user["photo"] = $user_list["photo"];
+
+                if ($user_role == "RESEARCHER") {
+                    $user["institute"] = $user_list["institute"];
+                }
+
+                $_SESSION["user_data"] = $user;
+
+                unset($_SESSION["settings_error"]);
+                header("Location: ../../pages/main/settings.php");
+                exit();
             }
-            catch(Exception) {
+            catch(Exception $e) {
+
+                if ($e->getMessage() == "User could not be Updated") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "Server could not load File") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else {
+                    $_SESSION["settings_error"] = "Server Error";
+                }
+
+                header("Location: ../../pages/main/settings.php");
+                exit();
             }
-            break;
 
         case 'address':
             $address_list = [

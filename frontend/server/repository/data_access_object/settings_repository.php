@@ -9,13 +9,36 @@
         $connection = user_connection($user_role);
 
         try{
-            $connection->begin_transaction();
+            if ($user_role == "RESEARCHER") {
+                
+                $account_statement = $connection->prepare(update_researcher());
+                $account_statement->bind_param(
+                    "sssssi",
+                    $user["username"],
+                    $user["birth_date"],
+                    $user["description_user"],
+                    $user["photo"],
+                    $user["institute"],
+                    $user["id_user"]
+                );
+                $account_statement->execute();
+            }
+            else {
 
-            $connection->commit();
+                $account_statement = $connection->prepare(update_user());
+                $account_statement->bind_param(
+                    "ssssi",
+                    $user["username"],
+                    $user["birth_date"],
+                    $user["description_user"],
+                    $user["photo"],
+                    $user["id_user"]
+                );
+                $account_statement->execute();
+            }
         }
         catch (Exception) {
             
-            $connection->rollback();
             throw new Exception("User could not be Updated");
         }
     }
@@ -33,7 +56,7 @@
 
     }
 
-    function delete_user(array $delete_list, $user_role) {
+    function remove_user(array $delete_list, $user_role) {
 
     }
 

@@ -45,7 +45,7 @@
     }
 
     function edit_email(array $email_list, String $user_role) {
-
+        
         $auth_connection = auth_connect();
 
         $statement = $auth_connection->prepare(get_sql_auth());
@@ -63,7 +63,7 @@
                 
                 try{
                     $connection->begin_transaction();
-
+    
                     $email_statement = $connection->prepare(update_email());
                     $email_statement->bind_param(
                         "si",
@@ -93,11 +93,55 @@
     }
 
     function edit_password(array $password_list, String $user_role) {
-
+        
     }
 
     function edit_phone(array $phone_list, $user_role) {
+        $auth_connection = auth_connect();
 
+        $statement = $auth_connection->prepare(get_sql_auth());
+        $statement->bind_param("s", $_SESSION["user_data"]["email"]);
+        $statement->execute();
+        $query = $statement->get_result();
+
+        $connection = user_connection($user_role);
+
+        if ($query->num_rows == 1) {
+
+            $auth = $query->fetch_assoc();
+
+            if (password_verify($phone_list["current_password"], $auth["password_hash"])) {
+                try{
+                    $connection->begin_transaction();
+                    
+                    $phone_statement = $connection->prepare(update_phone());
+                    $phone_statement->bind_param(
+                        "iisi",
+                        $phone_list["international_dialling_code"],
+                        $phone_list["local_dialling_code"],
+                        $phone_list["number_phone"],
+                        $_SESSION["user_data"]["id_user"]
+                    );
+
+                    $phone_statement->execute();
+                    $phone_statement->close();
+
+                    $connection->commit();
+                }
+                catch (Exception) {
+                    
+                    $connection->rollback();
+                    throw new Exception("Phone Number could not be Updated");
+                }
+
+            }
+            else {
+                throw new Exception("Password Invalid");
+            }
+        }
+        else {
+            throw new Exception("User Not Found");
+        }
     }
 
     function remove_user(array $delete_list, $user_role) {

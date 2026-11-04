@@ -9,7 +9,7 @@
     if(!$email){
         $_SESSION["sign_in_error"] = "Invalid E-mail";
         header("Location: ../../pages/register/sign_in.php");
-        exit;
+        exit();
     }
 
     try {

@@ -369,7 +369,7 @@
 
                 <div class="input_group">
                     <label for="new_phone">New phone number</label>
-                    <input class="input_bars" type="tel" id="new_phone" name="new_phone" autocomplete="tel" placeholder="Enter your new phone number" required>
+                    <input class="input_bars" type="tel" id="new_phone" name="new_phone" pattern="\([0-9]{2}\) [0-9]{2} [0-9]{5}-[0-9]{4}" autocomplete="tel" placeholder="Enter your new phone number" required>
                 </div>
 
                 <div class="dialog-actions">

@@ -2,7 +2,7 @@
 
     function update_phone() {
         return "
-            UPDATE phone AS p INNER JOIN users AS u ON p.id_user = u.id_user
+            UPDATE phone AS p INNER JOIN users AS u ON p.id_phone = u.id_phone
             SET p.international_dialling_code = ?, p.local_dialling_code = ?, p.number_phone = ?
             WHERE u.id_user = ?;
         ";

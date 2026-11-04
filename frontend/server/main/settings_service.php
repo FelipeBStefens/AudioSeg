@@ -1,13 +1,9 @@
 <?php
     session_start();
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
-
     require_once __DIR__ . "/../repository/data_access_object/settings_repository.php";
     require_once __DIR__ . "/../repository/upload_photo.php";
+    require_once __DIR__ . "/../error_identifier.php";
 
     $action = $_POST["action"];
     $user = $_SESSION["user_data"];
@@ -127,19 +123,29 @@
             break;
         
         case 'change_email':
+
+            $email = $_POST["new_email"];
+            $verify_email = filter_var(trim($email), FILTER_VALIDATE_EMAIL);
+
             $email_list = [
                 "id_user" => $user["id_user"],
-                "email" => $_POST["new_email"],
+                "email" => $email,
                 "current_password" => $_POST["current_password"]
             ];
 
-            if($email_list["email"] != $_POST["confirm_email"]){
-                //ARRUMAR ISSO AQUI
-                throw new Exception("Different Emails!");
-                exit();
-            }
-
             try{
+
+                if(!$verify_email){
+                    throw new Exception("Invalid Email Format!");
+                    header("Location: ../../pages/main/settings.php");
+                    exit();
+                }
+
+                if($email_list["email"] != $_POST["confirm_email"]){
+                    throw new Exception("The Emails Are Different!");
+                    exit();
+                }
+
                 edit_email($email_list, $user_role);
 
                 $user["email"] = $email_list["email"];
@@ -163,6 +169,41 @@
             }
 
         case 'change_phone':
+
+            $phone = preg_replace("/\D/", '', $_POST["new_phone"]);
+            $phone_list = [
+                "international_dialling_code" => substr($phone, 0, 2),
+                "local_dialling_code" => substr($phone, 2, 2),
+                "number_phone" => substr($phone, 4, 5) . "-" . substr($phone, 9, 4),
+                "current_password" => $_POST["current_password"]
+            ];
+            try{
+
+                edit_phone($phone_list, $user_role);
+                
+                $user["international_dialling_code"] = $phone_list["international_dialling_code"];
+                $user["local_dialling_code"] = $phone_list["local_dialling_code"];
+                $user["number_phone"] = $phone_list["number_phone"];
+
+                $_SESSION["user_data"] = $user;
+
+                unset($_SESSION["settings_error"]);
+                header("Location: ../../pages/main/settings.php");
+                exit();
+
+            }catch(Exception $e) {
+                
+                if ($e->getMessage() == "Phone Number could not be Updated") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else {
+                    $_SESSION["settings_error"] = "Server Error";
+                }
+
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
+
             break;
 
         case 'change_password':

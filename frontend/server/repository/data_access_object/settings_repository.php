@@ -2,6 +2,7 @@
 
     require_once __DIR__ . "/../connection.php";
     require_once __DIR__ . "/../queries/update_queries.php";
+    require_once __DIR__ . "/../queries/auth_queries.php";
     require_once __DIR__ . "/../queries/delete_queries.php";
 
     function edit_account(array $user, String $user_role){
@@ -22,7 +23,50 @@
 
     function edit_email(array $email_list, String $user_role) {
 
-        
+        $auth_connection = auth_connect();
+
+        $statement = $auth_connection->prepare(get_sql_auth());
+        $statement->bind_param("s", $_SESSION["user_data"]["email"]);
+        $statement->execute();
+        $query = $statement->get_result();
+
+        $connection = user_connection($user_role);
+
+        if ($query->num_rows == 1) {
+
+            $auth = $query->fetch_assoc();
+
+            if (password_verify($email_list["current_password"], $auth["password_hash"])) {
+                
+                try{
+                    $connection->begin_transaction();
+
+                    $email_statement = $connection->prepare(update_email());
+                    $email_statement->bind_param(
+                        "si",
+                        $email_list["email"],
+                        $_SESSION["user_data"]["id_user"]
+                    );
+
+                    $email_statement->execute();
+                    $email_statement->close();
+
+                    $connection->commit();
+                }
+                catch (Exception) {
+                    
+                    $connection->rollback();
+                    throw new Exception("Email could not be Updated");
+                }
+
+            }
+            else {
+                throw new Exception("Password Invalid");
+            }
+        }
+        else {
+            throw new Exception("User Not Found");
+        }
     }
 
     function edit_password(array $password_list, String $user_role) {
@@ -33,9 +77,9 @@
 
     }
 
-    function delete_user(array $delete_list, $user_role) {
+    //function delete_user_repo(array $delete_list, $user_role) {
 
-    }
+    //}
 
     function edit_address(array $address, String $user_role) {
         

@@ -1,6 +1,11 @@
 <?php
     session_start();
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+
     require_once __DIR__ . "/../repository/data_access_object/settings_repository.php";
 
     $action = $_POST["action"];
@@ -75,9 +80,38 @@
         case 'change_email':
             $email_list = [
                 "id_user" => $user["id_user"],
-                "email" => $_POST["email"],
-                "password_hash" => password_hash($_POST["current_password"], PASSWORD_DEFAULT)
+                "email" => $_POST["new_email"],
+                "current_password" => $_POST["current_password"]
             ];
+
+            if(!$email_list["email"] != $_POST["confirm_email"]){
+                //ARRUMAR ISSO AQUI
+                throw new Exception("Different Emails!");
+                exit();
+            }
+
+            try{
+                edit_email($email_list, $user_role);
+
+                $user["email"] = $email_list["email"];
+                $_SESSION["user_data"] = $user;
+
+                unset($_SESSION["settings_error"]);
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
+            catch(Exception $e) {
+                
+                if ($e->getMessage() == "User Email could not be Updated") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else {
+                    $_SESSION["settings_error"] = "Server Error";
+                }
+
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
             
             break;
 

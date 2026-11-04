@@ -4,7 +4,7 @@
         return "
             UPDATE phone AS p INNER JOIN users AS u ON p.id_user = u.id_user
             SET p.international_dialling_code = ?, p.local_dialling_code = ?, p.number_phone = ?
-            WHERE u.id_user = ? AND u.password_hash = ?;
+            WHERE u.id_user = ?;
         ";
     }
 
@@ -44,7 +44,7 @@
         return "
             UPDATE users
             SET email = ?
-            WHERE id_user = ? AND password_hash = ?;
+            WHERE id_user = ?;
         ";
     }
 
@@ -52,7 +52,7 @@
         return "
             UPDATE users
             SET password_hash = ?
-            WHERE id_user = ? AND password_hash = ?;
+            WHERE id_user = ?;
         ";
     }
 ?>

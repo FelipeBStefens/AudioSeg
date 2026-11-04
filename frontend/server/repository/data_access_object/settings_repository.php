@@ -102,7 +102,7 @@
 
     function remove_user(array $delete_list, $user_role) {
 
-    //}
+    }
 
     function edit_address(array $address, String $user_role) {
         

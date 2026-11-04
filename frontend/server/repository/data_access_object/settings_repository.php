@@ -5,6 +5,7 @@
     require_once __DIR__ . "/../queries/auth_queries.php";
     require_once __DIR__ . "/../queries/delete_queries.php";
 
+
     function edit_account(array $user, String $user_role){
 
         $connection = user_connection($user_role);
@@ -43,6 +44,7 @@
             throw new Exception("User could not be Updated");
         }
     }
+
 
     function edit_email(array $email_list, String $user_role) {
         
@@ -92,9 +94,54 @@
         }
     }
 
+
     function edit_password(array $password_list, String $user_role) {
-        
+        $auth_connection = auth_connect();
+
+        $statement = $auth_connection->prepare(get_sql_auth());
+        $statement->bind_param("s", $_SESSION["user_data"]["email"]);
+        $statement->execute();
+        $query = $statement->get_result();
+
+        $connection = user_connection($user_role);
+
+        if ($query->num_rows == 1) {
+
+            $auth = $query->fetch_assoc();
+
+            if (password_verify($password_list["current_password"], $auth["password_hash"])) {
+                
+                try{
+                    $connection->begin_transaction();
+    
+                    $password_statement = $connection->prepare(update_password());
+                    $password_statement->bind_param(
+                        "si",
+                        password_hash($password_list["password"], PASSWORD_DEFAULT),
+                        $_SESSION["user_data"]["id_user"]
+                    );
+
+                    $password_statement->execute();
+                    $password_statement->close();
+
+                    $connection->commit();
+                }
+                catch (Exception) {
+                    
+                    $connection->rollback();
+                    throw new Exception("Password could not be Updated");
+                }
+
+            }
+            else {
+                throw new Exception("Password Invalid");
+            }
+        }
+        else {
+            throw new Exception("User Not Found");
+        }
     }
+
 
     function edit_phone(array $phone_list, $user_role) {
         $auth_connection = auth_connect();
@@ -144,9 +191,11 @@
         }
     }
 
+
     function remove_user(array $delete_list, $user_role) {
 
     }
+
 
     function edit_address(array $address, String $user_role) {
         
@@ -188,6 +237,7 @@
             throw new Exception("User Address could not be Updated");
         }
     }
+
 
     function edit_notifications() {
 

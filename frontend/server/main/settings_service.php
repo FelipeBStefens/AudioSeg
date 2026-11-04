@@ -75,6 +75,7 @@
                 exit();
             }
 
+
         case 'address':
             $address_list = [
                 "id_address" => $user["id_address"],
@@ -119,9 +120,11 @@
                 exit();
             }
         
+
         case 'notifications':
             break;
         
+
         case 'change_email':
 
             $email = $_POST["new_email"];
@@ -130,7 +133,7 @@
             $email_list = [
                 "id_user" => $user["id_user"],
                 "email" => $email,
-                "current_password" => $_POST["current_password"]
+                "current_password" => trim($_POST["current_password"])
             ];
 
             try{
@@ -167,6 +170,7 @@
                 header("Location: ../../pages/main/settings.php");
                 exit();
             }
+
 
         case 'change_phone':
 
@@ -207,6 +211,38 @@
             break;
 
         case 'change_password':
+
+            $password_list = [
+                "password" => trim($_POST["new_password"]),
+                "current_password" => trim($_POST["current_password"])
+            ];
+
+            try{
+
+                if($password_list["password"] != $_POST["confirm_password"]){
+                    throw new Exception("The Passwords Are Different!");
+                    exit();
+                }
+
+                edit_password($password_list, $user_role);
+
+                unset($_SESSION["settings_error"]);
+                header("Location: ../../pages/main/settings.php");
+                exit();
+
+            }catch(Exception $e) {
+                
+                if ($e->getMessage() == "Password could not be Updated") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else {
+                    $_SESSION["settings_error"] = "Server Error";
+                }
+
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
+
             break;
         
         case 'delete_account':

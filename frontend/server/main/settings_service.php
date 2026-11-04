@@ -161,8 +161,6 @@
                 header("Location: ../../pages/main/settings.php");
                 exit();
             }
-            
-            break;
 
         case 'change_phone':
             break;

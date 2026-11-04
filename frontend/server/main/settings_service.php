@@ -133,7 +133,7 @@
                 "current_password" => $_POST["current_password"]
             ];
 
-            if(!$email_list["email"] != $_POST["confirm_email"]){
+            if($email_list["email"] != $_POST["confirm_email"]){
                 //ARRUMAR ISSO AQUI
                 throw new Exception("Different Emails!");
                 exit();

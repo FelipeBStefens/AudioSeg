@@ -129,6 +129,7 @@
 
             $email_list = [
                 "id_user" => $user["id_user"],
+                "actual_email" => $user["email"],
                 "email" => $email,
                 "current_password" => trim($_POST["current_password"])
             ];
@@ -162,6 +163,12 @@
                 else if ($e->getMessage() == "The Emails Are Different") {
                     $_SESSION["settings_error"] = $e->getMessage();
                 }
+                else if ($e->getMessage() == "Password Invalid") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "User Not Found") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
                 else {
                     $_SESSION["settings_error"] = "Server Error";
                 }
@@ -173,6 +180,8 @@
         case 'change_phone':
             $phone = preg_replace("/\D/", '', $_POST["new_phone"]);
             $phone_list = [
+                "email" => $user["email"],
+                "id_user" => $user["id_user"],
                 "international_dialling_code" => substr($phone, 0, 2),
                 "local_dialling_code" => substr($phone, 2, 2),
                 "number_phone" => substr($phone, 4, 5) . "-" . substr($phone, 9, 4),
@@ -197,6 +206,12 @@
                 if ($e->getMessage() == "Phone Number could not be Updated") {
                     $_SESSION["settings_error"] = $e->getMessage();
                 }
+                else if ($e->getMessage() == "Password Invalid") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "User Not Found") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
                 else {
                     $_SESSION["settings_error"] = "Server Error";
                 }
@@ -207,6 +222,8 @@
 
         case 'change_password':
             $password_list = [
+                "email" => $user["email"],
+                "id_user" => $user["id_user"],
                 "password" => trim($_POST["new_password"]),
                 "current_password" => trim($_POST["current_password"])
             ];
@@ -230,6 +247,12 @@
                 else if ($e->getMessage() == "The Passwords Are Different") {
                     $_SESSION["settings_error"] = $e->getMessage();
                 }
+                else if ($e->getMessage() == "Password Invalid") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "User Not Found") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
                 else {
                     $_SESSION["settings_error"] = "Server Error";
                 }
@@ -239,9 +262,39 @@
             }
         
         case 'delete_account':
-            break;
+            $delete_list = [
+                "email" => $user["email"],
+                "id_user" => $user["id_user"],
+                "id_address" => $user["id_address"],
+                "id_phone" => $user["id_phone"],
+                "current_password" => trim($_POST["current_password"])
+            ];
+            
+            try{
+                remove_user($delete_list, $user_role);
+
+                unset($_SESSION["settings_error"]);
+                header("Location: ../register/logout_service.php");
+                exit();
+            }
+            catch(Exception $e) {
+                
+                if ($e->getMessage() == "User could not be Deleted") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "Password Invalid") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else {
+                    $_SESSION["settings_error"] = "Server Error";
+                }
+
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
             
         default:
-            break;
+            header("Location: ../../pages/main/settings.php");
+            exit();
     }
 ?>

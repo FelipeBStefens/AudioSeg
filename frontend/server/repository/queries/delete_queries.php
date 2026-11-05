@@ -12,21 +12,9 @@
         ";
     }
 
-    function delete_housing() {
-        return "
-            DELETE FROM housing WHERE id_housing = ?;
-        ";
-    }
-
     function delete_user() {
         return "
             DELETE FROM users WHERE id_user = ?;
-        ";
-    }
-
-    function delete_researcher() {
-        return "
-            DELETE FROM researcher WHERE id_researcher = ?
         ";
     }
 ?>

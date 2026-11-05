@@ -42,9 +42,9 @@ CREATE TABLE housing (
     
     CHECK (REGEXP_LIKE(cep, '^[0-9]{5}-[0-9]{3}$')),
     CHECK (number_house > 0),
-    
+     
     PRIMARY KEY (id_housing),
-    FOREIGN KEY (id_address) REFERENCES address (id_address)
+    FOREIGN KEY (id_address) REFERENCES address (id_address) ON DELETE CASCADE
 );
 
 # Localization Table
@@ -59,7 +59,7 @@ CREATE TABLE localization (
 	CHECK (longitude BETWEEN -180 AND 180),
 
     PRIMARY KEY (id_localization),
-    FOREIGN KEY (id_address) REFERENCES address (id_address)
+    FOREIGN KEY (id_address) REFERENCES address (id_address) ON DELETE CASCADE
 );
 
 # Police Station Table
@@ -106,7 +106,7 @@ CREATE TABLE researcher (
     id_user BIGINT NOT NULL UNIQUE, 
     
     PRIMARY KEY (id_researcher),
-    FOREIGN KEY (id_user) REFERENCES users (id_user)
+    FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE
 );
 
 # Policeman Table
@@ -123,7 +123,7 @@ CREATE TABLE policeman (
     CHECK (status_policeman IN ('ACTIVE', 'INACTIVE')),
     
     PRIMARY KEY (id_policeman),
-    FOREIGN KEY (id_user) REFERENCES users (id_user),
+    FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_police_station) REFERENCES police_station (id_police_station)
 );
 
@@ -137,7 +137,7 @@ CREATE TABLE delegate (
     id_police_station BIGINT NOT NULL UNIQUE,
     
     PRIMARY KEY (id_delegate),
-    FOREIGN KEY (id_user) REFERENCES users (id_user),
+    FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_police_station) REFERENCES police_station (id_police_station)
 );
 
@@ -148,7 +148,7 @@ CREATE TABLE director (
     id_user BIGINT NOT NULL UNIQUE,
     
     PRIMARY KEY (id_director),
-    FOREIGN KEY (id_user) REFERENCES users (id_user)
+    FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE
 );
 
 # Gunshot Table

@@ -48,7 +48,7 @@
         
         $auth_connection = auth_connect();
         $statement = $auth_connection->prepare(get_sql_auth());
-        $statement->bind_param("s", $_SESSION["user_data"]["email"]);
+        $statement->bind_param("s", $email_list["actual_email"]);
         $statement->execute();
         $query = $statement->get_result();
 
@@ -89,7 +89,7 @@
         
         $auth_connection = auth_connect();
         $statement = $auth_connection->prepare(get_sql_auth());
-        $statement->bind_param("s", $_SESSION["user_data"]["email"]);
+        $statement->bind_param("s", $password_list["email"]);
         $statement->execute();
         $query = $statement->get_result();
 
@@ -105,7 +105,7 @@
                     $hash_password = password_hash($password_list["password"], PASSWORD_DEFAULT);
                     $connection->begin_transaction();
                     $password_statement = $connection->prepare(update_password());
-                    $password_statement->bind_param("si", $hash_password, $_SESSION["user_data"]["id_user"]);
+                    $password_statement->bind_param("si", $hash_password, $password_list["id_user"]);
 
                     $password_statement->execute();
                     $password_statement->close();
@@ -131,7 +131,7 @@
         
         $auth_connection = auth_connect();
         $statement = $auth_connection->prepare(get_sql_auth());
-        $statement->bind_param("s", $_SESSION["user_data"]["email"]);
+        $statement->bind_param("s", $phone_list["email"]);
         $statement->execute();
         $query = $statement->get_result();
 
@@ -151,7 +151,7 @@
                         $phone_list["international_dialling_code"],
                         $phone_list["local_dialling_code"],
                         $phone_list["number_phone"],
-                        $_SESSION["user_data"]["id_user"]
+                        $phone_list["id_user"]
                     );
 
                     $phone_statement->execute();
@@ -174,8 +174,49 @@
     }
 
 
-    function remove_user(array $delete_list, $user_role) {
+    function remove_user(array $delete_list, String $user_role) {
 
+        $auth_connection = auth_connect();
+        $statement = $auth_connection->prepare(get_sql_auth());
+        $statement->bind_param("s", $delete_list["email"]);
+        $statement->execute();
+        $query = $statement->get_result();
+
+        $connection = user_connection($user_role);
+
+        if ($query->num_rows == 1) {
+
+            $auth = $query->fetch_assoc();
+            
+            if (password_verify($delete_list["current_password"], $auth["password_hash"])) {
+                try {
+                    $connection->begin_transaction();
+                    $user_statement = $connection->prepare(delete_user());
+                    $user_statement->bind_param("i", $delete_list["id_user"]);
+                    $user_statement->execute();
+                    $user_statement->close();
+
+                    $address_statement = $connection->prepare(delete_address());
+                    $address_statement->bind_param("i", $delete_list["id_address"]);
+                    $address_statement->execute();
+                    $address_statement->close();
+
+                    $phone_statement = $connection->prepare(delete_phone());
+                    $phone_statement->bind_param("i", $delete_list["id_phone"]);
+                    $phone_statement->execute();
+                    $phone_statement->close();
+
+                    $connection->commit();
+                }
+                catch (Exception) {
+                    $connection->rollback();
+                    throw new Exception("User could not be Deleted");
+                }
+            }
+            else {
+                throw new Exception("Password Invalid");
+            }
+        }
     }
 
 

@@ -215,19 +215,33 @@ IDENTIFIED BY 'system123';
 # Views to saw the gunshots
 
 CREATE VIEW vw_public_gunshots AS
-	SELECT gs.id_gunshot, gs.date_gunshot, l.latitude, l.longitude, g.id_gun, g.type_gun, g.accuracy
-	FROM (gunshot AS gs INNER JOIN localization AS l ON l.id_localization = gs.id_localization)
-		LEFT JOIN gun AS g ON g.id_gunshot = gs.id_gunshot
-	WHERE gs.public_shot = TRUE;
+    SELECT
+        gs.id_gunshot, gs.date_gunshot,
+        l.latitude, l.longitude,
+        a.country, a.state, a.city, a.neighborhood, a.street,
+        g.id_gun, g.type_gun, g.accuracy
+    FROM 
+        ((gunshot AS gs INNER JOIN localization AS l ON l.id_localization = gs.id_localization)
+        INNER JOIN address AS a ON a.id_address = l.id_address)
+        LEFT JOIN gun AS g ON g.id_gunshot = gs.id_gunshot
+    WHERE gs.public_shot = TRUE;
 
 CREATE VIEW vw_gunshots AS
-	SELECT s.id_police_station, s.id_sensor, s.name_sensor, gs.id_gunshot, gs.date_gunshot, gs.public_shot, g.accuracy,
-		l_shot.latitude AS shot_latitude, l_shot.longitude AS shot_longitude, 
-        l_sensor.latitude AS sensor_latitude, l_sensor.longitude AS sensor_longitude
-	FROM (((sensor AS s INNER JOIN gunshot AS gs ON gs.id_gunshot = s.id_gunshot)
-		INNER JOIN localization AS l_shot ON l_shot.id_localization = gs.id_localization)
-		INNER JOIN localization AS l_sensor ON l_sensor.id_localization = s.id_localization)
-		LEFT JOIN gun AS g ON g.id_gunshot = gs.id_gunshot;
+    SELECT
+        s.id_police_station, s.id_sensor, s.name_sensor,
+        gs.id_gunshot, gs.date_gunshot, gs.public_shot,
+        g.id_gun, g.type_gun, g.accuracy,
+        l_shot.latitude AS shot_latitude, l_shot.longitude AS shot_longitude,
+        a_shot.country AS shot_country, a_shot.state AS shot_state, a_shot.city AS shot_city, a_shot.neighborhood AS shot_neighborhood, a_shot.street AS shot_street,
+        l_sensor.latitude AS sensor_latitude, l_sensor.longitude AS sensor_longitude,
+        a_sensor.country AS sensor_country, a_sensor.state AS sensor_state, a_sensor.city AS sensor_city, a_sensor.neighborhood AS sensor_neighborhood, a_sensor.street AS sensor_street
+    FROM 
+        (((((sensor AS s INNER JOIN gunshot AS gs ON gs.id_gunshot = s.id_gunshot)
+        INNER JOIN localization AS l_shot ON l_shot.id_localization = gs.id_localization)
+        INNER JOIN address AS a_shot ON a_shot.id_address = l_shot.id_address)
+        INNER JOIN localization AS l_sensor ON l_sensor.id_localization = s.id_localization)
+        INNER JOIN address AS a_sensor ON a_sensor.id_address = l_sensor.id_address)
+        LEFT JOIN gun AS g ON g.id_gunshot = gs.id_gunshot;
 
 # Auth 
 
@@ -315,6 +329,10 @@ ON audioseg_database.police_station
 TO 'policeman'@'localhost';
 
 GRANT SELECT
+ON audioseg_database.vw_public_gunshots
+TO 'policeman'@'localhost';
+
+GRANT SELECT
 ON audioseg_database.vw_gunshots
 TO 'policeman'@'localhost';
 
@@ -375,6 +393,11 @@ GRANT
     UPDATE (name_police_station),
     SELECT (id_police_station,name_police_station,id_housing)
 ON audioseg_database.police_station
+TO 'delegate'@'localhost';
+
+
+GRANT SELECT
+ON audioseg_database.vw_public_gunshots
 TO 'delegate'@'localhost';
 
 GRANT UPDATE (public_shot)
@@ -452,6 +475,10 @@ TO 'director'@'localhost';
 
 GRANT UPDATE (public_shot)
 ON audioseg_database.gunshot
+TO 'director'@'localhost';
+
+GRANT SELECT
+ON audioseg_database.vw_public_gunshots
 TO 'director'@'localhost';
 
 GRANT SELECT

@@ -45,8 +45,8 @@
                 <div class="sidebar_content">
                     <div class="shootings_summary">
                         <span class="summary_label">REGISTERED INCIDENTS</span>
-                        <span class="summary_value">24</span>
-                    </div>
+                        <span id="quantity" class="summary_value"></span>
+                    </div> 
 
                     <div class="shootings_section">
 
@@ -54,9 +54,7 @@
 
                         <div class="shootings_list">
                             <?php 
-                                for ($i = 0; $i <= 20; $i++) {
-                                    create_shoot();
-                                }  
+                                include_once __DIR__ . "/../../server/main/main_service.php";
                             ?>
                         </div>
                     </div>

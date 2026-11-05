@@ -1,7 +1,7 @@
 <?php
-    function create_shoot() {
+    function create_shoot(int $index, array $shot) {
 ?>
-    <div class="shooting_card" data-lng="-51.1343" data-lat="-29.7642">
+    <div class="shooting_card" data-lng="<?php echo $shot["longitude"] ?>" data-lat="<?php echo $shot["latitude"] ?>">
 
         <button class="shooting_header" type="button" aria-expanded="false">
 
@@ -9,8 +9,8 @@
                 <span class="material-symbols-rounded">crisis_alert</span>
 
                 <div class="shooting_main_info">
-                    <span class="shooting_id">Incident 24</span>
-                    <span class="shooting_location">São Leopoldo, RS</span>
+                    <span class="shooting_id">Incident <?php echo $index; ?></span>
+                    <span class="shooting_location"><?php echo $shot["city"] . ", " . $shot["state"] . ", " . $shot["country"]; ?></span>
                 </div>
             </div>
 
@@ -21,22 +21,32 @@
 
             <div class="detail_item">
                 <span class="detail_label">DATE AND TIME</span>
-                <span class="detail_value">30/10/2026 — 14:32:18</span>
+                <span class="detail_value"><?php echo $shot["date_gunshot"]; ?></span>
+            </div>
+
+            <div class="detail_item">
+                <span class="detail_label">CARTESIAN COORDENATE</span>
+                <span class="detail_value"><?php echo $shot["latitude"] . ", " . $shot["longitude"]; ?></span>
+            </div>
+
+            <div class="detail_item">
+                <span class="detail_label">GUN TYPE</span>
+                <span class="detail_value"><?php echo $shot["type_gun"] . ": " . $shot["accuracy"] . "%"; ?></span>
+            </div>
+
+            <div class="detail_item">
+                <span class="detail_label">STREET</span>
+                <span class="detail_value"><?php echo $shot["street"] . ", " . $shot["neighborhood"]; ?></span>
             </div>
 
             <div class="detail_item">
                 <span class="detail_label">CITY</span>
-                <span class="detail_value">São Leopoldo</span>
+                <span class="detail_value"><?php echo $shot["city"] . ", " . $shot["state"]; ?></span>
             </div>
 
             <div class="detail_item">
-                <span class="detail_label">STATE</span>
-                <span class="detail_value">Rio Grande do Sul</span>
-            </div>
-
-            <div class="detail_item">
-                <span class="detail_label">INCIDENT TYPE</span>
-                <span class="detail_value">Multiple gunshots</span>
+                <span class="detail_label">COUNTRY</span>
+                <span class="detail_value"><?php echo $shot["country"]; ?></span>
             </div>
         </div>
     </div>

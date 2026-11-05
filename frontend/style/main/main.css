@@ -256,7 +256,7 @@ main {
 }
 
 .shooting_card.expanded .shooting_details {
-    max-height: 300px;
+    max-height: 25rem;
 
     padding: 0 13px 15px;
     opacity: 1;

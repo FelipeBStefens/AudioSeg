@@ -50,11 +50,9 @@
                 <div class="sidebar_content">
 
                     <div class="shootings_list">
-                            <?php 
-                                for ($i = 0; $i <= 20; $i++) {
-                                    create_shoot();
-                                }  
-                            ?>
+                        <?php 
+                            include_once __DIR__ . "/../../server/main/main_service.php";
+                        ?>
                     </div>
                 </div>
             </aside>

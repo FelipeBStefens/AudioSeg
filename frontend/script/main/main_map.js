@@ -1,9 +1,9 @@
 import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.mjs';
 
+let shot_quantity = 0;
+
 const map = new maplibregl.Map({
-
     container: 'map',
-
     style: {
         version: 8,
         sources: {
@@ -16,7 +16,6 @@ const map = new maplibregl.Map({
         },
         layers: [{id: 'osm', type: 'raster', source: 'osm'}]
     },
-    
     center: [-51.1343, -29.7642],
     zoom: 12,
     minZoom: 3,
@@ -24,6 +23,16 @@ const map = new maplibregl.Map({
 });
 
 const shootingCards = document.querySelectorAll(".shooting_card");
+
+shootingCards.forEach(card => {
+
+    shot_quantity++;
+
+    const longitude = Number(card.dataset.lng);
+    const latitude = Number(card.dataset.lat);
+
+    new maplibregl.Marker({color: "red"}).setLngLat([longitude, latitude]).addTo(map);
+});
 
 shootingCards.forEach(card => {
 
@@ -50,3 +59,5 @@ shootingCards.forEach(card => {
         }
     });
 });
+
+document.getElementById("quantity").textContent = shot_quantity;

@@ -5,7 +5,6 @@
     require_once __DIR__ . "/../queries/auth_queries.php";
     require_once __DIR__ . "/../queries/delete_queries.php";
 
-
     function edit_account(array $user, String $user_role){
 
         $connection = user_connection($user_role);
@@ -40,7 +39,6 @@
             }
         }
         catch (Exception) {
-            
             throw new Exception("User could not be Updated");
         }
     }
@@ -49,7 +47,6 @@
     function edit_email(array $email_list, String $user_role) {
         
         $auth_connection = auth_connect();
-
         $statement = $auth_connection->prepare(get_sql_auth());
         $statement->bind_param("s", $_SESSION["user_data"]["email"]);
         $statement->execute();
@@ -65,13 +62,8 @@
                 
                 try{
                     $connection->begin_transaction();
-    
                     $email_statement = $connection->prepare(update_email());
-                    $email_statement->bind_param(
-                        "si",
-                        $email_list["email"],
-                        $_SESSION["user_data"]["id_user"]
-                    );
+                    $email_statement->bind_param("si", $email_list["email"], $_SESSION["user_data"]["id_user"]);
 
                     $email_statement->execute();
                     $email_statement->close();
@@ -79,11 +71,9 @@
                     $connection->commit();
                 }
                 catch (Exception) {
-                    
                     $connection->rollback();
                     throw new Exception("Email could not be Updated");
                 }
-
             }
             else {
                 throw new Exception("Password Invalid");
@@ -96,8 +86,8 @@
 
 
     function edit_password(array $password_list, String $user_role) {
+        
         $auth_connection = auth_connect();
-
         $statement = $auth_connection->prepare(get_sql_auth());
         $statement->bind_param("s", $_SESSION["user_data"]["email"]);
         $statement->execute();
@@ -112,14 +102,10 @@
             if (password_verify($password_list["current_password"], $auth["password_hash"])) {
                 
                 try{
+                    $hash_password = password_hash($password_list["password"], PASSWORD_DEFAULT);
                     $connection->begin_transaction();
-    
                     $password_statement = $connection->prepare(update_password());
-                    $password_statement->bind_param(
-                        "si",
-                        password_hash($password_list["password"], PASSWORD_DEFAULT),
-                        $_SESSION["user_data"]["id_user"]
-                    );
+                    $password_statement->bind_param("si", $hash_password, $_SESSION["user_data"]["id_user"]);
 
                     $password_statement->execute();
                     $password_statement->close();
@@ -127,11 +113,9 @@
                     $connection->commit();
                 }
                 catch (Exception) {
-                    
                     $connection->rollback();
                     throw new Exception("Password could not be Updated");
                 }
-
             }
             else {
                 throw new Exception("Password Invalid");
@@ -143,9 +127,9 @@
     }
 
 
-    function edit_phone(array $phone_list, $user_role) {
+    function edit_phone(array $phone_list, String $user_role) {
+        
         $auth_connection = auth_connect();
-
         $statement = $auth_connection->prepare(get_sql_auth());
         $statement->bind_param("s", $_SESSION["user_data"]["email"]);
         $statement->execute();
@@ -176,11 +160,9 @@
                     $connection->commit();
                 }
                 catch (Exception) {
-                    
                     $connection->rollback();
                     throw new Exception("Phone Number could not be Updated");
                 }
-
             }
             else {
                 throw new Exception("Password Invalid");

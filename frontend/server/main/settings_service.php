@@ -75,7 +75,6 @@
                 exit();
             }
 
-
         case 'address':
             $address_list = [
                 "id_address" => $user["id_address"],
@@ -119,14 +118,12 @@
                 header("Location: ../../pages/main/settings.php");
                 exit();
             }
-        
 
         case 'notifications':
             break;
         
 
         case 'change_email':
-
             $email = $_POST["new_email"];
             $verify_email = filter_var(trim($email), FILTER_VALIDATE_EMAIL);
 
@@ -137,16 +134,12 @@
             ];
 
             try{
-
                 if(!$verify_email){
-                    throw new Exception("Invalid Email Format!");
-                    header("Location: ../../pages/main/settings.php");
-                    exit();
+                    throw new Exception("Invalid Email Format");
                 }
 
                 if($email_list["email"] != $_POST["confirm_email"]){
-                    throw new Exception("The Emails Are Different!");
-                    exit();
+                    throw new Exception("The Emails Are Different");
                 }
 
                 edit_email($email_list, $user_role);
@@ -163,6 +156,12 @@
                 if ($e->getMessage() == "User Email could not be Updated") {
                     $_SESSION["settings_error"] = $e->getMessage();
                 }
+                else if ($e->getMessage() == "Invalid Email Format") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "The Emails Are Different") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
                 else {
                     $_SESSION["settings_error"] = "Server Error";
                 }
@@ -171,9 +170,7 @@
                 exit();
             }
 
-
         case 'change_phone':
-
             $phone = preg_replace("/\D/", '', $_POST["new_phone"]);
             $phone_list = [
                 "international_dialling_code" => substr($phone, 0, 2),
@@ -181,8 +178,8 @@
                 "number_phone" => substr($phone, 4, 5) . "-" . substr($phone, 9, 4),
                 "current_password" => $_POST["current_password"]
             ];
-            try{
 
+            try{
                 edit_phone($phone_list, $user_role);
                 
                 $user["international_dialling_code"] = $phone_list["international_dialling_code"];
@@ -195,8 +192,8 @@
                 header("Location: ../../pages/main/settings.php");
                 exit();
 
-            }catch(Exception $e) {
-                
+            }
+            catch(Exception $e) {
                 if ($e->getMessage() == "Phone Number could not be Updated") {
                     $_SESSION["settings_error"] = $e->getMessage();
                 }
@@ -208,20 +205,15 @@
                 exit();
             }
 
-            break;
-
         case 'change_password':
-
             $password_list = [
                 "password" => trim($_POST["new_password"]),
                 "current_password" => trim($_POST["current_password"])
             ];
 
             try{
-
                 if($password_list["password"] != $_POST["confirm_password"]){
-                    throw new Exception("The Passwords Are Different!");
-                    exit();
+                    throw new Exception("The Passwords Are Different");
                 }
 
                 edit_password($password_list, $user_role);
@@ -229,10 +221,13 @@
                 unset($_SESSION["settings_error"]);
                 header("Location: ../../pages/main/settings.php");
                 exit();
-
-            }catch(Exception $e) {
+            }
+            catch(Exception $e) {
                 
                 if ($e->getMessage() == "Password could not be Updated") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "The Passwords Are Different") {
                     $_SESSION["settings_error"] = $e->getMessage();
                 }
                 else {
@@ -242,8 +237,6 @@
                 header("Location: ../../pages/main/settings.php");
                 exit();
             }
-
-            break;
         
         case 'delete_account':
             break;

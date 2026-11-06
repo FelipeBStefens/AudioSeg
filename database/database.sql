@@ -13,7 +13,7 @@ CREATE TABLE phone (
     
     CHECK (international_dialling_code > 0),
     CHECK (local_dialling_code > 0),
-    CHECK (REGEXP_LIKE(number_phone, '^[0-9]{5}-[0-9]{4}$')),
+    CHECK (number_phone REGEXP '^[0-9]{5}-[0-9]{4}$'),
     
     PRIMARY KEY (id_phone)
 );
@@ -40,7 +40,7 @@ CREATE TABLE housing (
     additional_information VARCHAR(255) DEFAULT(''),
     id_address BIGINT NOT NULL UNIQUE,
     
-    CHECK (REGEXP_LIKE(cep, '^[0-9]{5}-[0-9]{3}$')),
+    CHECK (cep REGEXP '^[0-9]{5}-[0-9]{3}$'),
     CHECK (number_house > 0),
      
     PRIMARY KEY (id_housing),
@@ -73,6 +73,18 @@ CREATE TABLE police_station (
     FOREIGN KEY (id_housing) REFERENCES housing (id_housing)
 );
 
+# Notification Table
+
+CREATE TABLE notification (
+
+	id_notification BIGINT AUTO_INCREMENT,
+    sound_alarms BOOL DEFAULT(FALSE),
+    research_updates BOOL DEFAULT(FALSE),
+    security_alarms BOOL DEFAULT(TRUE),
+    
+    PRIMARY KEY(id_notification)
+);
+
 # User Table
 CREATE TABLE users (
 	
@@ -87,14 +99,16 @@ CREATE TABLE users (
     description_user VARCHAR(255) DEFAULT(''),
     id_phone BIGINT NOT NULL UNIQUE,
     id_housing BIGINT NOT NULL UNIQUE,
+    id_notification BIGINT NOT NULL UNIQUE,
     
-    CHECK (REGEXP_LIKE(email, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9]{2,}$')),
+    CHECK (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9]{2,}$'),
     CHECK (role_user IN ('RESEARCHER', 'POLICEMAN', 'DELEGATE', 'DIRECTOR')),
-    CHECK (REGEXP_LIKE(cpf, '^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$')),
+    CHECK (cpf REGEXP '^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$'),
     
     PRIMARY KEY (id_user),
-    FOREIGN KEY (id_phone) REFERENCES phone (id_phone),
-    FOREIGN KEY (id_housing) REFERENCES housing (id_housing)
+    FOREIGN KEY (id_phone) REFERENCES phone (id_phone) ON DELETE CASCADE,
+    FOREIGN KEY (id_housing) REFERENCES housing (id_housing) ON DELETE CASCADE,
+    FOREIGN KEY (id_notification) REFERENCES notification (id_notification) ON DELETE CASCADE
 );
 
 # Researcher Table
@@ -275,10 +289,18 @@ ON audioseg_database.housing
 TO 'researcher'@'localhost';
 
 GRANT
-    INSERT (username,email,password_hash,cpf,birth_date,photo,description_user,id_phone,id_housing),
+	INSERT (sound_alarms, research_updates, security_alarms),
+	UPDATE (sound_alarms, research_updates, security_alarms),
+    DELETE,
+    SELECT (id_notification, sound_alarms, research_updates, security_alarms)
+ON audioseg_database.notification
+TO 'researcher'@'localhost';
+
+GRANT
+    INSERT (username,email,password_hash,cpf,birth_date,photo,description_user,id_phone,id_housing,id_notification),
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
     DELETE,
-    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing,id_notification)
 ON audioseg_database.users
 TO 'researcher'@'localhost';
 
@@ -315,8 +337,16 @@ ON audioseg_database.housing
 TO 'policeman'@'localhost';
 
 GRANT
+	INSERT (sound_alarms, research_updates, security_alarms),
+	UPDATE (sound_alarms, research_updates, security_alarms),
+    DELETE,
+    SELECT (id_notification, sound_alarms, research_updates, security_alarms)
+ON audioseg_database.notification
+TO 'policeman'@'localhost';
+
+GRANT
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
-    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing,id_notification)
 ON audioseg_database.users
 TO 'policeman'@'localhost';
 
@@ -363,10 +393,18 @@ ON audioseg_database.housing
 TO 'delegate'@'localhost';
 
 GRANT
+	INSERT (sound_alarms, research_updates, security_alarms),
+	UPDATE (sound_alarms, research_updates, security_alarms),
+    DELETE,
+    SELECT (id_notification, sound_alarms, research_updates, security_alarms)
+ON audioseg_database.notification
+TO 'delegate'@'localhost';
+
+GRANT
     INSERT,
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
     DELETE,
-    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing,id_notification)
 ON audioseg_database.users
 TO 'delegate'@'localhost';
 
@@ -431,10 +469,18 @@ ON audioseg_database.housing
 TO 'director'@'localhost';
 
 GRANT
+	INSERT (sound_alarms, research_updates, security_alarms),
+	UPDATE (sound_alarms, research_updates, security_alarms),
+    DELETE,
+    SELECT (id_notification, sound_alarms, research_updates, security_alarms)
+ON audioseg_database.notification
+TO 'director'@'localhost';
+
+GRANT
     INSERT,
     UPDATE (username,email,password_hash,cpf,birth_date,photo,description_user),
     DELETE,
-    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing)
+    SELECT (id_user,username,email,role_user,cpf,birth_date,photo,description_user,id_phone,id_housing,id_notification)
 ON audioseg_database.users
 TO 'director'@'localhost';
 
@@ -507,7 +553,10 @@ INSERT INTO address (city, neighborhood, street) VALUES ('Sapucaia do Sul', 'Pir
 INSERT INTO housing (cep, number_house, additional_information, id_address)
 VALUES ('93216-120', 100, 'IFSul Campus Sapucaia do Sul', 1);
 
-INSERT INTO users (username, email, password_hash, role_user, cpf, birth_date, id_phone, id_housing)
-VALUES ('admin', 'admin@gmail.com', '$2y$12$NEG.qvlINCxxnifWmu8kVe/I.SPW0HQtCWyO7LKhIUc5Mqo8KwloW', 'DIRECTOR', '123.456.789-10', '2000-01-01', 1, 1);
+INSERT INTO notification ()
+VALUES ();
+
+INSERT INTO users (username, email, password_hash, role_user, cpf, birth_date, id_phone, id_housing, id_notification)
+VALUES ('admin', 'admin@gmail.com', '$2y$12$NEG.qvlINCxxnifWmu8kVe/I.SPW0HQtCWyO7LKhIUc5Mqo8KwloW', 'DIRECTOR', '123.456.789-10', '2000-01-01', 1, 1, 1);
 
 INSERT INTO director (id_user) VALUES (1);

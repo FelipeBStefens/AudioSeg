@@ -23,8 +23,8 @@
 
     function create_user() {
         return "
-            INSERT INTO users (username, email, password_hash, cpf, birth_date, id_phone, id_housing) 
-            VALUES (?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO users (username, email, password_hash, cpf, birth_date, id_phone, id_housing id_notification) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
         ";
     }
 
@@ -32,6 +32,13 @@
         return "
             INSERT INTO researcher (institute, id_user) 
             VALUES (?, ?);
+        ";
+    }
+
+    function create_notification(){
+        return "
+            INSERT INTO notification () 
+            VALUES ();
         ";
     }
 ?>

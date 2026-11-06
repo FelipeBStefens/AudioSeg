@@ -17,4 +17,10 @@
             DELETE FROM users WHERE id_user = ?;
         ";
     }
+
+    function delete_notification(){
+        return "
+            DELETE FROM notification WHERE id_notification = ?;
+        ";
+    }
 ?>

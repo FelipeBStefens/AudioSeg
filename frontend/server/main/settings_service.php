@@ -120,6 +120,50 @@
             }
 
         case 'notifications':
+
+            $options = ["sound_alarms", "research_updates", "security_alarms"];
+
+            $received = isset($_POST["notifications"]) ? $_POST["notifications"] : [];
+
+            $notification_list = ["id_notification" => $user["id_notification"]];
+
+            foreach ($options as $opt) {
+                $notification_list[$opt] = isset($received[$opt]) ? 1 : 0;
+            }
+
+            try{
+                edit_notification($notification_list, $user_role);
+
+                $user["sound_alarms"] = $notification_list["sound_alarms"];
+                $user["research_updates"] = $notification_list["research_updates"];
+                $user["security_alarms"] = $notification_list["security_alarms"];
+                $_SESSION["user_data"] = $user;
+
+                unset($_SESSION["settings_error"]);
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
+            catch(Exception $e) {
+                
+                if ($e->getMessage() == "Password could not be Updated") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "The Passwords Are Different") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "Password Invalid") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else if ($e->getMessage() == "User Not Found") {
+                    $_SESSION["settings_error"] = $e->getMessage();
+                }
+                else {
+                    $_SESSION["settings_error"] = "Server Error";
+                }
+
+                header("Location: ../../pages/main/settings.php");
+                exit();
+            }
             break;
         
 

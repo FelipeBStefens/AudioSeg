@@ -49,17 +49,25 @@
             $housing_statement->close();
 
 
+            $notification_statement = $connection->prepare(create_notification());
+            $notification_statement->bind_param();
+            $notification_statement->execute();
+            $id_notification = $connection->insert_id;
+            $notification_statement->close();
+
+
             $hash_password = password_hash($user["password"], PASSWORD_DEFAULT);
             $user_statement = $connection->prepare(create_user());
             $user_statement->bind_param(
-                "sssssii",
+                "sssssiii",
                 $user["username"],
                 $user["email"],
                 $hash_password,
                 $user["cpf"],
                 $user["birth_date"],
                 $id_phone,
-                $id_housing
+                $id_housing,
+                $id_notification
             );
             $user_statement->execute();
             $id_user = $connection->insert_id;

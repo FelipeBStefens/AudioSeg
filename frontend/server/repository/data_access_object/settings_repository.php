@@ -262,7 +262,30 @@
     }
 
 
-    function edit_notifications() {
+    function edit_notification(array $notification_list, String $user_role) {
 
+        $connection = user_connection($user_role);
+
+        try{
+            $connection->begin_transaction();
+            $notification_statement = $connection->prepare(update_notification());
+            $notification_statement->bind_param(
+                "iiii",
+                $notification_list["sound_alarms"],
+                $notification_list["research_updates"],
+                $notification_list["security_alarms"],
+                $notification_list["id_notification"]
+            );
+            
+            $notification_statement->execute();
+            $notification_statement->close();
+            
+            $connection->commit();
+        } 
+        catch (Exception) {
+
+            $connection->rollback();
+            throw new Exception("Notifications could not be Updated");
+        }
     }
 ?>

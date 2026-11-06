@@ -55,4 +55,12 @@
             WHERE id_user = ?;
         ";
     }
+
+    function update_notification(){
+        return "
+            UPDATE notification
+            SET sound_alarms = ?, research_updates = ?, security_alarms = ?
+            WHERE id_notification = ?;
+        ";
+    }
 ?>

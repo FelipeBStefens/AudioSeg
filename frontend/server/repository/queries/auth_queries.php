@@ -26,6 +26,11 @@
                 u.description_user,
                 u.id_phone,
                 u.id_housing,
+                u.id_notification,
+
+                n.sound_alarms, 
+                n.research_updates, 
+                n.security_alarms,
 
                 h.id_housing,
                 h.cep,
@@ -47,6 +52,7 @@
 
             FROM researcher AS r
                 INNER JOIN users AS u ON r.id_user = u.id_user
+                INNER JOIN notification AS n ON u.id_notification = n.id_notification
                 INNER JOIN housing AS h ON u.id_housing = h.id_housing
                 INNER JOIN address AS a ON h.id_address = a.id_address
                 INNER JOIN phone AS p ON u.id_phone = p.id_phone
@@ -76,6 +82,11 @@
                 u.description_user,
                 u.id_phone,
                 u.id_housing,
+                u.id_notification,
+
+                n.sound_alarms, 
+                n.research_updates, 
+                n.security_alarms,
 
                 ps.id_police_station,
                 ps.name_police_station,
@@ -114,6 +125,7 @@
 
             FROM policeman AS po
                 INNER JOIN users AS u ON po.id_user = u.id_user
+                INNER JOIN notification AS n ON u.id_notification = n.id_notification
                 INNER JOIN police_station AS ps ON po.id_police_station = ps.id_police_station
                 INNER JOIN housing AS h ON ps.id_housing = h.id_housing
                 INNER JOIN address AS a ON h.id_address = a.id_address
@@ -144,6 +156,11 @@
                 u.description_user,
                 u.id_phone,
                 u.id_housing,
+                u.id_notification,
+
+                n.sound_alarms, 
+                n.research_updates, 
+                n.security_alarms,
 
                 ps.id_police_station,
                 ps.name_police_station,
@@ -182,6 +199,7 @@
 
             FROM delegate AS d
                 INNER JOIN users AS u ON d.id_user = u.id_user
+                INNER JOIN notification AS n ON u.id_notification = n.id_notification
                 INNER JOIN police_station AS ps ON d.id_police_station = ps.id_police_station
                 INNER JOIN housing AS h ON ps.id_housing = h.id_housing
                 INNER JOIN address AS a ON h.id_address = a.id_address
@@ -209,6 +227,11 @@
                 u.description_user,
                 u.id_phone,
                 u.id_housing,
+                u.id_notification,
+
+                n.sound_alarms, 
+                n.research_updates, 
+                n.security_alarms,
 
                 h.id_housing,
                 h.cep,
@@ -230,6 +253,7 @@
 
             FROM director AS d
                 INNER JOIN users AS u ON d.id_user = u.id_user
+                INNER JOIN notification AS n ON u.id_notification = n.id_notification
                 INNER JOIN housing AS h ON u.id_housing = h.id_housing
                 INNER JOIN address AS a ON h.id_address = a.id_address
                 INNER JOIN phone AS p ON u.id_phone = p.id_phone

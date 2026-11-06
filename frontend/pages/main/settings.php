@@ -279,7 +279,7 @@
                             <strong>Sound alarms</strong>
                             <small>Allow audio alerts from the application.</small>
                         </span>
-                        <input type="checkbox" name="sound_alarms" value="1">
+                        <input type="checkbox" name="notifications[sound_alarms]" value="1" <?php echo $user["sound_alarms"] == 1 ? 'checked' : '' ?> >
                         <span class="toggle"></span>
                     </label>
 
@@ -288,16 +288,16 @@
                             <strong>Research updates</strong>
                             <small>Receive updates about research activities.</small>
                         </span>
-                        <input type="checkbox" name="research_updates" value="1">
+                        <input type="checkbox" name="notifications[research_updates]" value="1" <?php echo $user["research_updates"] == 1 ? 'checked' : '' ?> >
                         <span class="toggle"></span>
                     </label>
 
                     <label class="notification-option">
                         <span>
-                            <strong>Security alerts</strong>
-                            <small>Receive important account security alerts.</small>
+                            <strong>Security alarms</strong>
+                            <small>Receive important account security alarms.</small>
                         </span>
-                        <input type="checkbox" name="security_alerts" value="1" checked>
+                        <input type="checkbox" name="notifications[security_alarms]" value="1" <?php echo $user["security_alarms"] == 1 ? 'checked' : '' ?> >
                         <span class="toggle"></span>
                     </label>
                 </div>

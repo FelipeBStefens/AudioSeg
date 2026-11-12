@@ -1,5 +1,5 @@
 <?php
-    function show_researchers() {
+    function show_researchers(array $researcher) {
 ?>
 
     <article class="researcher_item">
@@ -8,13 +8,13 @@
             <div class="researcher_identity">
                 <img src="../../assets/images/profile_photo.jpg" alt="Researcher profile" class="researcher_photo">
                 <div class="researcher_summary">
-                    <h3>Researcher Name</h3>
-                    <span>researcher@email.com</span>
+                    <h3><?php echo $researcher["username"] ?></h3>
+                    <span><?php echo $researcher["email"] ?></span>
                 </div>
             </div>
 
             <div class="researcher_metadata">
-                <span class="institute_tag">Research Institute</span>
+                <span class="institute_tag"><?php echo $researcher["institute"] ?></span>
                 <span class="material-symbols-rounded expand_icon">keyboard_arrow_down</span>
             </div>
         </button>
@@ -33,8 +33,8 @@
                     <img src="../../assets/images/profile_photo.jpg" alt="Researcher profile" class="details_photo">
 
                     <div>
-                        <h2>Researcher Name</h2>
-                        <p>Research Institute</p>
+                        <h2><?php echo $researcher["username"] ?></h2>
+                        <p><?php echo $researcher["institute"] ?></p>
                         <span>RESEARCHER</span>
                     </div>
                 </div>
@@ -42,42 +42,42 @@
                 <div class="information_grid">
                     <div class="information_group">
                         <span>Username</span>
-                        <strong>researcher_username</strong>
+                        <strong><?php echo $researcher["username"] ?></strong>
                     </div>
 
                     <div class="information_group">
                         <span>Email</span>
-                        <strong>researcher@email.com</strong>
+                        <strong><?php echo $researcher["email"] ?></strong>
                     </div>
 
                     <div class="information_group">
                         <span>CPF</span>
-                        <strong>000.000.000-00</strong>
+                        <strong><?php echo $researcher["cpf"] ?></strong>
                     </div>
 
                     <div class="information_group">
                         <span>Birth Date</span>
-                        <strong>01/01/2000</strong>
+                        <strong><?php echo $researcher["birth_date"] ?></strong>
                     </div>
 
                     <div class="information_group">
                         <span>Phone</span>
-                        <strong>+55 (51) 99999-9999</strong>
+                        <strong>+<?php echo $researcher["international_dialling_code"] ?> (<?php echo $researcher["local_dialling_code"] ?>) <?php echo $researcher["number_phone"] ?></strong>
                     </div>
 
                     <div class="information_group">
                         <span>Institute</span>
-                        <strong>Research Institute</strong>
+                        <strong><?php echo $researcher["institute"] ?></strong>
                     </div>
 
                     <div class="information_group full_width">
                         <span>Description</span>
-                        <strong>Researcher description goes here.</strong>
+                        <strong><?php echo $researcher["description_user"] ?></strong>
                     </div>
 
                     <div class="information_group full_width">
                         <span>Address</span>
-                        <strong>Street Name, 123 - City, State</strong>
+                        <strong>To complete On PHP</strong>
                     </div>
                 </div>
 

@@ -50,7 +50,6 @@
 
 
             $notification_statement = $connection->prepare(create_notification());
-            $notification_statement->bind_param();
             $notification_statement->execute();
             $id_notification = $connection->insert_id;
             $notification_statement->close();
@@ -85,9 +84,10 @@
 
             $connection->commit();
         }
-        catch (Exception) {
+        catch (Exception $e) {
             
             $connection->rollback();
+            echo $e->getMessage();
             throw new Exception("Credential Error, User Not Created");
         }
     }

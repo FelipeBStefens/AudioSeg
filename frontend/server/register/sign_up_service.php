@@ -1,4 +1,5 @@
 <?php
+
     session_start();
 
     require_once __DIR__ . "/../repository/data_access_object/sign_up_repository.php";
@@ -57,6 +58,7 @@
             $_SESSION["sign_up_error"] = $e->getMessage();
         }
         else {
+            echo $e->getMessage();
             $_SESSION["sign_up_error"] = "Server Error";
         }
 

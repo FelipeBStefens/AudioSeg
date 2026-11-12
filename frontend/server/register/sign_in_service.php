@@ -36,6 +36,7 @@
             $_SESSION["sign_in_error"] = $e->getMessage();
         }
         else {
+            echo $e->getMessage();
             $_SESSION["sign_in_error"] = "Server Error";
         }
 

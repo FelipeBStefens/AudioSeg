@@ -36,6 +36,7 @@
                 <div>
                     <span class="eyebrow">ADMINISTRATION PANEL</span>
                     <h1>Researchers Settings</h1>
+                    <p>Manage researchers.</p>
                 </div>
 
                 <div class="researcher_counter">

@@ -116,7 +116,7 @@ CREATE TABLE researcher (
 	
     id_researcher BIGINT AUTO_INCREMENT,
     institute VARCHAR(255) DEFAULT(NULL),
-    expiration_date TIMESTAMP NOT NULL DEFAULT(DATE_ADD(NOW(), INTERVAL 7 DAY)),
+    expiration_date DATETIME NOT NULL DEFAULT(DATE_ADD(NOW(), INTERVAL 7 DAY)),
     id_user BIGINT NOT NULL UNIQUE, 
     
     PRIMARY KEY (id_researcher),

@@ -9,7 +9,7 @@
     $user = $_SESSION["user_data"];
     $user_role = $user["role_user"];
 
-    switch($action){
+    switch($action) {
          
         case 'account': 
             try {

@@ -53,7 +53,18 @@
                 <div class="section_heading">
                     <div>
                         <h2>Registered Researchers</h2>
-                        <p>Select a researcher to view their information.</p>
+                        <?php
+                            if (isset($_SESSION["researcher_error"])) {
+
+                                $message = $_SESSION["settinresearcher_errorgs_error"];
+                                echo "<p class='form_error'>" . $message . "</p>";
+                                        
+                                unset($_SESSION["researcher_error"]);
+                            }
+                            else {
+                                echo "<p>Select a researcher to view their information.</p>";
+                            }
+                        ?>
                     </div>
                     <span class="material-symbols-rounded section_icon">manage_accounts</span>
                 </div>

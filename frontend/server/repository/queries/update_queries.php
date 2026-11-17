@@ -63,4 +63,12 @@
             WHERE id_notification = ?;
         ";
     }
+
+    function update_expiration_date() {
+        return "
+            UPDATE researcher
+            SET expiration_date = ?
+            WHERE id_researcher = ?;
+        ";
+    }
 ?>

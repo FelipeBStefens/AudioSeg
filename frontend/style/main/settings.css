@@ -130,7 +130,7 @@ aside {
     line-height: 1.6;
 }
 
-.form-error {
+.form_error {
     margin-top: 8px !important;
     color: #ef6565 !important;
 }

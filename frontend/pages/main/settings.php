@@ -82,7 +82,7 @@
                                 if (isset($_SESSION["settings_error"])) {
 
                                     $message = $_SESSION["settings_error"];
-                                    echo "<p class='form-error'>" . $message . "</p>";
+                                    echo "<p class='form_error'>" . $message . "</p>";
                                         
                                     unset($_SESSION["settings_error"]);
                                 }

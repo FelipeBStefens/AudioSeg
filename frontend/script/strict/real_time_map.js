@@ -54,18 +54,20 @@ function create_shooting_card(shot, index) {
 
         <div class="shooting_details">
 
-            <form action="/../../server/strict/make_it_public_service.php" method="POST">
+            <div class="buttons_container">
+                <form action="/../../server/strict/make_it_public_service.php" method="POST">
 
-                <input class="public_gunshot" type="hidden" name="public_gunshot">
+                    <input class="public_gunshot" type="hidden" name="public_gunshot">
 
-                <button class="make_public" type="submit">
-                    Make it public
+                    <button class="make_public button_card" type="submit">
+                        Make it public
+                    </button>
+                </form>
+
+                <button class="go_there button_card" type="submit" onclick="make_route()">
+                    Go there
                 </button>
-            </form>
-
-            <button class="go_there" type="submit" onclick="make_route()">
-                Go there
-            </button>
+            </div>
 
             <div class="detail_item">
                 <span class="detail_label">DATE AND TIME</span>
@@ -112,7 +114,15 @@ function update_shooting_card(card, shot, index) {
 
     card.dataset.lng = shot.shot_longitude;
     card.dataset.lat = shot.shot_latitude;
-    card.querySelector(".public_gunshot").value = shot.id_gunshot;
+
+    const bt = card.querySelector(".make_public");
+
+    if (shot.public_shot == false) {
+        card.querySelector(".public_gunshot").value = shot.id_gunshot;
+    } 
+    else {
+        bt.classList.add("disabled_bt");
+    }
 
     setText('.shooting_location', `${shot.shot_city}, ${shot.shot_state}, ${shot.shot_country}`);
     setText('.shooting_id', `Incident ${index}`);

@@ -20,10 +20,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="icon" href="../../assets/images/AudioSegLogo.png" type="image/png">
-        <link rel="stylesheet" href="../../style/main/main.css">
         <link rel="stylesheet" href="../../style/strict/real_time_map.css">
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.css">
-        <script type="module" src="../../script/main/main_map.js"></script>
+        <script type="module" src="../../script/strict/real_time_map.js"></script>
         
         <title>AudioSeg - Real Time Map</title>
     </head>
@@ -47,10 +46,7 @@
                 </div>
 
                 <div class="sidebar_content">
-
-                    <div class="shootings_list">
-                        <?php include_once __DIR__ . "/../../server/main/main_service.php";?>
-                    </div>
+                    <div class="shootings_list"></div>
                 </div>
             </aside>
         </main>

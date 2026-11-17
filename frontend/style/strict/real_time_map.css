@@ -1,1 +1,37 @@
-@import url('../header.css');
+@import url('../main/main.css');
+@import url('../map.css');
+
+.buttons_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.button_card{
+    width: fit-content;
+    background-color: var(--golden-glow-2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    font-family: var(--title-font);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.button_card:hover{
+    transform: scale(1.08);
+    transition: 0.3s ease-in-out;
+}
+
+.disabled_bt{
+    display: none;
+}
+
+.go_there:disabled {
+    opacity: 0.6;
+    cursor: wait;
+    transform: none;
+}

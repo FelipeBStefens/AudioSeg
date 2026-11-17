@@ -5,6 +5,6 @@
     }
 
     function get_all_shots() {
-        return "SELECT * FROM vw_public_gunshots;";
+        return "SELECT * FROM vw_gunshots;";
     }
 ?>

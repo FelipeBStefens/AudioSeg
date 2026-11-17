@@ -109,30 +109,38 @@
 
                     <div class="expiration_controls">
 
-                        <div class="expiration_input">
+                        <form class="expiration_input" action="../../server/strict/update_researcher_service.php" method="POST">
                             <label for="expiration_date">New expiration date</label>
                             <input type="datetime-local" id="expiration_date" name="expiration_date">
                             
-                            </div>
-                                <button type="button" class="save_expiration">
+                            <div>
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="id_researcher" value="<?php echo $researcher["id_researcher"]; ?>">
+
+                                <button type="submit" class="save_expiration">
                                     <span class="material-symbols-rounded">save</span>
                                     Save Changes
                                 </button>
                             </div>
-                        </div>
+                        </form>
 
-                        <div class="researcher_actions">
+                        <form class="researcher_actions" action="../../server/strict/update_researcher_service.php" method="POST">
 
                             <div>
                                 <h4>Danger Zone</h4>
                                 <p>Permanently remove this researcher account.</p>
                             </div>
 
-                            <button type="button" class="delete_researcher">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id_user" value="<?php echo $researcher["id_user"]; ?>">
+                            <input type="hidden" name="id_address" value="<?php echo $researcher["id_address"]; ?>">
+                            <input type="hidden" name="id_phone" value="<?php echo $researcher["id_phone"]; ?>">
+
+                            <button type="submit" class="delete_researcher">
                                 <span class="material-symbols-rounded">delete</span>
                                 Delete Researcher
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

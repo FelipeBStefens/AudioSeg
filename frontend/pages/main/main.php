@@ -52,9 +52,7 @@
                         <h3>Recent Incidents</h3>
 
                         <div class="shootings_list">
-                            <?php 
-                                include_once __DIR__ . "/../../server/main/main_service.php";
-                            ?>
+                            <?php include_once __DIR__ . "/../../server/main/main_service.php"; ?>
                         </div>
                     </div>
                 </div>

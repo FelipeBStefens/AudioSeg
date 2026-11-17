@@ -3,7 +3,6 @@
     
     include __DIR__ . "/../../server/security/validation.php";
     include __DIR__ . "/../../server/security/expiration.php";
-    include __DIR__ . "/../../server/main/shoot_service.php";
 
     if (!(validate_policeman() || validate_delegate() || validate_director())) {
         redirect();
@@ -50,9 +49,7 @@
                 <div class="sidebar_content">
 
                     <div class="shootings_list">
-                        <?php 
-                            include_once __DIR__ . "/../../server/main/main_service.php";
-                        ?>
+                        <?php include_once __DIR__ . "/../../server/main/main_service.php";?>
                     </div>
                 </div>
             </aside>

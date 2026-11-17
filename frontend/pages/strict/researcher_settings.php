@@ -28,7 +28,7 @@
     </head>
 
     <body>
-        <?php include __DIR__ . "/../header/header.php"?>
+        <?php include __DIR__ . "/../header/header.php"; ?>
 
         <main class="researchers_container">
 
@@ -44,7 +44,7 @@
                         <strong>Researchers</strong>
                         <span>Registered accounts</span>
                     </div>
-                    <span class="counter_number">67</span>
+                    <span id="quantity" class="counter_number"></span>
                 </div>
             </div>
 
@@ -67,14 +67,7 @@
                 <p class="search_results" id="search_results"></p>
 
                 <div class="researchers_list">
-                    
-                    <?php 
-                        require_once __DIR__ . "/../../server/strict/show_researcher_service.php";
-
-                        for ($i = 0; $i < 100; $i++) {
-                            show_researchers();
-                        }
-                    ?>
+                    <?php require_once __DIR__ . "/../../server/strict/show_researcher_service.php"; ?>
                 </div>
             </section>
         </main>

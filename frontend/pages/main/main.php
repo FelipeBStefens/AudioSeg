@@ -3,7 +3,6 @@
     
     include __DIR__ . "/../../server/security/validation.php";
     include __DIR__ . "/../../server/security/expiration.php";
-    include __DIR__ . "/../../server/main/shoot_service.php";
 
     if (!validate_user()) {
         redirect();

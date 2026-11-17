@@ -1,15 +1,10 @@
 @import url('../header.css');
 
-
-/* MAIN CONTAINER */
-
 .researchers_container {
     width: min(1100px, 90%);
     margin: 3rem auto;
     padding-bottom: 4rem;
 }
-
-/* PAGE HEADING */
 
 .page_heading {
     display: flex;
@@ -34,13 +29,10 @@
     margin-bottom: 0.6rem;
 }
 
-.page_heading p,
-.section_heading p {
+.page_heading p, .section_heading p {
     color: var(--silver);
     font-size: 0.85rem;
 }
-
-/* RESEARCHER COUNTER */
 
 .researcher_counter {
     display: flex;
@@ -79,8 +71,6 @@
     color: var(--bright-gold);
 }
 
-/* SECTION */
-
 .researchers_section {
     width: 100%;
 }
@@ -103,8 +93,6 @@
     font-size: 2rem;
 }
 
-/* RESEARCHER LIST */
-
 .researchers_list {
     display: flex;
     flex-direction: column;
@@ -116,16 +104,13 @@
     background: var(--shadow-grey);
     border: 1px solid var(--graphite);
     border-radius: 12px;
-    transition: border-color 0.25s ease,
-                background 0.25s ease;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.researcher_item:hover,
-.researcher_item.active {
+.researcher_item:hover, .researcher_item.active {
     border-color: var(--golden-glow);
 }
-
-/* RESEARCHER HEADER */
 
 .researcher_trigger {
     width: 100%;
@@ -195,16 +180,13 @@
 .expand_icon {
     color: var(--silver);
     font-size: 1.8rem;
-    transition: transform 0.3s ease,
-                color 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .researcher_item.active .expand_icon {
     transform: rotate(180deg);
     color: var(--bright-gold);
 }
-
-/* EXPANDABLE DETAILS */
 
 .researcher_details {
     display: grid;
@@ -221,16 +203,13 @@
     overflow: hidden;
     padding: 0 1.4rem;
     opacity: 0;
-    transition: opacity 0.3s ease,
-                padding 0.35s ease;
+    transition: opacity 0.3s ease, padding 0.35s ease;
 }
 
 .researcher_item.active .details_content {
     padding: 1.5rem 1.4rem;
     opacity: 1;
 }
-
-/* DETAILS HEADING */
 
 .details_heading {
     display: flex;
@@ -240,28 +219,10 @@
     margin-bottom: 1.5rem;
 }
 
-.details_heading h3,
-.expiration_heading h3 {
+.details_heading h3, .expiration_heading h3 {
     font-family: var(--title-font);
     font-size: 1.3rem;
 }
-
-.account_status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #75cf91;
-    font-size: 0.75rem;
-}
-
-.account_status span {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #75cf91;
-}
-
-/* PROFILE OVERVIEW */
 
 .profile_overview {
     display: flex;
@@ -300,8 +261,6 @@
     letter-spacing: 1.5px;
 }
 
-/* INFORMATION GRID */
-
 .information_grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -335,8 +294,6 @@
 .full_width {
     grid-column: 1 / -1;
 }
-
-/* EXPIRATION */
 
 .expiration_section {
     margin-top: 1.5rem;
@@ -398,10 +355,7 @@
     border-color: var(--bright-gold);
 }
 
-/* BUTTONS */
-
-.save_expiration,
-.delete_researcher {
+.save_expiration, .delete_researcher {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -413,8 +367,7 @@
     font-size: 0.75rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s ease,
-                transform 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .save_expiration {
@@ -427,12 +380,9 @@
     transform: translateY(-2px);
 }
 
-.save_expiration .material-symbols-rounded,
-.delete_researcher .material-symbols-rounded {
+.save_expiration .material-symbols-rounded, .delete_researcher .material-symbols-rounded {
     font-size: 1.2rem;
 }
-
-/* DANGER ZONE */
 
 .researcher_actions {
     display: flex;
@@ -464,84 +414,6 @@
     background: #713333;
     transform: translateY(-2px);
 }
-
-/* RESPONSIVENESS */
-
-@media (max-width: 700px) {
-
-    .researchers_container {
-        width: 92%;
-        margin-top: 2rem;
-    }
-
-    .page_heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .page_heading h1 {
-        font-size: 2rem;
-    }
-
-    .researcher_counter {
-        width: 100%;
-    }
-
-    .researcher_metadata {
-        gap: 0.5rem;
-    }
-
-    .institute_tag {
-        display: none;
-    }
-
-    .researcher_trigger {
-        padding: 1rem;
-    }
-
-    .details_content {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    .researcher_item.active .details_content {
-        padding: 1.2rem 1rem;
-    }
-
-    .information_grid {
-        grid-template-columns: 1fr;
-    }
-
-    .full_width {
-        grid-column: auto;
-    }
-
-    .expiration_controls {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .save_expiration {
-        width: 100%;
-    }
-
-    .researcher_actions {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .delete_researcher {
-        width: 100%;
-    }
-
-    .details_heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-}
-
-
-/* RESEARCHER SEARCH */
 
 .researcher_search {
     display: flex;
@@ -605,14 +477,3 @@
 .researcher_item.hidden {
     display: none;
 }
-
-@media (max-width: 500px) {
-    .search_shortcut {
-        display: none;
-    }
-
-    .researcher_search input {
-        font-size: 0.7rem;
-    }
-}
-

@@ -71,4 +71,12 @@
             WHERE id_researcher = ?;
         ";
     }
+
+    function make_public(){
+        return "
+            UPDATE gunshot
+            SET public_shot = TRUE
+            WHERE id_gunshot = ?;
+        ";
+    }
 ?>

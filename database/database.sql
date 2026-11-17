@@ -438,7 +438,9 @@ GRANT SELECT
 ON audioseg_database.vw_public_gunshots
 TO 'delegate'@'localhost';
 
-GRANT UPDATE (public_shot)
+GRANT 
+    UPDATE (public_shot),
+    SELECT (id_gunshot, public_shot)
 ON audioseg_database.gunshot
 TO 'delegate'@'localhost';
 
@@ -519,7 +521,9 @@ GRANT
 ON audioseg_database.police_station
 TO 'director'@'localhost';
 
-GRANT UPDATE (public_shot)
+GRANT 
+    UPDATE (public_shot),
+    SELECT (id_gunshot, public_shot)
 ON audioseg_database.gunshot
 TO 'director'@'localhost';
 

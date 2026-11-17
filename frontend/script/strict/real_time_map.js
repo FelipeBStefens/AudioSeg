@@ -1,24 +1,8 @@
 import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.mjs';
 
-const map = new maplibregl.Map({
-    container: 'map',
-    style: {
-        version: 8,
-        sources: {
-            osm: {
-                type: 'raster',
-                tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-                tileSize: 256,
-                attribution: '© OpenStreetMap contributors'
-            }
-        },
-        layers: [{ id: 'osm', type: 'raster', source: 'osm' }]
-    },
-    center: [-51.1343, -29.7642],
-    zoom: 12,
-    minZoom: 3,
-    maxZoom: 19
-});
+import { initialize_map } from '../map.js';
+
+const {map, get_user_coordinates} = initialize_map();
 
 const shootingCards = new Map();
 const shootingMarkers = new Map();
@@ -26,20 +10,84 @@ const shootingMarkers = new Map();
 const container = document.querySelector('.shootings_list');
 let updating = false;
 
+async function make_route(destination, button = null) {
+
+    try {
+        if (button) {
+            button.disabled = true;
+            button.textContent = 'Calculating...';
+        }
+
+        let origin = get_user_coordinates();
+        if (!origin) {
+
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, {enableHighAccuracy: true, timeout: 10000});
+            });
+
+            origin = [position.coords.longitude, position.coords.latitude];
+        }
+
+        if (!origin || !origin.every(Number.isFinite) || !destination.every(Number.isFinite)) {
+            throw new Error('Invalid coordinates.');
+        }
+
+        const url = `https://router.project-osrm.org/route/v1/driving/` + `${origin[0]},${origin[1]};` + `${destination[0]},${destination[1]}` + `?overview=full&geometries=geojson&steps=true`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error('OSRM server error.');
+        }
+
+        const data = await response.json();
+
+        if (data.code !== 'Ok' || !data.routes.length) {
+            throw new Error('No route found.');
+        }
+
+        const route = data.routes[0];
+        const routeSource = map.getSource('route');
+
+        if (!routeSource) {
+            throw new Error('Route source is not available.');
+        }
+
+        routeSource.setData({type: 'Feature', properties: {}, geometry: route.geometry});
+        const bounds = new maplibregl.LngLatBounds();
+        route.geometry.coordinates.forEach(coordinate => {bounds.extend(coordinate);});
+
+        map.fitBounds(bounds, {padding: 80, maxZoom: 16, duration: 1200});
+
+        /* Route information
+        const distance = (route.distance / 1000).toFixed(2);
+        const duration = Math.ceil(route.duration / 60);
+        */
+    } 
+    catch (error) {
+
+        console.error('Route error:', error);
+        alert('Unable to calculate the route. Check your location and try again.');
+    } 
+    finally {
+
+        if (button) {
+            button.disabled = false;
+            button.textContent = 'Go there';
+        }
+    }
+}
+
 function create_shooting_card(shot, index) {
 
     const card = document.createElement('div');
     card.className = 'shooting_card';
 
     card.innerHTML = `
-        <button class="shooting_header"
-                type="button"
-                aria-expanded="false">
+        <button class="shooting_header" type="button" aria-expanded="false">
 
             <div class="shooting_info">
-                <span class="material-symbols-rounded">
-                    crisis_alert
-                </span>
+
+                <span class="material-symbols-rounded">crisis_alert</span>
 
                 <div class="shooting_main_info">
                     <span class="shooting_id"></span>
@@ -55,18 +103,13 @@ function create_shooting_card(shot, index) {
         <div class="shooting_details">
 
             <div class="buttons_container">
+
                 <form action="/../../server/strict/make_it_public_service.php" method="POST">
-
                     <input class="public_gunshot" type="hidden" name="public_gunshot">
-
-                    <button class="make_public button_card" type="submit">
-                        Make it public
-                    </button>
+                    <button class="make_public button_card" type="submit">Make it public</button>
                 </form>
 
-                <button class="go_there button_card" type="submit" onclick="make_route()">
-                    Go there
-                </button>
+                <button class="go_there button_card" type="button">Go there</button>
             </div>
 
             <div class="detail_item">
@@ -98,31 +141,24 @@ function create_shooting_card(shot, index) {
                 <span class="detail_label">COUNTRY</span>
                 <span class="detail_value country"></span>
             </div>
-
         </div>
     `;
 
     update_shooting_card(card, shot, index);
+
     return card;
 }
 
 function update_shooting_card(card, shot, index) {
 
-    const setText = (selector, value) => {
-        card.querySelector(selector).textContent = value ?? '';
-    };
+    const setText = (selector, value) => {card.querySelector(selector).textContent = value;};
 
     card.dataset.lng = shot.shot_longitude;
     card.dataset.lat = shot.shot_latitude;
 
-    const bt = card.querySelector(".make_public");
-
-    if (shot.public_shot == false) {
-        card.querySelector(".public_gunshot").value = shot.id_gunshot;
-    } 
-    else {
-        bt.classList.add("disabled_bt");
-    }
+    const bt = card.querySelector('.make_public');
+    card.querySelector('.public_gunshot').value = shot.id_gunshot;
+    bt.classList.toggle('disabled_bt', shot.public_shot == true);
 
     setText('.shooting_location', `${shot.shot_city}, ${shot.shot_state}, ${shot.shot_country}`);
     setText('.shooting_id', `Incident ${index}`);
@@ -136,17 +172,12 @@ function update_shooting_card(card, shot, index) {
 
 function update_shooting_marker(id, shot) {
 
-    const coordinates = [
-        Number(shot.shot_longitude),
-        Number(shot.shot_latitude)
-    ];
-
+    const coordinates = [Number(shot.shot_longitude), Number(shot.shot_latitude)];
     if (!coordinates.every(Number.isFinite)) {
         return;
     }
 
     const existingMarker = shootingMarkers.get(id);
-
     if (existingMarker) {
         existingMarker.setLngLat(coordinates);
     } 
@@ -159,13 +190,13 @@ function update_shooting_marker(id, shot) {
 function synchronize_shootings(shots) {
 
     const currentIds = new Set();
+
     let index = 1;
 
     shots.forEach(shot => {
 
         const id = String(shot.id_gunshot);
         currentIds.add(id);
-
         let card = shootingCards.get(id);
 
         if (!card) {
@@ -201,6 +232,17 @@ function synchronize_shootings(shots) {
 
 container.addEventListener('click', event => {
 
+    const goThere = event.target.closest('.go_there');
+
+    if (goThere && container.contains(goThere)) {
+
+        const card = goThere.closest('.shooting_card');
+        const destination = [Number(card.dataset.lng), Number(card.dataset.lat)];
+
+        make_route(destination, goThere);
+        return;
+    }
+
     const header = event.target.closest('.shooting_header');
 
     if (!header || !container.contains(header)) {
@@ -211,7 +253,6 @@ container.addEventListener('click', event => {
     const isExpanded = card.classList.contains('expanded');
 
     container.querySelectorAll('.shooting_card.expanded').forEach(otherCard => {
-
         otherCard.classList.remove('expanded');
         otherCard.querySelector('.shooting_header').setAttribute('aria-expanded', 'false');
     });
@@ -220,20 +261,16 @@ container.addEventListener('click', event => {
 
         card.classList.add('expanded');
         header.setAttribute('aria-expanded', 'true');
-
-        map.flyTo({
-            center: [Number(card.dataset.lng), Number(card.dataset.lat)],
-            zoom: 16,
-            speed: 1.2,
-            curve: 1.4,
-            essential: true
-        });
+        
+        map.flyTo({center: [Number(card.dataset.lng), Number(card.dataset.lat)], zoom: 16, speed: 1.2, curve: 1.4, essential: true});
     }
 });
 
 async function update_shootings() {
 
-    if (updating) return;
+    if (updating) {
+        return;
+    }
 
     updating = true;
 
@@ -257,6 +294,24 @@ async function update_shootings() {
 }
 
 map.on('load', () => {
+
+    map.addSource('route', {
+        type: 'geojson',
+        data: {
+            type: 'Feature',
+            properties: {},
+            geometry: {type: 'LineString', coordinates: []}
+        }
+    });
+
+    map.addLayer({
+        id: 'route-layer',
+        type: 'line',
+        source: 'route',
+        layout: {'line-join': 'round', 'line-cap': 'round'},
+        paint: {'line-color': '#007BFF', 'line-width': 5, 'line-opacity': 0.85}
+    });
+
     update_shootings();
     setInterval(update_shootings, 5000);
 });

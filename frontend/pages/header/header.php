@@ -2,7 +2,7 @@
 <header class="header_container">
 
     <div class="audioseg_title">
-        <img src="../../assets/images/AudioSegLogo.png" alt="AudioSeg Logo" class="logo_img">
+        <img src="../../assets/images/audioseg_logo.png" alt="AudioSeg Logo" class="logo_img">
         <h2>AudioSeg</h2>
     </div>
 

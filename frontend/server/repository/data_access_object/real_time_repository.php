@@ -11,25 +11,33 @@
         $statement->execute();
         $query = $statement->get_result();
 
-        $all_public_shots = [];
+        $all_shots = [];
 
         while($shot = $query->fetch_assoc()) {
-            array_push($all_public_shots, $shot);
+
+            if ($role_user == "DELEGATE" || $role_user == "POLICEMAN") {
+                if ($shot["id_police_station"] == $_SESSION["user_data"]["id_police_station"]) {
+                    array_push($all_shots, $shot);
+                }
+            }
+            else if ($role_user == "DIRECTOR") {
+                array_push($all_shots, $shot);
+            }
         } 
 
-        return $all_public_shots;
+        return $all_shots;
     }
 
     function make_it_public(String $role_user, int $id_gunshot){
 
-        try{
+        try {
             $connection = user_connection($role_user);
             $statement = $connection->prepare(make_public());
             $statement->bind_param("i", $id_gunshot);
             $statement->execute();
-        }catch(Exception $e){
-            echo $e->getMessage();
-            throw new Exception("Could not make it public!");
+        }
+        catch(Exception) {
+            throw new Exception("Could not make it public");
         }
     }
 ?>

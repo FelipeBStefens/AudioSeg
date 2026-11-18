@@ -1,15 +1,10 @@
 @import url('../header.css');
 
-
-/* MAIN CONTAINER */
-
 .researchers_container {
     width: min(1100px, 90%);
     margin: 3rem auto;
     padding-bottom: 4rem;
 }
-
-/* PAGE HEADING */
 
 .page_heading {
     display: flex;
@@ -34,13 +29,10 @@
     margin-bottom: 0.6rem;
 }
 
-.page_heading p,
-.section_heading p {
+.page_heading p, .section_heading p {
     color: var(--silver);
     font-size: 0.85rem;
 }
-
-/* RESEARCHER COUNTER */
 
 .researcher_counter {
     display: flex;
@@ -78,8 +70,6 @@
     font-size: 1.5rem;
     color: var(--bright-gold);
 }
-
-/* SECTION */
 
 .researcher_search {
     display: flex;
@@ -166,8 +156,6 @@
     font-size: 2rem;
 }
 
-/* RESEARCHER LIST */
-
 .researchers_list {
     display: flex;
     flex-direction: column;
@@ -179,16 +167,12 @@
     background: var(--shadow-grey);
     border: 1px solid var(--graphite);
     border-radius: 12px;
-    transition: border-color 0.25s ease,
-                background 0.25s ease;
+    transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.researcher_item:hover,
-.researcher_item.active {
+.researcher_item:hover, .researcher_item.active {
     border-color: var(--golden-glow);
 }
-
-/* RESEARCHER HEADER */
 
 .researcher_trigger {
     width: 100%;
@@ -258,16 +242,13 @@
 .expand_icon {
     color: var(--silver);
     font-size: 1.8rem;
-    transition: transform 0.3s ease,
-                color 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .researcher_item.active .expand_icon {
     transform: rotate(180deg);
     color: var(--bright-gold);
 }
-
-/* EXPANDABLE DETAILS */
 
 .researcher_details {
     display: grid;
@@ -292,8 +273,6 @@
     padding: 1.5rem 1.4rem;
     opacity: 1;
 }
-
-/* DETAILS HEADING */
 
 .details_heading {
     display: flex;
@@ -323,8 +302,6 @@
     border-radius: 50%;
     background: #75cf91;
 }
-
-/* PROFILE OVERVIEW */
 
 .profile_overview {
     display: flex;
@@ -363,8 +340,6 @@
     letter-spacing: 1.5px;
 }
 
-/* INFORMATION GRID */
-
 .information_grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -398,8 +373,6 @@
 .full_width {
     grid-column: 1 / -1;
 }
-
-/* EXPIRATION */
 
 .expiration_section {
     margin-top: 1.5rem;
@@ -461,8 +434,6 @@
     border-color: var(--bright-gold);
 }
 
-/* BUTTONS */
-
 .save_expiration,
 .delete_researcher {
     display: flex;
@@ -490,12 +461,9 @@
     transform: translateY(-2px);
 }
 
-.save_expiration .material-symbols-rounded,
-.delete_researcher .material-symbols-rounded {
+.save_expiration .material-symbols-rounded, .delete_researcher .material-symbols-rounded {
     font-size: 1.2rem;
 }
-
-/* DANGER ZONE */
 
 .researcher_actions {
     display: flex;
@@ -528,17 +496,9 @@
     transform: translateY(-2px);
 }
 
-
-/* ========================================
-   POLICE STATION MANAGEMENT
-======================================== */
-
 .station_item.hidden {
     display: none;
 }
-
-
-/* OFFICERS SECTION */
 
 .officers_section {
     margin-top: 2rem;
@@ -578,9 +538,6 @@
     font-weight: 700;
     white-space: nowrap;
 }
-
-
-/* OFFICER LIST */
 
 .officers_list {
     display: flex;
@@ -661,9 +618,6 @@
     overflow-wrap: anywhere;
 }
 
-
-/* REMOVE OFFICER */
-
 .remove_officer {
     display: flex;
     align-items: center;
@@ -693,9 +647,6 @@
     font-size: 1.1rem;
 }
 
-
-/* EMPTY OFFICERS */
-
 .empty_officers {
     display: flex;
     flex-direction: column;
@@ -720,9 +671,6 @@
 .empty_officers p {
     font-size: 0.75rem;
 }
-
-
-/* ADD OFFICER */
 
 .add_officer_section {
     margin-top: 1.5rem;
@@ -790,9 +738,6 @@
     opacity: 0.65;
 }
 
-
-/* ADD BUTTON */
-
 .add_officer_button {
     display: flex;
     align-items: center;
@@ -812,8 +757,7 @@
     font-weight: 700;
 
     cursor: pointer;
-    transition: background 0.2s ease,
-                transform 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .add_officer_button:hover {
@@ -825,55 +769,36 @@
     font-size: 1.2rem;
 }
 
+.officer_form_group input, .officer_form_group select {
+    width: 100%;
+    padding: 0.8rem;
 
-/* RESPONSIVENESS */
+    background: var(--carbon-black);
+    border: 1px solid var(--graphite);
+    border-radius: 7px;
 
-@media (max-width: 650px) {
+    color: var(--alabaster-grey);
+    font-family: var(--text-font);
+    font-size: 0.8rem;
 
-    .officers_section {
-        padding: 1rem;
-    }
-
-    .officers_heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .add_officer_form {
-        grid-template-columns: 1fr;
-    }
-
-    .officer_item {
-        padding: 0.8rem;
-    }
-
-    .remove_officer {
-        padding: 0.5rem;
-    }
-
-    .remove_officer span:last-child {
-        display: none;
-    }
-
+    outline: none;
 }
 
-@media (max-width: 450px) {
+.officer_form_group input:focus, .officer_form_group select:focus {
+    border-color: var(--bright-gold);
+}
 
-    .officer_identity {
-        gap: 0.6rem;
-    }
+.officer_form_group input::placeholder {
+    color: var(--silver);
+    opacity: 0.65;
+}
 
-    .officer_photo {
-        width: 2.3rem;
-        height: 2.3rem;
-    }
+.officer_form_group select {
+    cursor: pointer;
+    color-scheme: dark;
+}
 
-    .officer_identity h4 {
-        font-size: 0.75rem;
-    }
-
-    .officer_identity span {
-        font-size: 0.65rem;
-    }
-
+.officer_form_group select option {
+    background: var(--carbon-black);
+    color: var(--alabaster-grey);
 }

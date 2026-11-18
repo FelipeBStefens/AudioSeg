@@ -8,7 +8,7 @@
 
     function get_police_stations(String $role_user){
 
-        try{
+        try {
 
             $connection = user_connection($role_user);
             $statement = $connection->prepare(get_all_police_stations());
@@ -20,19 +20,26 @@
             while($ps = $query->fetch_assoc()) {
                 $policemen = get_policemen_from_station($ps["id_police_station"], $role_user);
                 $ps["policemen"] = $policemen;
+                
                 array_push($all_police_stations, $ps);
             } 
 
             return $all_police_stations;
-
-        }catch(Exception $e){
-            throw new Exception("Could not find all police stations!");
         }
+        catch(Exception $e) {
 
+            if ($e->getMessage() == "") {
+                throw $e;
+            }
+            else {
+                throw new Exception("Could not find all police stations!");
+            }
+        }
     }
 
-    function get_policemen_from_station($id_station, $role_user){
-        try{
+    function get_policemen_from_station(int $id_station, String $role_user){
+        
+        try {
             $connection = user_connection($role_user);
             $statement = $connection->prepare(get_all_policemen_from_sation());
             $statement->bind_param("i", $id_station);
@@ -46,41 +53,37 @@
             }
 
             return $all_policemen;
-
-        }catch(Exception $e){
-
+        }
+        catch(Exception) {
             throw new Exception("Could not find all policemen!");
-
-            throw $e;
         }
     }
 
 
     function delete_station(String $role_user, int $id_station){
-        try{
+        
+        try {
             $connection = user_connection($role_user);
             $statement = $connection->prepare(delete_police_station());
             $statement->bind_param("i", $id_station);
             $statement->execute();
-
-        }catch(Exception $e){
-
+        }
+        catch(Exception) {
             throw new Exception("Could not delete the police stations!");
         }
     }
 
 
     function remove_policeman(String $role_user, int $id_policeman){
-        try{
+        
+        try {
             $connection = user_connection($role_user);
             $statement = $connection->prepare(delete_policeman());
             $statement->bind_param("i", $id_policeman);
             $statement->execute();
-
-        }catch(Exception $e){
-
+        }
+        catch(Exception) {
             throw new Exception("Could not delete the policeman!");
         }
     }
-
 ?>

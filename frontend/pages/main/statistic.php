@@ -51,7 +51,7 @@ $hourLabels = ['00–03h', '03–06h', '06–09h', '09–12h', '12–15h', '15�
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link rel="stylesheet" href="../../style/main/statistic.css">
 
-    <link rel="icon" href="../../assets/images/AudioSegLogo.png" type="image/png">
+    <link rel="icon" href="../../assets/images/audioseg_logo.png" type="image/png">
     <link rel="stylesheet" href="../../style/main/settings.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

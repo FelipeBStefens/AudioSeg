@@ -45,8 +45,8 @@
         return "
         SELECT * 
         FROM police_station ps
-        INNER JOIN housing h ON ps.id_housing = h.id_housing
-        INNER JOIN address a ON h.id_address = a.id_address;
+            INNER JOIN housing h ON ps.id_housing = h.id_housing
+            INNER JOIN address a ON h.id_address = a.id_address;
         ";
     }
 
@@ -65,8 +65,7 @@
                 u.email,
                 u.role_user,
                 u.photo
-            FROM policeman p
-            INNER JOIN users u ON p.id_user = u.id_user
+            FROM policeman p INNER JOIN users u ON p.id_user = u.id_user
             WHERE p.id_police_station = ?;
         ";
     }

@@ -38,13 +38,21 @@
                     <p>Manage police stations and their registered officers.</p>
                 </div>
 
-                <div class="researcher_counter">
-                    <span class="material-symbols-rounded">local_police</span>
-                    <div>
-                        <strong>Police Stations</strong>
-                        <span>Registered stations</span>
+                <div class="info_station">
+
+                    <a class="researcher_counter add_station_bt" href="add_police_station.php">
+                        <span class="material-symbols-rounded">add</span>
+                        <h5><span class="add_span">ADD</span> POLICE STATION</h5>
+                    </a>
+
+                    <div class="researcher_counter">
+                        <span class="material-symbols-rounded">local_police</span>
+                        <div>
+                            <strong>Police Stations</strong>
+                            <span>Registered stations</span>
+                        </div>
+                        <span class="counter_number" id="station_counter"></span>
                     </div>
-                    <span class="counter_number" id="station_counter"></span>
                 </div>
             </div>
 
@@ -70,6 +78,7 @@
                 <div class="researchers_list" id="stations_list">
                     <?php require_once __DIR__ . "/../../server/strict/show_police_station_service.php"?>
                 </div>
+
             </section>
         </main>
     </body>

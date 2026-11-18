@@ -34,6 +34,30 @@
     font-size: 0.85rem;
 }
 
+.info_station{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.add_station_bt{
+    text-decoration: none;
+    color: var(--alabaster-grey);
+    font-family: var(--title-font);
+    transition: 0.3s ease-in-out;
+}
+
+.add_station_bt:hover{
+    transform: scale(1.03);
+    transition: 0.3s ease-in-out;
+}
+
+.add_span{
+    color: var(--bright-gold);
+}
+
 .researcher_counter {
     display: flex;
     align-items: center;

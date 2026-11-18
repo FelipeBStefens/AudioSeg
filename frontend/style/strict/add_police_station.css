@@ -1,0 +1,225 @@
+@import url("../header.css");
+
+.add_station_container {
+    width: min(1100px, 92%);
+    margin: 50px auto 80px;
+    color: var(--alabaster-grey);
+    font-family: var(--text-font);
+}
+
+.page_heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.page_heading h1 {
+    font-family: var(--title-font);
+    font-size: 2.3rem;
+    margin: 12px 0;
+    color: var(--bright-gold);
+}
+
+.page_heading p {
+    color: var(--silver);
+    font-size: 0.9rem;
+}
+
+.eyebrow {
+    color: var(--golden-glow);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.back_button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: 1px solid var(--charcoal);
+    border-radius: 8px;
+    color: var(--alabaster-grey);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: 0.25s;
+    white-space: nowrap;
+}
+
+.back_button:hover {
+    border-color: var(--bright-gold);
+    color: var(--bright-gold);
+    transform: translateY(-2px);
+}
+
+.station_form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form_section {
+    background: var(--shadow-grey);
+    border: 1px solid var(--graphite);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: var(--default-shadow);
+}
+
+.form_section_heading {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--graphite);
+}
+
+.section_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    height: 52px;
+    background: rgba(252, 222, 51, 0.1);
+    border: 1px solid rgba(252, 222, 51, 0.25);
+    border-radius: 10px;
+    color: var(--bright-gold);
+}
+
+.section_icon span {
+    font-size: 28px;
+}
+
+.form_section_heading h2 {
+    font-family: var(--title-font);
+    font-size: 1.4rem;
+    margin: 7px 0;
+    color: var(--alabaster-grey);
+}
+
+.form_section_heading p {
+    font-size: 0.8rem;
+    color: var(--silver);
+}
+
+.form_grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.full_width {
+    grid-column: 1 / -1;
+}
+
+.form_group label {
+    color: var(--alabaster-grey);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.optional_tag {
+    color: var(--silver);
+    font-size: 0.62rem;
+    margin-left: 5px;
+    letter-spacing: 1px;
+}
+
+.form_group input,
+.form_group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 15px;
+    border: 1px solid var(--charcoal);
+    border-radius: 7px;
+    outline: none;
+    background: var(--carbon-black);
+    color: var(--alabaster-grey);
+    font-family: var(--text-font);
+    font-size: 0.8rem;
+    transition: 0.25s;
+}
+
+.form_group input {
+    height: 45px;
+}
+
+.form_group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.form_group input::placeholder,
+.form_group textarea::placeholder {
+    color: var(--silver);
+    opacity: 0.65;
+}
+
+.form_group input:focus,
+.form_group textarea:focus {
+    border-color: var(--bright-gold);
+    box-shadow: 0 0 0 2px rgba(252, 222, 51, 0.1);
+}
+
+.form_group input:valid:not(:placeholder-shown) {
+    border-color: var(--charcoal);
+}
+
+.form_actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.cancel_button,
+.submit_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 45px;
+    padding: 0 22px;
+    border-radius: 7px;
+    font-family: var(--text-font);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.cancel_button {
+    color: var(--silver);
+    background: transparent;
+    border: 1px solid var(--charcoal);
+}
+
+.cancel_button:hover {
+    color: var(--alabaster-grey);
+    border-color: var(--silver);
+}
+
+.submit_button {
+    color: var(--hard-black);
+    background: var(--bright-gold);
+    border: 1px solid var(--bright-gold);
+}
+
+.submit_button:hover {
+    background: var(--golden-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(252, 222, 51, 0.15);
+}

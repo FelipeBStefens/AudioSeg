@@ -9,11 +9,14 @@
     switch($action){
         
         case "police":
-            $id_policeman = $_POST["id_policeman"];
+            $id_user = $_POST["id_user"];
+            $id_address = $_POST["id_address"];
+            $id_phone = $_POST["id_phone"];
+            $id_notification = $_POST["id_notification"];
 
             try {
                 
-                remove_policeman($role_user, $id_policeman);
+                remove_policeman($role_user, $id_user, $id_address, $id_phone, $id_notification);
                 header("Location: ../../pages/strict/police_station.php");
                 exit();
             }
@@ -104,10 +107,10 @@
         case "station":
 
             $id_station = $_POST["id_station"];
-
+            $id_address = $_POST["id_address"];
+            
             try {
-
-                delete_station($role_user, $id_station);
+                delete_station($role_user, $id_station, $id_address);
                 header("Location: ../../pages/strict/police_station.php");
                 exit();
             }

@@ -527,6 +527,14 @@ GRANT
 ON audioseg_database.gunshot
 TO 'director'@'localhost';
 
+GRANT DELETE
+ON audioseg_database.sensor
+TO 'director'@'localhost';
+
+GRANT SELECT (id_police_station), DELETE
+ON audioseg_database.sensor
+TO 'director'@'localhost';
+
 GRANT SELECT
 ON audioseg_database.vw_public_gunshots
 TO 'director'@'localhost';

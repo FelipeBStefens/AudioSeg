@@ -1,5 +1,4 @@
 <?php
-    
     require_once __DIR__ . "/../connection.php";
     require_once __DIR__ . "/../queries/create_queries.php";
     require_once __DIR__ . "/../queries/view_queries.php";
@@ -10,7 +9,6 @@
     function get_police_stations(String $role_user){
 
         try {
-
             $connection = user_connection($role_user);
             $statement = $connection->prepare(get_all_police_stations());
             $statement->execute();
@@ -28,13 +26,8 @@
             return $all_police_stations;
         }
         catch(Exception $e) {
-
-            if ($e->getMessage() == "") {
-                throw $e;
-            }
-            else {
-                throw new Exception("Could not find all police stations!");
-            }
+            echo $e->getMessage();
+            throw $e;
         }
     }
 
@@ -55,237 +48,191 @@
 
             return $all_policemen;
         }
-        catch(Exception) {
+        catch(Exception $e) {
+            $e->getMessage();
             throw new Exception("Could not find all policemen!");
         }
     }
 
+    function delete_station(String $role_user, int $id_station, int $id_address) {
 
-    function delete_station(String $role_user, int $id_station){
-        
+        $connection = user_connection($role_user);
+
         try {
-            $connection = user_connection($role_user);
-            $statement = $connection->prepare(delete_police_station());
-            $statement->bind_param("i", $id_station);
-            $statement->execute();
-        }
-        catch(Exception) {
-            throw new Exception("Could not delete the police stations!");
+            $connection->begin_transaction();
+
+            $statement_sensor = $connection->prepare(delete_station_sensors());
+            $statement_sensor->bind_param("i", $id_station);
+            $statement_sensor->execute();
+            $statement_sensor->close();
+
+            $statement_policeman = $connection->prepare(delete_station_policemen());
+            $statement_policeman->bind_param("i", $id_station);
+            $statement_policeman->execute();
+            $statement_policeman->close();
+
+            $statement_delegate = $connection->prepare(delete_station_delegates());
+            $statement_delegate->bind_param("i", $id_station);
+            $statement_delegate->execute();
+            $statement_delegate->close();
+
+            $statement_station = $connection->prepare(delete_police_station());
+            $statement_station->bind_param("i", $id_station);
+            $statement_station->execute();
+            $statement_station->close();
+
+            $statement_address = $connection->prepare(delete_address());
+            $statement_address->bind_param("i", $id_address);
+            $statement_address->execute();
+            $statement_address->close();
+
+            $connection->commit();
+        } 
+        catch (Exception $e) {
+            $connection->rollback();
+            echo $e->getMessage();
+            throw new Exception("Could not delete the police station!");
         }
     }
 
+    function remove_policeman(String $role_user, int $id_user, int $id_address, int $id_phone, int $id_notification){
 
-    function remove_policeman(String $role_user, int $id_policeman){
-        
+        $connection = user_connection($role_user);
+
         try {
-            $connection = user_connection($role_user);
-            $statement = $connection->prepare(delete_policeman());
-            $statement->bind_param("i", $id_policeman);
-            $statement->execute();
+            $connection->begin_transaction();
+
+            $statement_address = $connection->prepare(delete_address());
+            $statement_address->bind_param("i", $id_address);
+            $statement_address->execute();
+            $statement_address->close();
+
+            $statement_phone = $connection->prepare(delete_phone());
+            $statement_phone->bind_param("i", $id_phone);
+            $statement_phone->execute();
+            $statement_phone->close();
+
+            $statement_notification = $connection->prepare(delete_notification());
+            $statement_notification->bind_param("i", $id_notification);
+            $statement_notification->execute();
+            $statement_notification->close();
+
+            $statement_user = $connection->prepare(delete_user());
+            $statement_user->bind_param("i", $id_user);
+            $statement_user->execute();
+            $statement_user->close();
             
+            $connection->commit();
         }
         catch(Exception) {
+            $connection->rollback();
             throw new Exception("Could not delete the policeman!");
         }
     }
 
-    
     function create_policeman(String $role_user, array $phone_list, array $user, array $policeman, int $id_police_station){
         
         $connection = user_connection($role_user);
     
         try {
-
             $connection->begin_transaction();
 
             $city = "Sapucaia Do Sul";
             $neighborhood = "Piratini";
             $street = "Av. Copacabana";
-
+            $role_policeman = "POLICEMAN";
             $cep = "93216-120";
             $number_house = 100;
             $additional_information = "";
 
             $address_statement = $connection->prepare(create_address_default());
-            $address_statement->bind_param(
-                    "sss",
-
-                    $city,
-                    $neighborhood,
-                    $street
-                );
+            $address_statement->bind_param("sss", $city, $neighborhood, $street);
             $address_statement->execute();
             $id_address = $connection->insert_id;
             $address_statement->close();
 
-
             $housing_statement = $connection->prepare(create_housing());
-            $housing_statement->bind_param(
-                    "sssi",
-
-                    $cep,
-                    $number_house,
-                    $additional_information,
-                    $id_address
-                );
+            $housing_statement->bind_param("sssi", $cep, $number_house, $additional_information, $id_address);
             $housing_statement->execute();
             $id_housing = $connection->insert_id;
             $housing_statement->close();
 
-
             $phone_statement = $connection->prepare(create_phone());
-            $phone_statement->bind_param(
-                    "sss",
-
-                    $phone_list["international_dialling_code"],
-                    $phone_list["local_dialling_code"],
-                    $phone_list["number_phone"]
-                );
+            $phone_statement->bind_param("sss", $phone_list["international_dialling_code"], $phone_list["local_dialling_code"], $phone_list["number_phone"]);
             $phone_statement->execute();
             $id_phone = $connection->insert_id;
             $phone_statement->close();
-
 
             $notification_statement = $connection->prepare(create_notification());
             $notification_statement->execute();
             $id_notification = $connection->insert_id;
             $notification_statement->close();
 
-            $role_policeman = "POLICEMAN";
-
             $user_statement = $connection->prepare(create_role_user());
-            $user_statement->bind_param(
-                    "ssssssiii",
-
-                    $user["username"],
-                    $user["email"],
-                    $user["password"],
-                    $role_policeman,
-                    $user["cpf"],
-                    $user["birth_date"],
-                    $id_phone,
-                    $id_housing,
-                    $id_notification
-                );
+            $user_statement->bind_param("ssssssiii", $user["username"], $user["email"], $user["password"], $role_policeman, $user["cpf"], $user["birth_date"], $id_phone, $id_housing, $id_notification);
             $user_statement->execute();
             $id_user = $connection->insert_id;
             $user_statement->close();
 
-
             $policeman_statement = $connection->prepare(insert_policeman());
-            $policeman_statement->bind_param(
-                    "ssssii",
-
-                    $policeman["badge"],
-                    $policeman["status"],
-                    $policeman["start_period"],
-                    $policeman["end_period"],
-                    $id_user,
-                    $id_police_station
-                );
+            $policeman_statement->bind_param("ssssii", $policeman["badge"], $policeman["status"], $policeman["start_period"], $policeman["end_period"], $id_user, $id_police_station);
             $policeman_statement->execute();
             $policeman_statement->close();
 
             $connection->commit();
-
         }
         catch(Exception $e) {
             $connection->rollback();
-            echo $e->getMessage();
             throw new Exception("Could not delete the policeman!");
         }
     }
 
     function create_delegate(String $role_user, array $phone_list, array $user, array $delegate, int $id_police_station){
+        
         $connection = user_connection($role_user);
     
         try {
-
             $connection->begin_transaction();
 
             $city = "Sapucaia Do Sul";
             $neighborhood = "Piratini";
             $street = "Av. Copacabana";
-
+            $role_delegate = "DELEGATE";
             $cep = "93216-120";
             $number_house = 100;
             $additional_information = "";
 
             $address_statement = $connection->prepare(create_address_default());
-            $address_statement->bind_param(
-                    "sss",
-
-                    $city,
-                    $neighborhood,
-                    $street
-                );
+            $address_statement->bind_param("sss", $city, $neighborhood, $street);
             $address_statement->execute();
             $id_address = $connection->insert_id;
             $address_statement->close();
 
-
             $housing_statement = $connection->prepare(create_housing());
-            $housing_statement->bind_param(
-                    "sssi",
-
-                    $cep,
-                    $number_house,
-                    $additional_information,
-                    $id_address
-                );
+            $housing_statement->bind_param("sssi", $cep, $number_house, $additional_information, $id_address);
             $housing_statement->execute();
             $id_housing = $connection->insert_id;
             $housing_statement->close();
 
-
             $phone_statement = $connection->prepare(create_phone());
-            $phone_statement->bind_param(
-                    "sss",
-
-                    $phone_list["international_dialling_code"],
-                    $phone_list["local_dialling_code"],
-                    $phone_list["number_phone"]
-                );
+            $phone_statement->bind_param("sss", $phone_list["international_dialling_code"], $phone_list["local_dialling_code"], $phone_list["number_phone"]);
             $phone_statement->execute();
             $id_phone = $connection->insert_id;
             $phone_statement->close();
-
 
             $notification_statement = $connection->prepare(create_notification());
             $notification_statement->execute();
             $id_notification = $connection->insert_id;
             $notification_statement->close();
 
-            $role_delegate = "DELEGATE";
-
             $user_statement = $connection->prepare(create_role_user());
-            $user_statement->bind_param(
-                    "ssssssiii",
-
-                    $user["username"],
-                    $user["email"],
-                    $user["password"],
-                    $role_delegate,
-                    $user["cpf"],
-                    $user["birth_date"],
-                    $id_phone,
-                    $id_housing,
-                    $id_notification
-                );
+            $user_statement->bind_param("ssssssiii", $user["username"], $user["email"], $user["password"], $role_delegate, $user["cpf"], $user["birth_date"], $id_phone, $id_housing, $id_notification);
             $user_statement->execute();
             $id_user = $connection->insert_id;
             $user_statement->close();
 
-
             $delegate_statement = $connection->prepare(insert_delegate());
-            $delegate_statement->bind_param(
-                    "ssii",
-
-                    $delegate["start_period"],
-                    $delegate["end_period"],
-                    $id_user,
-                    $id_police_station
-                );
+            $delegate_statement->bind_param("ssii", $delegate["start_period"], $delegate["end_period"], $id_user, $id_police_station);
             $delegate_statement->execute();
             $delegate_statement->close();
 
@@ -293,7 +240,6 @@
         }
         catch(Exception $e) {
             $connection->rollback();
-            echo $e->getMessage();
             throw new Exception("Could not delete the policeman!");
         }
     }

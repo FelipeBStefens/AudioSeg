@@ -1,4 +1,5 @@
 <?php
+
     function show_police_stations(array $station) {
         
         $policemen = $station["policemen"] ?? [];
@@ -122,7 +123,7 @@
                                         </div>
                                     </div>
 
-                                    <form action="../../server/strict/delete_police_and_station_service.php" method="post">
+                                    <form action="../../server/strict/police_and_station_service.php" method="post">
 
                                         <input type="hidden" name="action" value="police">
                                         <input type="hidden" name="id_policeman" value="<?php echo $policeman['id_policeman']?>">
@@ -155,7 +156,7 @@
                                 <span class="material-symbols-rounded">person_add</span>
                             </div>
 
-                            <form class="add_officer_form">
+                            <form action="../../server/strict/police_and_station_service.php" method="POST" class="add_officer_form">
 
                                 <input type="hidden" name="action" value="create_policeman">
                                 <input type="hidden" name="id_police_station" value="<?php echo $station["id_police_station"]; ?>">
@@ -231,7 +232,7 @@
                                 <span class="material-symbols-rounded">person_add</span>
                             </div>
 
-                            <form class="add_officer_form">
+                            <form action="../../server/strict/police_and_station_service.php" method="POST" class="add_officer_form">
 
                                 <input type="hidden" name="action" value="create_delegate">
                                 <input type="hidden" name="id_police_station" value="<?php echo $station["id_police_station"]; ?>">
@@ -291,7 +292,7 @@
                             <p>Permanently remove this police station account.</p>
                         </div>
                         
-                        <form action="../../server/strict/delete_police_and_station_service.php" method="post">
+                        <form action="../../server/strict/police_and_station_service.php" method="post">
 
                             <input type="hidden" name="action" value="station">
                             <input type="hidden" name="id_station" value="<?php echo $station['id_police_station']?>">

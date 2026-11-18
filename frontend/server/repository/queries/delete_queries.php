@@ -32,7 +32,7 @@
 
     function delete_policeman(){
         return "
-            DELETE FROM policeman WHERE id_policeman = ?; 
+            DELETE FROM policeman WHERE id_policeman = ?;
         ";
     }
 ?>

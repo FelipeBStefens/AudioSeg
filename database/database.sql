@@ -148,7 +148,7 @@ CREATE TABLE delegate (
     start_period TIME NOT NULL DEFAULT('07:00:00'),
     end_period TIME NOT NULL DEFAULT('18:00:00'),
 	id_user BIGINT NOT NULL UNIQUE,
-    id_police_station BIGINT NOT NULL UNIQUE,
+    id_police_station BIGINT NOT NULL,
     
     PRIMARY KEY (id_delegate),
     FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE,

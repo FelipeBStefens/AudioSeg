@@ -39,4 +39,35 @@
                 INNER JOIN researcher AS r ON u.id_user = r.id_user;
         ";
     }
+
+
+    function get_all_police_stations(){
+        return "
+        SELECT * 
+        FROM police_station ps
+        INNER JOIN housing h ON ps.id_housing = h.id_housing
+        INNER JOIN address a ON h.id_address = a.id_address;
+        ";
+    }
+
+    
+    function get_all_policemen_from_sation(){
+        return "
+            SELECT
+                p.id_policeman,
+                p.badge,
+                p.status_policeman,
+                DATE_FORMAT(p.start_period, '%H:%i') AS start_period,
+                DATE_FORMAT(p.end_period, '%H:%i') AS end_period,
+                p.id_user,
+                p.id_police_station,
+                u.username,
+                u.email,
+                u.role_user,
+                u.photo
+            FROM policeman p
+            INNER JOIN users u ON p.id_user = u.id_user
+            WHERE p.id_police_station = ?;
+        ";
+    }
 ?>

@@ -1,17 +1,8 @@
 
 <?php
-
-function station_escape($value) {
-    return htmlspecialchars(
-        (string)($value ?? ""),
-        ENT_QUOTES,
-        "UTF-8"
-    );
-}
-
-function show_police_stations(array $station) {
-
-    $policemen = $station["policemen"] ?? [];
+    function show_police_stations(array $station) {
+        
+        $policemen = $station["policemen"] ?? [];
 
 ?>
 
@@ -19,25 +10,17 @@ function show_police_stations(array $station) {
 
     <!-- STATION HEADER -->
 
-    <button
-        class="station_trigger researcher_trigger"
-        type="button"
-        aria-expanded="false"
-    >
+    <button class="station_trigger researcher_trigger" type="button" aria-expanded="false">
 
         <div class="researcher_identity">
 
-            <img
-                src="../../assets/images/profile_photo.jpg"
-                alt="Police station"
-                class="researcher_photo"
-            >
+            <img src="../../assets/images/profile_photo.jpg" alt="Police station" class="researcher_photo">
 
             <div class="researcher_summary">
 
-                <h3><?= station_escape($station["username"]) ?></h3>
+                <h3><?php echo ($station["name_police_station"]) ?></h3>
 
-                <span><?= station_escape($station["email"]) ?></span>
+                <span><?php echo ($station["city"]) ?></span>
 
             </div>
 
@@ -46,7 +29,7 @@ function show_police_stations(array $station) {
         <div class="researcher_metadata">
 
             <span class="institute_tag">
-                <?= station_escape($station["city"] ?? "Police Station") ?>
+                <?php echo ($station["city"] ?? "Police Station") ?>
             </span>
 
             <span class="material-symbols-rounded expand_icon">
@@ -78,17 +61,13 @@ function show_police_stations(array $station) {
 
             <div class="profile_overview">
 
-                <img
-                    src="../../assets/images/profile_photo.jpg"
-                    alt="Police station"
-                    class="details_photo"
-                >
+                <img src="../../assets/images/profile_photo.jpg" alt="Police station" class="details_photo">
 
                 <div>
 
-                    <h2><?= station_escape($station["username"]) ?></h2>
+                    <h2><?php echo ($station["name_police_station"]) ?></h2>
 
-                    <p><?= station_escape($station["address"] ?? "") ?></p>
+                    <p><?php echo ($station["city"] ?? "") ?></p>
 
                     <span>POLICE STATION</span>
 
@@ -103,29 +82,33 @@ function show_police_stations(array $station) {
 
                 <div class="information_group">
                     <span>Station Name</span>
-                    <strong><?= station_escape($station["username"]) ?></strong>
-                </div>
-
-                <div class="information_group">
-                    <span>Email</span>
-                    <strong><?= station_escape($station["email"]) ?></strong>
-                </div>
-
-                <div class="information_group">
-                    <span>Phone</span>
-                    <strong><?= station_escape($station["number_phone"] ?? "") ?></strong>
+                    <strong><?php echo ($station["name_police_station"]) ?></strong>
                 </div>
 
                 <div class="information_group">
                     <span>City</span>
-                    <strong><?= station_escape($station["city"] ?? "") ?></strong>
+                    <strong><?php echo ($station["city"] ?? "") ?></strong>
                 </div>
 
-                <div class="information_group full_width">
-                    <span>Address</span>
-                    <strong><?= station_escape($station["address"] ?? "") ?></strong>
+                <div class="information_group">
+                    <span>Country</span>
+                    <strong><?php echo ($station["country"]) ?></strong>
                 </div>
 
+                <div class="information_group">
+                    <span>Neighborhood</span>
+                    <strong><?php echo ($station["neighborhood"] ?? "") ?></strong>
+                </div>
+
+                <div class="information_group">
+                    <span>State</span>
+                    <strong><?php echo ($station["state"] ?? "") ?></strong>
+                </div>
+
+                <div class="information_group">
+                    <span>Street</span>
+                    <strong><?php echo ($station["street"] . ", " . $station["number_house"] ?? "") ?></strong>
+                </div>
             </div>
 
 
@@ -142,7 +125,7 @@ function show_police_stations(array $station) {
                     </div>
 
                     <span class="officer_counter">
-                        <?= count($policemen) ?> Officers
+                        <?php echo count($policemen) ?> Officers
                     </span>
 
                 </div>
@@ -154,31 +137,37 @@ function show_police_stations(array $station) {
 
                     <?php foreach ($policemen as $policeman): ?>
 
-                        <article
-                            class="officer_item"
-                            data-officer-id="<?= station_escape($policeman["id"] ?? "") ?>"
-                        >
+                        <article class="officer_item" data-officer-id="<?php echo ($policeman["id_policeman"] ?? "") ?>">
 
                             <div class="officer_identity">
 
-                                <img
-                                    src="../../assets/images/profile_photo.jpg"
-                                    alt="Police officer"
-                                    class="officer_photo"
-                                >
+                                <img src="../../assets/images/profile_photo.jpg" alt="Police officer" class="officer_photo">
 
                                 <div>
-                                    <h4><?= station_escape($policeman["username"]) ?></h4>
-                                    <span><?= station_escape($policeman["email"]) ?></span>
+                                    <h4 class="policeman_name">
+                                        <?php echo ($policeman["username"]);?> 
+
+                                        <?php
+                                            if($policeman["status_policeman"] == "ACTIVE"){
+                                        ?>
+                                            <p class="policeman_status p_active"><?php echo $policeman["status_policeman"] ?></p>
+                                        <?php
+                                            }else{
+                                        ?>
+                                            <p class="policeman_status p_inactive"><?php echo $policeman["status_policeman"] ?></p>
+                                        <?php
+                                            }
+                                        ?>
+
+                                        
+                                    </h4>
+                                    <span><?php echo ($policeman["email"]) ?></span>
+                                    <span><?php echo ($policeman["start_period"] . " - " . $policeman["end_period"]) ?></span>
                                 </div>
 
                             </div>
 
-                            <button
-                                type="button"
-                                class="remove_officer"
-                                title="Remove officer"
-                            >
+                            <button type="button" class="remove_officer" title="Remove officer">
                                 <span class="material-symbols-rounded">person_remove</span>
                                 <span>Remove</span>
                             </button>
@@ -222,12 +211,7 @@ function show_police_stations(array $station) {
 
                             <label>Officer Username</label>
 
-                            <input
-                                type="text"
-                                name="officer_username"
-                                placeholder="Enter officer username"
-                                required
-                            >
+                            <input type="text" name="officer_username" placeholder="Enter officer username" required>
 
                         </div>
 
@@ -235,12 +219,7 @@ function show_police_stations(array $station) {
 
                             <label>Officer Email</label>
 
-                            <input
-                                type="email"
-                                name="officer_email"
-                                placeholder="Enter officer email"
-                                required
-                            >
+                            <input type="email" name="officer_email" placeholder="Enter officer email" required>
 
                         </div>
 
@@ -273,8 +252,7 @@ function show_police_stations(array $station) {
                 <button type="button" class="delete_researcher">
 
                     <span class="material-symbols-rounded">delete</span>
-
-                    Delete Station
+                    <p>Delete Station</p>
 
                 </button>
 
@@ -287,5 +265,13 @@ function show_police_stations(array $station) {
 </article>
 
 <?php
-}
+    }
+         
+    require_once __DIR__ . "/../repository/data_access_object/police_station_repository.php";
+
+    $stations = get_police_stations($_SESSION["user_data"]["role_user"]);
+
+    foreach ($stations as $station) {
+        show_police_stations($station);
+    }
 ?>

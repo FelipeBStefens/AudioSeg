@@ -9,6 +9,10 @@
     }
 
     verify_expiration();
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +28,7 @@
     <link rel="stylesheet" href="../../style/strict/police_station.css">
     <script src="../../script/strict/police_station.js" defer></script>
 
-    <title>AudioSeg - Police Station</title>
+    <title>AudioSeg - Police Stations</title>
 </head>
 
 <body>
@@ -74,15 +78,9 @@
             <p class="search_results" id="search_results"></p>
 
             <div class="researchers_list" id="stations_list">
-
-                <?php
-                require_once __DIR__ . "/../../server/strict/show_police_station_service.php";
-
-                foreach ($stations as $station) {
-                    show_police_stations($station);
-                }
-            ?>
-
+                
+                <?php require_once __DIR__ . "/../../server/strict/show_police_station_service.php"?>
+                
             </div>
 
         </section>

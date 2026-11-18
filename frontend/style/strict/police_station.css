@@ -620,6 +620,30 @@
     border: 1px solid var(--graphite);
 }
 
+.policeman_name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.policeman_status{
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.6rem;
+}
+
+.p_active{
+    background-color: rgba(63, 178, 71, 0.8);
+    color: rgb(2, 93, 2);
+    border: 2px solid rgb(2, 93, 2);
+}
+
+.p_inactive{
+    background-color: rgba(197, 60, 60, 0.8);
+    color: rgb(147, 6, 6);
+    border: 2px solid rgb(147, 6, 6);
+}
+
 .officer_identity > div {
     display: flex;
     flex-direction: column;

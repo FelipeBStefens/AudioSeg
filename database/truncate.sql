@@ -1,0 +1,20 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE phone;
+TRUNCATE TABLE address;
+TRUNCATE TABLE housing;
+TRUNCATE TABLE localization;
+TRUNCATE TABLE police_station;
+TRUNCATE TABLE notification;
+TRUNCATE TABLE users;
+TRUNCATE TABLE researcher;
+TRUNCATE TABLE policeman;
+TRUNCATE TABLE delegate;
+TRUNCATE TABLE director;
+TRUNCATE TABLE gunshot;
+TRUNCATE TABLE sensor;
+TRUNCATE TABLE gun;
+TRUNCATE TABLE vw_public_gunshots;
+TRUNCATE TABLE vw_gunshots;
+
+SET FOREIGN_KEY_CHECKS = 1;

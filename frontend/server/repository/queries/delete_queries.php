@@ -41,16 +41,4 @@
             DELETE FROM sensor WHERE id_police_station = ?
         ";
     }
-
-    function delete_station_policemen() {
-        return "
-            DELETE FROM policeman WHERE id_police_station = ?
-        ";
-    }
-
-    function delete_station_delegates() {
-        return "
-            DELETE FROM delegate WHERE id_police_station = ?
-        ";
-    }
 ?>

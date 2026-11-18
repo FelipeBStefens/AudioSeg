@@ -298,8 +298,8 @@
                         <form action="../../server/strict/police_and_station_service.php" method="post">
 
                             <input type="hidden" name="action" value="station">
-                            <input type="hidden" name="id_station" value="<?php echo $station["id_police_station"]?>">
-                            <input type="hidden" name="id_address" value="<?php echo $station["id_address"]?>">
+                            <input type="hidden" name="id_station" value="<?php echo $station["id_police_station"] ?>">
+                            <input type="hidden" name="id_address" value="<?php echo $station["id_address"] ?>">
 
                             <button type="submit" class="delete_researcher">
                                 <span class="material-symbols-rounded">delete</span>

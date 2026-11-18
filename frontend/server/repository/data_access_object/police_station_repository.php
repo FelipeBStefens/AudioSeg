@@ -54,9 +54,25 @@
         }
     }
 
-    function delete_station(String $role_user, int $id_station, int $id_address) {
+    function delete_station(String $role_user, int $id_station, int $id_address, array $list_policemen) {
 
         $connection = user_connection($role_user);
+
+        foreach ($list_policemen as $policeman) {
+            $list_id = [
+                "id_user" => $policeman["id_user"],
+                "id_address" => $policeman["id_address"],
+                "id_phone" => $policeman["id_phone"],
+                "id_notification" => $policeman["id_notification"]
+            ];
+
+            remove_policeman($role_user, $list_id);
+        }
+
+        // OLHA AQUI BABUINO, NAO ESQUCE
+        // >>>Temo que faze o mesmo pros delegado aq meo<<< 
+        // tirei as queries de deletar os policiais e os delegados
+        // pq ele não faz o cascade, esse método aq q eu fiz sim
 
         try {
             $connection->begin_transaction();
@@ -65,16 +81,6 @@
             $statement_sensor->bind_param("i", $id_station);
             $statement_sensor->execute();
             $statement_sensor->close();
-
-            $statement_policeman = $connection->prepare(delete_station_policemen());
-            $statement_policeman->bind_param("i", $id_station);
-            $statement_policeman->execute();
-            $statement_policeman->close();
-
-            $statement_delegate = $connection->prepare(delete_station_delegates());
-            $statement_delegate->bind_param("i", $id_station);
-            $statement_delegate->execute();
-            $statement_delegate->close();
 
             $statement_station = $connection->prepare(delete_police_station());
             $statement_station->bind_param("i", $id_station);
@@ -95,7 +101,7 @@
         }
     }
 
-    function remove_policeman(String $role_user, int $id_user, int $id_address, int $id_phone, int $id_notification){
+    function remove_policeman(String $role_user, array $list_id){
 
         $connection = user_connection($role_user);
 
@@ -103,22 +109,22 @@
             $connection->begin_transaction();
 
             $statement_address = $connection->prepare(delete_address());
-            $statement_address->bind_param("i", $id_address);
+            $statement_address->bind_param("i", $list_id["id_address"]);
             $statement_address->execute();
             $statement_address->close();
 
             $statement_phone = $connection->prepare(delete_phone());
-            $statement_phone->bind_param("i", $id_phone);
+            $statement_phone->bind_param("i", $list_id["id_phone"]);
             $statement_phone->execute();
             $statement_phone->close();
 
             $statement_notification = $connection->prepare(delete_notification());
-            $statement_notification->bind_param("i", $id_notification);
+            $statement_notification->bind_param("i", $list_id["id_notification"]);
             $statement_notification->execute();
             $statement_notification->close();
 
             $statement_user = $connection->prepare(delete_user());
-            $statement_user->bind_param("i", $id_user);
+            $statement_user->bind_param("i", $list_id["id_user"]);
             $statement_user->execute();
             $statement_user->close();
             

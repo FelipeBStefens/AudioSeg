@@ -108,15 +108,15 @@
 
             $id_station = $_POST["id_station"];
             $id_address = $_POST["id_address"];
+            $list_policemen = get_policemen_from_station($id_station, $role_user);
             
             try {
-                delete_station($role_user, $id_station, $id_address);
+                delete_station($role_user, $id_station, $id_address, $list_policemen);
                 header("Location: ../../pages/strict/police_station.php");
                 exit();
             }
-            catch(Exception $e) {
-                echo "deu bosta aq";
-                //header("Location: ../../pages/strict/police_station.php");
+            catch(Exception $e) {;
+                header("Location: ../../pages/strict/police_station.php");
                 exit();
             }
     }

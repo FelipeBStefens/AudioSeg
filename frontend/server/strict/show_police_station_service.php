@@ -167,10 +167,16 @@
 
                             </div>
 
-                            <button type="button" class="remove_officer" title="Remove officer">
-                                <span class="material-symbols-rounded">person_remove</span>
-                                <span>Remove</span>
-                            </button>
+                            <form action="../../server/strict/delete_police_and_station_service.php" method="post">
+
+                                <input type="hidden" name="action" value="police">
+                                <input type="hidden" name="id_policeman" value="<?php echo $policeman['id_policeman']?>">
+
+                                <button type="submit" class="remove_officer" title="Remove officer">
+                                    <span class="material-symbols-rounded">person_remove</span>
+                                    <span>Remove</span>
+                                </button>
+                            </form>
 
                         </article>
 
@@ -249,12 +255,19 @@
                     <p>Permanently remove this police station account.</p>
                 </div>
 
-                <button type="button" class="delete_researcher">
+                
+                <form action="../../server/strict/delete_police_and_station_service.php" method="post">
 
-                    <span class="material-symbols-rounded">delete</span>
-                    <p>Delete Station</p>
+                    <input type="hidden" name="action" value="station">
+                    <input type="hidden" name="id_station" value="<?php echo $station['id_police_station']?>">
 
-                </button>
+                    <button type="submit" class="delete_researcher">
+
+                        <span class="material-symbols-rounded">delete</span>
+                        <p>Delete Station</p>
+
+                    </button>
+                </form>
 
             </div>
 

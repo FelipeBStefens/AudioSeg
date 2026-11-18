@@ -4,6 +4,7 @@
     require_once __DIR__ . "/../queries/view_queries.php";
     require_once __DIR__ . "/../queries/update_queries.php";
     require_once __DIR__ . "/../queries/get_all_queries.php";
+    require_once __DIR__ . "/../queries/delete_queries.php";
 
     function get_police_stations(String $role_user){
 
@@ -48,13 +49,37 @@
 
         }catch(Exception $e){
 
-            echo "<pre>";
-            echo "ERRO ORIGINAL: " . $e->getMessage();
-            echo "\nARQUIVO: " . $e->getFile();
-            echo "\nLINHA: " . $e->getLine();
-            echo "</pre>";
+            throw new Exception("Could not find all policemen!");
 
             throw $e;
+        }
+    }
+
+
+    function delete_station(String $role_user, int $id_station){
+        try{
+            $connection = user_connection($role_user);
+            $statement = $connection->prepare(delete_police_station());
+            $statement->bind_param("i", $id_station);
+            $statement->execute();
+
+        }catch(Exception $e){
+
+            throw new Exception("Could not delete the police stations!");
+        }
+    }
+
+
+    function remove_policeman(String $role_user, int $id_policeman){
+        try{
+            $connection = user_connection($role_user);
+            $statement = $connection->prepare(delete_policeman());
+            $statement->bind_param("i", $id_policeman);
+            $statement->execute();
+
+        }catch(Exception $e){
+
+            throw new Exception("Could not delete the policeman!");
         }
     }
 

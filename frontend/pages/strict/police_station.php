@@ -9,10 +9,6 @@
     }
 
     verify_expiration();
-
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +45,7 @@
                     <strong>Police Stations</strong>
                     <span>Registered stations</span>
                 </div>
-                <span class="counter_number" id="station_counter">67</span>
+                <span class="counter_number" id="station_counter"></span>
             </div>
         </div>
 

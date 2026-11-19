@@ -5,44 +5,156 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="icon" href="./assets/images/audioseg_logo.png" type="image/png">
         <link rel="stylesheet" href="./style/index.css">
-        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
-        <title>AudioSeg</title>
+        <title>AudioSeg — Protecting Lives Through Technology</title>
     </head>
 
     <body>
         <header class="header_container">
-            <div class="audioseg_title">
+            <a href="#" class="audioseg_title">
                 <img src="./assets/images/audioseg_logo.png" alt="AudioSeg Logo" class="logo_img">
-                <h2>AudioSeg</h2>
-            </div>
+                <span>AudioSeg</span>
+            </a>
 
             <nav class="header_nav">
-                <a href="./pages/register/sign_in.php" class="register_bt">Sign In</a>
-                <a href="./pages/register/sign_up.php" class="register_bt">Sign Up</a>
+                <a href="#system" class="nav_link">The System</a>
+                <a href="#technology" class="nav_link">Technology</a>
             </nav>
+
+            <div class="header_actions">
+                <a href="./pages/register/sign_in.php" class="sign_in">Sign In</a>
+
+                <a href="./pages/register/sign_up.php" class="sign_up">
+                    Get Started
+                    <span class="material-symbols-rounded">arrow_outward</span>
+                </a>
+            </div>
         </header>
 
         <main>
-            <section class="first_container">
+            <section class="hero_section">
 
-                <video autoplay muted loop playsinline>
-                    <source src="./assets/videos/earth.mp4">
+                <video class="hero_video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/earth.mp4" type="video/mp4">
                 </video>
 
-                <div class="welcome_container">
-                    
-                    <h1 class="welcome_title">Technology that<br><span>protect our lives.</span></h1>
-                    <p class="welcome_text">Real-time gunshot detection and localization system for a safer world.</p>
+                <div class="hero_overlay"></div>
 
-                    <div class="welcome_buttons_container">
+                <div class="hero_content">
 
-                        <a href="#" class="welcome_buttons">Show demonstration <span class="material-symbols-rounded field_icon" aria-hidden="true">play_circle</span></a>
-                        <a href="#" class="welcome_buttons meet_button">Meet the system <span class="material-symbols-rounded field_icon" aria-hidden="true">arrow_forward</span></a>
+                    <div class="hero_eyebrow">
+                        <span class="status_dot"></span>
+                        INTELLIGENCE FOR A SAFER WORLD
                     </div>
+
+                    <h1 class="hero_title">Technology<br>that <span>protects</span><br>lives.</h1>
+
+                    <div class="hero_bottom">
+
+                        <div class="hero_buttons">
+                            <a href="#system" class="primary_button">
+                                Explore the system
+                                <span class="material-symbols-rounded">arrow_outward</span>
+                            </a>
+
+                            <a href="#demonstration" class="secondary_button">
+                                Watch demonstration
+                                <span class="material-symbols-rounded">play_circle</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="manifesto_section" id="manifesto">
+                <h2 class="manifesto_title">Every second<br><span>matters.</span>Every signal<br>can save a life.</h2>
+
+                <div class="manifesto_bottom">
+                    <span class="manifesto_number">AUDIOSEG</span>
+                    <p>We believe technology should do more than collect information. It should turn data into action, awareness and protection.</p>
+                </div>
+            </section>
+
+            <section class="system_section" id="system">
+
+                <div class="system_heading">
+                    <h2>Sound is a signal.<br><span>We make it count.</span></h2>
+                    <p>AudioSeg uses sound analysis to detect potential gunshots and determine their geographical location in real time.</p>
+                </div>
+
+                <div class="system_visual">
+
+                    <div class="system_visual_content">
+
+                        <span class="visual_tag">REAL-TIME AUDIO INTELLIGENCE</span>
+                        <h3>Detect.<br>Analyze.<br>Locate.</h3>
+
+                        <a href="#technology" class="text_link">
+                            Discover our technology
+                            <span class="material-symbols-rounded">arrow_outward</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="technology_section" id="technology">
+
+                <h2 class="technology_title">Intelligence<br>in <span>every signal.</span></h2>
+
+                <div class="technology_grid">
+
+                    <article class="technology_card">
+                        <span class="material-symbols-rounded card_icon">graphic_eq</span>
+
+                        <h3>Audio Detection</h3>
+                        <p>Acoustic sensors capture environmental sounds and identify potential gunshot events.</p>
+
+                        <span class="card_arrow material-symbols-rounded">arrow_outward</span>
+                    </article>
+
+                    <article class="technology_card">
+                        <span class="material-symbols-rounded card_icon">analytics</span>
+                        
+                        <h3>Signal Analysis</h3>
+                        <p>Audio information is processed to identify and classify relevant acoustic events.</p>
+                        
+                        <span class="card_arrow material-symbols-rounded">arrow_outward</span>
+                    </article>
+
+                    <article class="technology_card">
+                        <span class="material-symbols-rounded card_icon">location_on</span>
+
+                        <h3>Precise Localization</h3>
+                        <p>Detection data is used to estimate the geographical location of the event.</p>
+
+                        <span class="card_arrow material-symbols-rounded">arrow_outward</span>
+                    </article>
+                </div>
+            </section>
+
+            <section class="demonstration_section" id="demonstration">
+
+                <div class="demonstration_content">
+
+                    <h2>See technology<br><span>in action.</span></h2>
+                    <p>Discover how AudioSeg transforms acoustic information into actionable geographical intelligence.</p>
+
+                    <a href="./pages/register/sign_in.php" class="primary_button">
+                        Access the platform
+                        <span class="material-symbols-rounded">arrow_outward</span>
+                    </a>
+                </div>
+
+                <div class="demonstration_visual">
+                    <span class="material-symbols-rounded">public</span>
+                    <span class="demo_caption">A WORLD OF POSSIBILITIES</span>
                 </div>
             </section>
         </main>

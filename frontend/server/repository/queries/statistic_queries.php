@@ -21,7 +21,6 @@
             FROM vw_public_gunshots
             WHERE date_gunshot >= DATE_SUB(NOW(), INTERVAL ? DAY)
             GROUP BY city
-            HAVING COUNT(DISTINCT id_gunshot) >= 5
             ORDER BY total DESC;
         ";
     }

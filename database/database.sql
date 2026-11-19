@@ -206,26 +206,6 @@ CREATE TABLE gun (
     FOREIGN KEY (id_gunshot) REFERENCES gunshot (id_gunshot)
 );
 
-# Creating Users
-    
-CREATE USER 'auth'@'localhost'
-IDENTIFIED BY 'auth123';
-
-CREATE USER 'researcher'@'localhost'
-IDENTIFIED BY 'researcher123';
-
-CREATE USER 'policeman'@'localhost'
-IDENTIFIED BY 'policeman123';
-
-CREATE USER 'delegate'@'localhost'
-IDENTIFIED BY 'delegate123';
-
-CREATE USER 'director'@'localhost'
-IDENTIFIED BY 'director123';
-
-CREATE USER 'system'@'localhost'
-IDENTIFIED BY 'system123';
-
 # Views to saw the gunshots
 
 CREATE VIEW vw_public_gunshots AS
@@ -256,6 +236,26 @@ CREATE VIEW vw_gunshots AS
         INNER JOIN localization AS l_sensor ON l_sensor.id_localization = s.id_localization)
         INNER JOIN address AS a_sensor ON a_sensor.id_address = l_sensor.id_address)
         LEFT JOIN gun AS g ON g.id_gunshot = gs.id_gunshot;
+
+# Creating Users
+    
+CREATE USER 'auth'@'localhost'
+IDENTIFIED BY 'auth123';
+
+CREATE USER 'researcher'@'localhost'
+IDENTIFIED BY 'researcher123';
+
+CREATE USER 'policeman'@'localhost'
+IDENTIFIED BY 'policeman123';
+
+CREATE USER 'delegate'@'localhost'
+IDENTIFIED BY 'delegate123';
+
+CREATE USER 'director'@'localhost'
+IDENTIFIED BY 'director123';
+
+CREATE USER 'system'@'localhost'
+IDENTIFIED BY 'system123';
 
 # Auth 
 

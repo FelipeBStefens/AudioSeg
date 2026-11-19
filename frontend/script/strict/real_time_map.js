@@ -284,6 +284,8 @@ async function update_shootings() {
 
         const data = await response.json();
         synchronize_shootings(data.shootings);
+
+        console.log(data);
     } 
     catch (error) {
         console.error(error);

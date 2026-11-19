@@ -7,7 +7,7 @@
     require_once __DIR__ . "/../queries/delete_queries.php";
 
     
-    function get_police_stations(String $role_user){
+    function get_police_stations(String $role_user, int $id_police_station){
 
         try {
             $connection = user_connection($role_user);
@@ -18,10 +18,23 @@
             $all_police_stations = [];
 
             while($ps = $query->fetch_assoc()) {
-                $policemen = get_policemen_from_station($ps["id_police_station"], $role_user);
-                $ps["policemen"] = $policemen;
-                
-                array_push($all_police_stations, $ps);
+
+                if ($role_user == "DIRECTOR") {
+                    
+                    $policemen = get_policemen_from_station($ps["id_police_station"], $role_user);
+                    $ps["policemen"] = $policemen;
+                    array_push($all_police_stations, $ps);                    
+                }
+                else if ($role_user == "POLICEMAN" || $role_user == "DELEGATE") {
+                    
+                    if ($ps["id_police_station"] == $id_police_station) {
+                        $policemen = get_policemen_from_station($ps["id_police_station"], $role_user);
+                        $ps["policemen"] = $policemen;
+                        array_push($all_police_stations, $ps);  
+
+                        break;
+                    }
+                }
             } 
 
             return $all_police_stations;

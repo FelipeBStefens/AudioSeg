@@ -330,7 +330,15 @@
          
     require_once __DIR__ . "/../repository/data_access_object/police_station_repository.php";
 
-    $stations = get_police_stations($_SESSION["user_data"]["role_user"]);
+    $stations = []; 
+    $role_user = $_SESSION["user_data"]["role_user"];
+
+    if ($role_user == "DIRECTOR") {
+        $stations = get_police_stations($role_user, 1);
+    }
+    else if ($role_user == "DELEGATE" || $role_user == "POLICEMAN") {
+        $stations = get_police_stations($role_user, $_SESSION["user_data"]["id_police_station"]);
+    }
 
     foreach ($stations as $station) {
         show_police_stations($station);

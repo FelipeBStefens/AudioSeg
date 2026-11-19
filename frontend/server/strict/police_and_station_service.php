@@ -8,7 +8,7 @@
 
     switch($action){
         
-        case "police":
+        case "officer":
 
             $list_id = [
                 "id_user" => $_POST["id_user"],
@@ -17,7 +17,7 @@
                 "id_notification" => $_POST["id_notification"]
             ];
             
-            remove_policeman($role_user, $list_id);          
+            remove_officer($role_user, $list_id);          
             
             header("Location: ../../pages/strict/police_station.php");
             exit();
@@ -95,8 +95,9 @@
             $id_station = $_POST["id_station"];
             $id_address = $_POST["id_address"];
             $list_policemen = get_policemen_from_station($id_station, $role_user);
+            $list_delegates = get_delegates_from_station($id_station, $role_user);
                    
-            delete_station($role_user, $id_station, $id_address, $list_policemen);
+            delete_station($role_user, $id_station, $id_address, $list_policemen, $list_delegates);
             header("Location: ../../pages/strict/police_station.php");
             exit();
     }

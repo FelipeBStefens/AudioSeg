@@ -525,6 +525,9 @@
 }
 
 .officers_section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
     margin-top: 2rem;
     padding: 1.4rem;
     background: var(--carbon-black);

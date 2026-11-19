@@ -1,10 +1,11 @@
 <?php
 
-
-
     function show_police_stations(array $station) {
+
         $role_user = $_SESSION["user_data"]["role_user"];        
         $policemen = $station["policemen"] ?? [];
+        $delegates = $station["delegates"] ?? [];
+
 ?>
 
         <article class="station_item researcher_item">
@@ -107,7 +108,7 @@
                                     <img src="../../<?php echo $policeman["photo"] ?? "assets/images/profile_photo.jpg"; ?>" alt="Police officer" class="officer_photo">
                                         <div>
                                             <h4 class="policeman_name">
-                                                <?php echo ($policeman["username"]); ?> 
+                                                <?php echo ($policeman["username"]); ?> (POLICEMAN) 
 
                                                 <?php 
                                                     $status = $policeman["status_policeman"];
@@ -127,7 +128,7 @@
 
                                     <form action="../../server/strict/police_and_station_service.php" method="post">
 
-                                        <input type="hidden" name="action" value="police">
+                                        <input type="hidden" name="action" value="officer">
                                         <input type="hidden" name="id_user" value="<?php echo $policeman["id_user"]; ?>">
                                         <input type="hidden" name="id_address" value="<?php echo $policeman["id_address"]; ?>">
                                         <input type="hidden" name="id_phone" value="<?php echo $policeman["id_phone"]; ?>">
@@ -150,10 +151,66 @@
 
                                 <div class="empty_officers">
                                     <span class="material-symbols-rounded">group_off</span>
-                                    <p>No officers registered in this station.</p>
+                                    <p>No policemen registered in this station.</p>
                                 </div>
                             <?php } ?>
                         </div>
+
+                        
+
+
+                        <div class="officers_list">
+
+                            <?php foreach ($delegates as $delegate) { ?>
+
+                                <article class="officer_item" data-officer-id="<?php echo ($delegate["id_delegate"] ?? "") ?>">
+                                    <div class="officer_identity">
+                                        
+                                    <img src="../../<?php echo $delegate["photo"] ?? "assets/images/profile_photo.jpg"; ?>" alt="Delegate" class="officer_photo">
+                                        <div>
+                                            <h4 class="policeman_name">
+                                                <?php echo ($delegate["username"]); ?> (DELEGATE)
+                                            </h4>
+
+                                            <span><?php echo ($delegate["email"]) ?></span>
+                                            <span><?php echo ($delegate["start_period"] . " - " . $delegate["end_period"]) ?></span>
+                                        </div>
+                                    </div>
+
+                                    <form action="../../server/strict/police_and_station_service.php" method="post">
+
+                                        <input type="hidden" name="action" value="officer">
+                                        <input type="hidden" name="id_user" value="<?php echo $delegate["id_user"]; ?>">
+                                        <input type="hidden" name="id_address" value="<?php echo $delegate["id_address"]; ?>">
+                                        <input type="hidden" name="id_phone" value="<?php echo $delegate["id_phone"]; ?>">
+                                        <input type="hidden" name="id_notification" value="<?php echo $delegate["id_notification"]; ?>">
+                                    
+                                        <?php if($role_user == "DIRECTOR"){ ?>
+
+                                            <button type="submit" class="remove_officer" title="Remove officer">
+                                                <span class="material-symbols-rounded">person_remove</span>
+                                                <span>Remove</span>
+                                            </button>
+                                        <?php
+                                            }
+                                        ?>
+                                    </form>
+                                </article>
+                            <?php } ?>
+
+                            <?php if (empty($delegates)) { ?>
+
+                                <div class="empty_officers">
+                                    <span class="material-symbols-rounded">group_off</span>
+                                    <p>No delegates registered in this station.</p>
+                                </div>
+                            <?php } ?>
+                        </div>
+
+
+
+
+
 
                         <?php if ($role_user == "DELEGATE" || $role_user == "DIRECTOR") { ?>
                             <div class="add_officer_section">

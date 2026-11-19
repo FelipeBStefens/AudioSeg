@@ -86,10 +86,31 @@
 
     function get_station_delegates() {
         return "
-            SELECT u.id_user, h.id_address, u.id_phone, u.id_notification
-            FROM delegate AS d
-                INNER JOIN users AS u ON u.id_user = d.id_user
-                INNER JOIN housing AS h ON h.id_housing = u.id_housing
+            SELECT
+                
+                d.id_delegate,
+                DATE_FORMAT(d.start_period, '%H:%i') AS start_period,
+                DATE_FORMAT(d.end_period, '%H:%i') AS end_period,
+                d.id_police_station,
+                
+                u.id_user,
+                u.username,
+                u.email,
+                u.role_user,
+                u.photo,
+
+                a.id_address,
+                h.id_housing,
+                ph.id_phone,
+                n.id_notification
+
+            FROM delegate d 
+                INNER JOIN users u ON d.id_user = u.id_user
+                INNER JOIN housing AS h ON u.id_housing = h.id_housing
+                INNER JOIN address AS a ON h.id_address = a.id_address
+                INNER JOIN phone AS ph ON u.id_phone = ph.id_phone
+                INNER JOIN notification AS n ON u.id_notification = n.id_notification
+
             WHERE d.id_police_station = ?;
         ";
     }

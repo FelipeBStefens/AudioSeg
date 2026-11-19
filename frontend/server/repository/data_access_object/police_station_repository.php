@@ -22,14 +22,18 @@
                 if ($role_user == "DIRECTOR") {
                     
                     $policemen = get_policemen_from_station($ps["id_police_station"], $role_user);
+                    $delegates = get_delegates_from_station($ps["id_police_station"], $role_user);
                     $ps["policemen"] = $policemen;
+                    $ps["delegates"] = $delegates;
                     array_push($all_police_stations, $ps);                    
                 }
                 else if ($role_user == "POLICEMAN" || $role_user == "DELEGATE") {
                     
                     if ($ps["id_police_station"] == $id_police_station) {
                         $policemen = get_policemen_from_station($ps["id_police_station"], $role_user);
+                        $delegates = get_delegates_from_station($ps["id_police_station"], $role_user);
                         $ps["policemen"] = $policemen;
+                        $ps["delegates"] = $delegates;
                         array_push($all_police_stations, $ps);  
 
                         break;
@@ -70,7 +74,7 @@
     }
 
 
-    function delete_station(String $role_user, int $id_station, int $id_address, array $list_policemen) {
+    function delete_station(String $role_user, int $id_station, int $id_address, array $list_policemen, $list_delegates) {
 
         $connection = user_connection($role_user);
         $list_delegates = get_delegates_from_station($id_station, $role_user);
@@ -83,7 +87,7 @@
                 "id_notification" => $officer["id_notification"]
             ];
 
-            remove_policeman($role_user, $list_id);
+            remove_officer($role_user, $list_id);
         }
 
         try {
@@ -113,19 +117,31 @@
         }
     }
 
-    function get_delegates_from_station(int $id_station, String $role_user): array {
-        $connection = user_connection($role_user);
+    function get_delegates_from_station(int $id_station, String $role_user) {
 
-        $statement = $connection->prepare(get_station_delegates());
-        $statement->bind_param("i", $id_station);
-        $statement->execute();
-        $result = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
-        $statement->close();
+        try {
+            $connection = user_connection($role_user);
+            $statement = $connection->prepare(get_station_delegates());
+            $statement->bind_param("i", $id_station);
+            $statement->execute();
+            $query = $statement->get_result();
+                
+            $all_delegates = [];
 
-        return $result;
+            while($delegate = $query->fetch_assoc()) {
+                array_push($all_delegates, $delegate);
+            }
+
+            return $all_delegates;
+        }
+        catch(Exception $e) {
+            $e->getMessage();
+            throw new Exception("Could not find all delegates!");
+        }
     }
 
-    function remove_policeman(String $role_user, array $list_id){
+
+    function remove_officer(String $role_user, array $list_id){
 
         $connection = user_connection($role_user);
 

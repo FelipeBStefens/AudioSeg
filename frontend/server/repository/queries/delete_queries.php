@@ -36,6 +36,12 @@
         ";
     }
 
+    function delete_delegate(){
+        return "
+            DELETE FROM delegate WHERE id_delegate = ?;
+        ";
+    }
+
     function delete_station_sensors() {
         return "
             DELETE FROM sensor WHERE id_police_station = ?

@@ -66,7 +66,14 @@
     function insert_delegate(){
         return "
             INSERT INTO delegate (start_period, end_period, id_user, id_police_station)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?);
+        ";
+    }
+
+    function create_station(){
+        return "
+            INSERT INTO police_station (name_police_station, id_housing)
+            VALUES (?, ?);
         ";
     }
 ?>

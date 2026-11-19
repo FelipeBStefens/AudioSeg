@@ -6,6 +6,7 @@
     require_once __DIR__ . "/../queries/get_all_queries.php";
     require_once __DIR__ . "/../queries/delete_queries.php";
 
+    
     function get_police_stations(String $role_user){
 
         try {
@@ -31,6 +32,7 @@
         }
     }
 
+
     function get_policemen_from_station(int $id_station, String $role_user){
         
         try {
@@ -53,6 +55,7 @@
             throw new Exception("Could not find all policemen!");
         }
     }
+
 
     function delete_station(String $role_user, int $id_station, int $id_address, array $list_policemen) {
 
@@ -101,6 +104,7 @@
         }
     }
 
+
     function remove_policeman(String $role_user, array $list_id){
 
         $connection = user_connection($role_user);
@@ -135,6 +139,7 @@
             throw new Exception("Could not delete the policeman!");
         }
     }
+
 
     function create_policeman(String $role_user, array $phone_list, array $user, array $policeman, int $id_police_station){
         
@@ -193,6 +198,7 @@
         }
     }
 
+
     function create_delegate(String $role_user, array $phone_list, array $user, array $delegate, int $id_police_station){
         
         $connection = user_connection($role_user);
@@ -247,6 +253,52 @@
         catch(Exception $e) {
             $connection->rollback();
             throw new Exception("Could not delete the policeman!");
+        }
+    }
+
+
+    function create_police_station(String $role_user, $station){
+
+        $connection = user_connection($role_user);
+
+        try{
+            $connection->begin_transaction();
+
+            $address_statement = $connection->prepare(create_address());
+            $address_statement->bind_param("sssss",
+                $station["country"], 
+                $station["state"], 
+                $station["city"],
+                $station["neighborhood"],
+                $station["street"]
+            );
+            $address_statement->execute();
+            $id_address = $connection->insert_id;
+            $address_statement->close();
+
+
+            $housing_statement = $connection->prepare(create_housing());
+            $housing_statement->bind_param("sssi",
+                $station["cep"],
+                $station["number_house"], 
+                $station["additional_information"], 
+                $id_address
+            );
+            $housing_statement->execute();
+            $id_housing = $connection->insert_id;
+            $housing_statement->close();
+
+
+            $station_statement = $connection->prepare(create_station());
+            $station_statement->bind_param("si", $station["name"], $id_housing);
+            $station_statement->execute();
+            $station_statement->close();
+
+            $connection->commit();
+        }
+        catch(Exception $e){
+            $connection->rollback();
+            throw new Exception("Could not create the police station!");
         }
     }
 ?>

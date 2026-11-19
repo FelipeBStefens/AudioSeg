@@ -1,6 +1,10 @@
 <?php
     session_start();
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     require_once __DIR__ . "/../repository/data_access_object/police_station_repository.php";
 
     $action = $_POST["action"];
@@ -9,14 +13,17 @@
     switch($action){
         
         case "police":
-            $id_user = $_POST["id_user"];
-            $id_address = $_POST["id_address"];
-            $id_phone = $_POST["id_phone"];
-            $id_notification = $_POST["id_notification"];
+
+            $list_id = [
+                "id_user" => $_POST["id_user"],
+                "id_address" => $_POST["id_address"],
+                "id_phone" => $_POST["id_phone"],
+                "id_notification" => $_POST["id_notification"]
+            ];
 
             try {
                 
-                remove_policeman($role_user, $id_user, $id_address, $id_phone, $id_notification);
+                remove_policeman($role_user, $list_id);
                 header("Location: ../../pages/strict/police_station.php");
                 exit();
             }

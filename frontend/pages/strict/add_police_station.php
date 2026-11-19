@@ -20,6 +20,7 @@
 
         <link rel="icon" href="../../assets/images/audioseg_logo.png" type="image/png">
         <link rel="stylesheet" href="../../style/strict/add_police_station.css">
+        <script src="../../script/strict/add_police_station.js" defer></script>
 
         <title>AudioSeg - Add Police Station</title>
     </head>
@@ -45,13 +46,7 @@
 
             </div>
 
-            <form
-                action="../../server/strict/police_and_station_service.php"
-                method="POST"
-                class="station_form"
-            >
-
-                <input type="hidden" name="action" value="create_station">
+            <form action="../../server/strict/add_station_service.php" method="POST" class="station_form">
 
                 <section class="form_section">
 
@@ -73,16 +68,7 @@
 
                         <div class="form_group full_width">
                             <label for="name_police_station">Police Station Name</label>
-
-                            <input
-                                type="text"
-                                id="name_police_station"
-                                name="name_police_station"
-                                placeholder="E.g. 1st Police Station - Porto Alegre"
-                                maxlength="255"
-                                required
-                            >
-
+                            <input type="text" name="name_police_station" placeholder="E.g. 1st Police Station - Porto Alegre" required>
                         </div>
 
                     </div>
@@ -109,96 +95,38 @@
 
                         <div class="form_group">
                             <label for="country">Country</label>
-
-                            <input
-                                type="text"
-                                id="country"
-                                name="country"
-                                value="Brazil"
-                                maxlength="255"
-                                required
-                            >
+                            <input type="text" name="country" value="Brazil" required>
                         </div>
 
                         <div class="form_group">
                             <label for="state">State</label>
 
-                            <input
-                                type="text"
-                                id="state"
-                                name="state"
-                                value="Rio Grande do Sul"
-                                maxlength="255"
-                                required
-                            >
+                            <input type="text" name="state" value="Rio Grande do Sul" required>
                         </div>
 
                         <div class="form_group">
                             <label for="city">City</label>
-
-                            <input
-                                type="text"
-                                id="city"
-                                name="city"
-                                placeholder="Enter city"
-                                maxlength="255"
-                                required
-                            >
+                            <input type="text" name="city" placeholder="Enter city" required>
                         </div>
 
                         <div class="form_group">
                             <label for="neighborhood">Neighborhood</label>
-
-                            <input
-                                type="text"
-                                id="neighborhood"
-                                name="neighborhood"
-                                placeholder="Enter neighborhood"
-                                maxlength="255"
-                                required
-                            >
+                            <input type="text" name="neighborhood" placeholder="Enter neighborhood" required>
                         </div>
 
                         <div class="form_group full_width">
                             <label for="street">Street</label>
-
-                            <input
-                                type="text"
-                                id="street"
-                                name="street"
-                                placeholder="Enter street name"
-                                maxlength="255"
-                                required
-                            >
+                            <input type="text" name="street" placeholder="Enter street name" required>
                         </div>
 
                         <div class="form_group">
                             <label for="cep">Postal Code (CEP)</label>
-
-                            <input
-                                type="text"
-                                id="cep"
-                                name="cep"
-                                class="cep"
-                                placeholder="00000-000"
-                                maxlength="9"
-                                pattern="[0-9]{5}-[0-9]{3}"
-                                title="Enter a valid CEP in the format 00000-000"
-                                required
-                            >
+                            <input type="text" id="cep" name="cep" class="cep" placeholder="00000-000" maxlength="9" pattern="[0-9]{5}-[0-9]{3}" title="Enter a valid CEP in the format 00000-000" required>
                         </div>
 
                         <div class="form_group">
                             <label for="number_house">Building Number</label>
-
-                            <input
-                                type="number"
-                                id="number_house"
-                                name="number_house"
-                                placeholder="E.g. 150"
-                                min="1"
-                                required
-                            >
+                            <input type="number" name="number_house" placeholder="E.g. 150" min="1" required>
                         </div>
 
                         <div class="form_group full_width">
@@ -207,13 +135,7 @@
                                 <span class="optional_tag">OPTIONAL</span>
                             </label>
 
-                            <textarea
-                                id="additional_information"
-                                name="additional_information"
-                                placeholder="Apartment, building, reference points, etc."
-                                maxlength="255"
-                                rows="3"
-                            ></textarea>
+                            <textarea name="additional_information" placeholder="Apartment, building, reference points, etc."></textarea>
                         </div>
 
                     </div>

@@ -276,7 +276,6 @@
             $id_address = $connection->insert_id;
             $address_statement->close();
 
-
             $housing_statement = $connection->prepare(create_housing());
             $housing_statement->bind_param("sssi",
                 $station["cep"],
@@ -287,7 +286,6 @@
             $housing_statement->execute();
             $id_housing = $connection->insert_id;
             $housing_statement->close();
-
 
             $station_statement = $connection->prepare(create_station());
             $station_statement->bind_param("si", $station["name"], $id_housing);

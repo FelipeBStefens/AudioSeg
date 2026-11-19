@@ -1,10 +1,6 @@
 <?php
     session_start();
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
     require_once __DIR__ . "/../repository/data_access_object/police_station_repository.php";
 
     $action = $_POST["action"];
@@ -20,29 +16,16 @@
                 "id_phone" => $_POST["id_phone"],
                 "id_notification" => $_POST["id_notification"]
             ];
+            
+            remove_policeman($role_user, $list_id);          
+            
+            header("Location: ../../pages/strict/police_station.php");
+            exit();
 
-            try {
-                
-                remove_policeman($role_user, $list_id);
-                header("Location: ../../pages/strict/police_station.php");
-                exit();
-            }
-            catch(Exception $e){
-                header("Location: ../../pages/strict/police_station.php");
-                exit();
-            }
         
         case "create_policeman":
             
-            $username = $_POST["policeman_username"];
-            $email = $_POST["policeman_email"];
             $password = $_POST["policeman_password"];
-            $cpf = $_POST["policeman_cpf"];
-            $birth_date = $_POST["policeman_birth_date"];
-            $badge = $_POST["policeman_badge"];
-            $start_period = $_POST["policeman_start_period"];
-            $end_period = $_POST["policeman_end_period"];
-            $status = $_POST["status"];
             $id_police_station = $_POST["id_police_station"];
 
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -55,18 +38,18 @@
             ];
 
             $user_list = [
-                "username" => $username,
-                "email" => $email,
+                "username" => $_POST["policeman_username"],
+                "email" => $_POST["policeman_email"],
                 "password" => $password_hash,
-                "cpf" => $cpf,
-                "birth_date" => $birth_date,
+                "cpf" => $_POST["policeman_cpf"],
+                "birth_date" => $_POST["policeman_birth_date"],
             ];
 
             $policeman_list = [
-                "badge" => $badge,
-                "start_period" => $start_period,
-                "end_period" => $end_period,
-                "status" => $status
+                "badge" => $_POST["policeman_badge"],
+                "start_period" => $_POST["policeman_start_period"],
+                "end_period" => $_POST["policeman_end_period"],
+                "status" => $_POST["status"]
             ];
     
             create_policeman($role_user, $phone_list, $user_list, $policeman_list, $id_police_station);
@@ -74,15 +57,10 @@
             header("Location: ../../pages/strict/police_station.php");
             exit(); 
         
+
         case "create_delegate":
 
-            $username = $_POST["delegate_username"];
-            $email = $_POST["delegate_email"];
             $password = $_POST["delegate_password"];
-            $cpf = $_POST["delegate_cpf"];
-            $birth_date = $_POST["delegate_birth_date"];
-            $start_period = $_POST["delegate_start_period"];
-            $end_period = $_POST["delegate_end_period"];
             $id_police_station = $_POST["id_police_station"];
 
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -95,36 +73,31 @@
             ];
 
             $user_list = [
-                "username" => $username,
-                "email" => $email,
+                "username" => $_POST["delegate_username"],
+                "email" => $_POST["delegate_email"],
                 "password" => $password_hash,
-                "cpf" => $cpf,
-                "birth_date" => $birth_date,
+                "cpf" => $_POST["delegate_cpf"],
+                "birth_date" => $_POST["delegate_birth_date"],
             ];
 
             $delegate_list = [
-                "start_period" => $start_period,
-                "end_period" => $end_period
+                "start_period" => $_POST["delegate_start_period"],
+                "end_period" => $_POST["delegate_end_period"]
             ];
 
             create_delegate($role_user, $phone_list, $user_list, $delegate_list, $id_police_station);
            
             break;
 
+            
         case "station":
 
             $id_station = $_POST["id_station"];
             $id_address = $_POST["id_address"];
             $list_policemen = get_policemen_from_station($id_station, $role_user);
-            
-            try {
-                delete_station($role_user, $id_station, $id_address, $list_policemen);
-                header("Location: ../../pages/strict/police_station.php");
-                exit();
-            }
-            catch(Exception $e) {;
-                header("Location: ../../pages/strict/police_station.php");
-                exit();
-            }
+                   
+            delete_station($role_user, $id_station, $id_address, $list_policemen);
+            header("Location: ../../pages/strict/police_station.php");
+            exit();
     }
 ?>

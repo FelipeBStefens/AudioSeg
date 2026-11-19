@@ -8,6 +8,8 @@
         redirect();
     }
 
+    $role_user = $_SESSION["user_data"]["role_user"];
+
     verify_expiration();
 ?>
 
@@ -40,10 +42,16 @@
 
                 <div class="info_station">
 
-                    <a class="researcher_counter add_station_bt" href="add_police_station.php">
-                        <span class="material-symbols-rounded">add</span>
-                        <h5><span class="add_span">ADD</span> POLICE STATION</h5>
-                    </a>
+                    <?php if($role_user == "DIRECTOR"){ ?>
+
+                        <a class="researcher_counter add_station_bt" href="add_police_station.php">
+                            <span class="material-symbols-rounded">add</span>
+                            <h5><span class="add_span">ADD</span> POLICE STATION</h5>
+                        </a>
+
+                    <?php
+                        }
+                    ?>
 
                     <div class="researcher_counter">
                         <span class="material-symbols-rounded">local_police</span>

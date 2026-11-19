@@ -1,7 +1,9 @@
 <?php
 
+
+
     function show_police_stations(array $station) {
-        
+        $role_user = $_SESSION["user_data"]["role_user"];        
         $policemen = $station["policemen"] ?? [];
 ?>
 
@@ -130,11 +132,16 @@
                                         <input type="hidden" name="id_address" value="<?php echo $policeman["id_address"]; ?>">
                                         <input type="hidden" name="id_phone" value="<?php echo $policeman["id_phone"]; ?>">
                                         <input type="hidden" name="id_notification" value="<?php echo $policeman["id_notification"]; ?>">
+                                    
+                                        <?php if($role_user == "DIRECTOR" || $role_user == "DELEGATE"){ ?>
 
-                                        <button type="submit" class="remove_officer" title="Remove officer">
-                                            <span class="material-symbols-rounded">person_remove</span>
-                                            <span>Remove</span>
-                                        </button>
+                                            <button type="submit" class="remove_officer" title="Remove officer">
+                                                <span class="material-symbols-rounded">person_remove</span>
+                                                <span>Remove</span>
+                                            </button>
+                                        <?php
+                                            }
+                                        ?>
                                     </form>
                                 </article>
                             <?php } ?>
@@ -288,25 +295,29 @@
                         </div>
                     </section>
 
-                    <div class="researcher_actions">
-                        
-                        <div>
-                            <h4>Danger Zone</h4>
-                            <p>Permanently remove this police station account.</p>
+                    <?php if($role_user == "DIRECTOR"){ ?>
+                        <div class="researcher_actions">
+                            
+                            <div>
+                                <h4>Danger Zone</h4>
+                                <p>Permanently remove this police station account.</p>
+                            </div>
+                            
+                            <form action="../../server/strict/police_and_station_service.php" method="post">
+
+                                <input type="hidden" name="action" value="station">
+                                <input type="hidden" name="id_station" value="<?php echo $station["id_police_station"] ?>">
+                                <input type="hidden" name="id_address" value="<?php echo $station["id_address"] ?>">
+
+                                    <button type="submit" class="delete_researcher">
+                                        <span class="material-symbols-rounded">delete</span>
+                                        <p>Delete Station</p>
+                                    </button>
+                            </form>
                         </div>
-                        
-                        <form action="../../server/strict/police_and_station_service.php" method="post">
-
-                            <input type="hidden" name="action" value="station">
-                            <input type="hidden" name="id_station" value="<?php echo $station["id_police_station"] ?>">
-                            <input type="hidden" name="id_address" value="<?php echo $station["id_address"] ?>">
-
-                            <button type="submit" class="delete_researcher">
-                                <span class="material-symbols-rounded">delete</span>
-                                <p>Delete Station</p>
-                            </button>
-                        </form>
-                    </div>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
         </article>

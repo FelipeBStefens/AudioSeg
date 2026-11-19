@@ -86,8 +86,8 @@
             ];
 
             create_delegate($role_user, $phone_list, $user_list, $delegate_list, $id_police_station);
-           
-            break;
+            header("Location: ../../pages/strict/police_station.php");
+            exit(); 
 
             
         case "station":

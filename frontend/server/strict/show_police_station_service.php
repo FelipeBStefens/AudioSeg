@@ -104,7 +104,7 @@
                                 <article class="officer_item" data-officer-id="<?php echo ($policeman["id_policeman"] ?? "") ?>">
                                     <div class="officer_identity">
                                         
-                                    <img src="../../assets/images/profile_photo.jpg" alt="Police officer" class="officer_photo">
+                                    <img src="../../<?php echo $policeman["photo"] ?? "assets/images/profile_photo.jpg"; ?>" alt="Police officer" class="officer_photo">
                                         <div>
                                             <h4 class="policeman_name">
                                                 <?php echo ($policeman["username"]); ?> 
@@ -155,144 +155,148 @@
                             <?php } ?>
                         </div>
 
-                        <div class="add_officer_section">
+                        <?php if ($role_user == "DELEGATE" || $role_user == "DIRECTOR") { ?>
+                            <div class="add_officer_section">
 
-                            <div class="add_officer_heading">
-                                <div>
-                                    <h4>Add a policeman</h4>
-                                    <p>Assign a new policeman to this station.</p>
-                                </div>
+                                <div class="add_officer_heading">
+                                    <div>
+                                        <h4>Add a policeman</h4>
+                                        <p>Assign a new policeman to this station.</p>
+                                    </div>
 
-                                <span class="material-symbols-rounded">person_add</span>
-                            </div>
-
-                            <form action="../../server/strict/police_and_station_service.php" method="POST" class="add_officer_form">
-
-                                <input type="hidden" name="action" value="create_policeman">
-                                <input type="hidden" name="id_police_station" value="<?php echo $station["id_police_station"]; ?>">
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Username</label>
-                                    <input type="text" name="policeman_username" placeholder="Enter policeman username" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Email</label>
-                                    <input type="email" name="policeman_email" placeholder="Enter policeman email" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Password</label>
-                                    <input type="password" name="policeman_password" placeholder="Enter policeman password" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman CPF</label>
-                                    <input class="cpf" type="text" name="policeman_cpf" placeholder="Enter policeman cpf" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Phone</label>
-                                    <input class="phone" type="text" name="policeman_phone" placeholder="Enter policeman phone" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Birth Date</label>
-                                    <input type="date" name="policeman_birth_date" placeholder="Enter policeman birth date" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Badge</label>
-                                    <input type="text" name="policeman_badge" placeholder="Enter policeman badge" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Start Period</label>
-                                    <input type="time" name="policeman_start_period" placeholder="Enter policeman start period" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman End Period</label>
-                                    <input type="time" name="policeman_end_period" placeholder="Enter policeman end period" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Policeman Status</label>
-                                    <select name="status">
-                                        <option value="ACTIVE">ACTIVE</option>
-                                        <option value="INACTIVE">INACTIVE</option>
-                                    </select>
-                                </div>
-
-                                <button type="submit" class="add_officer_button">
                                     <span class="material-symbols-rounded">person_add</span>
-                                    Add Policeman
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="add_officer_section">
-
-                            <div class="add_officer_heading">                              
-                                <div>
-                                    <h4>Add a Delegate</h4>
-                                    <p>Assign a new delegate to this station.</p>
                                 </div>
 
-                                <span class="material-symbols-rounded">person_add</span>
+                                <form action="../../server/strict/police_and_station_service.php" method="POST" class="add_officer_form">
+
+                                    <input type="hidden" name="action" value="create_policeman">
+                                    <input type="hidden" name="id_police_station" value="<?php echo $station["id_police_station"]; ?>">
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Username</label>
+                                        <input type="text" name="policeman_username" placeholder="Enter policeman username" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Email</label>
+                                        <input type="email" name="policeman_email" placeholder="Enter policeman email" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Password</label>
+                                        <input type="password" name="policeman_password" placeholder="Enter policeman password" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman CPF</label>
+                                        <input class="cpf" type="text" name="policeman_cpf" placeholder="Enter policeman cpf" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Phone</label>
+                                        <input class="phone" type="text" name="policeman_phone" placeholder="Enter policeman phone" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Birth Date</label>
+                                        <input type="date" name="policeman_birth_date" placeholder="Enter policeman birth date" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Badge</label>
+                                        <input type="text" name="policeman_badge" placeholder="Enter policeman badge" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Start Period</label>
+                                        <input type="time" name="policeman_start_period" placeholder="Enter policeman start period" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman End Period</label>
+                                        <input type="time" name="policeman_end_period" placeholder="Enter policeman end period" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Policeman Status</label>
+                                        <select name="status">
+                                            <option value="ACTIVE">ACTIVE</option>
+                                            <option value="INACTIVE">INACTIVE</option>
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="add_officer_button">
+                                        <span class="material-symbols-rounded">person_add</span>
+                                        Add Policeman
+                                    </button>
+                                </form>
                             </div>
+                        <?php } ?>
 
-                            <form action="../../server/strict/police_and_station_service.php" method="POST" class="add_officer_form">
+                        <?php if ($role_user == "DIRECTOR") { ?>
+                            <div class="add_officer_section">
 
-                                <input type="hidden" name="action" value="create_delegate">
-                                <input type="hidden" name="id_police_station" value="<?php echo $station["id_police_station"]; ?>">
+                                <div class="add_officer_heading">                              
+                                    <div>
+                                        <h4>Add a Delegate</h4>
+                                        <p>Assign a new delegate to this station.</p>
+                                    </div>
 
-                                <div class="officer_form_group">
-                                    <label>Delegate Username</label>
-                                    <input type="text" name="delegate_username" placeholder="Enter delegate username" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate Email</label>
-                                    <input type="email" name="delegate_email" placeholder="Enter delegate email" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate Password</label>
-                                    <input type="password" name="delegate_password" placeholder="Enter delegate password" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate CPF</label>
-                                    <input class="cpf" type="text" name="delegate_cpf" placeholder="Enter delegate cpf" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate Phone</label>
-                                    <input class="phone" type="text" name="delegate_phone" placeholder="Enter delegate phone" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate Birth Date</label>
-                                    <input type="date" name="delegate_birth_date" placeholder="Enter delegate birth date" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate Start Period</label>
-                                    <input type="time" name="delegate_start_period" placeholder="Enter delegate start period" required>
-                                </div>
-
-                                <div class="officer_form_group">
-                                    <label>Delegate End Period</label>
-                                    <input type="time" name="delegate_end_period" placeholder="Enter delegate end period" required>
-                                </div>
-
-                                <button type="submit" class="add_officer_button">
                                     <span class="material-symbols-rounded">person_add</span>
-                                    Add Delegate
-                                </button>
-                            </form>
-                        </div>
+                                </div>
+
+                                <form action="../../server/strict/police_and_station_service.php" method="POST" class="add_officer_form">
+
+                                    <input type="hidden" name="action" value="create_delegate">
+                                    <input type="hidden" name="id_police_station" value="<?php echo $station["id_police_station"]; ?>">
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate Username</label>
+                                        <input type="text" name="delegate_username" placeholder="Enter delegate username" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate Email</label>
+                                        <input type="email" name="delegate_email" placeholder="Enter delegate email" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate Password</label>
+                                        <input type="password" name="delegate_password" placeholder="Enter delegate password" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate CPF</label>
+                                        <input class="cpf" type="text" name="delegate_cpf" placeholder="Enter delegate cpf" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate Phone</label>
+                                        <input class="phone" type="text" name="delegate_phone" placeholder="Enter delegate phone" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate Birth Date</label>
+                                        <input type="date" name="delegate_birth_date" placeholder="Enter delegate birth date" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate Start Period</label>
+                                        <input type="time" name="delegate_start_period" placeholder="Enter delegate start period" required>
+                                    </div>
+
+                                    <div class="officer_form_group">
+                                        <label>Delegate End Period</label>
+                                        <input type="time" name="delegate_end_period" placeholder="Enter delegate end period" required>
+                                    </div>
+
+                                    <button type="submit" class="add_officer_button">
+                                        <span class="material-symbols-rounded">person_add</span>
+                                        Add Delegate
+                                    </button>
+                                </form>
+                            </div>
+                        <?php } ?>
                     </section>
 
                     <?php if($role_user == "DIRECTOR"){ ?>

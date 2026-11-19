@@ -60,22 +60,18 @@
     function delete_station(String $role_user, int $id_station, int $id_address, array $list_policemen) {
 
         $connection = user_connection($role_user);
+        $list_delegates = get_delegates_from_station($id_station, $role_user);
 
-        foreach ($list_policemen as $policeman) {
+        foreach (array_merge($list_policemen, $list_delegates) as $officer) {
             $list_id = [
-                "id_user" => $policeman["id_user"],
-                "id_address" => $policeman["id_address"],
-                "id_phone" => $policeman["id_phone"],
-                "id_notification" => $policeman["id_notification"]
+                "id_user" => $officer["id_user"],
+                "id_address" => $officer["id_address"],
+                "id_phone" => $officer["id_phone"],
+                "id_notification" => $officer["id_notification"]
             ];
 
             remove_policeman($role_user, $list_id);
         }
-
-        // OLHA AQUI BABUINO, NAO ESQUCE
-        // >>>Temo que faze o mesmo pros delegado aq meo<<< 
-        // tirei as queries de deletar os policiais e os delegados
-        // pq ele não faz o cascade, esse método aq q eu fiz sim
 
         try {
             $connection->begin_transaction();
@@ -104,6 +100,17 @@
         }
     }
 
+    function get_delegates_from_station(int $id_station, String $role_user): array {
+        $connection = user_connection($role_user);
+
+        $statement = $connection->prepare(get_station_delegates());
+        $statement->bind_param("i", $id_station);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        $statement->close();
+
+        return $result;
+    }
 
     function remove_policeman(String $role_user, array $list_id){
 

@@ -83,4 +83,14 @@
             WHERE p.id_police_station = ?;
         ";
     }
+
+    function get_station_delegates() {
+        return "
+            SELECT u.id_user, h.id_address, u.id_phone, u.id_notification
+            FROM delegate AS d
+                INNER JOIN users AS u ON u.id_user = d.id_user
+                INNER JOIN housing AS h ON h.id_housing = u.id_housing
+            WHERE d.id_police_station = ?;
+        ";
+    }
 ?>

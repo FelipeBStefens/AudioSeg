@@ -57,7 +57,7 @@
                         <?php
                             if (isset($_SESSION["researcher_error"])) {
 
-                                $message = $_SESSION["settinresearcher_errorgs_error"];
+                                $message = $_SESSION["researcher_error"];
                                 echo "<p class='form_error'>" . $message . "</p>";
                                         
                                 unset($_SESSION["researcher_error"]);
